@@ -17,8 +17,5 @@ public class GameConfig {
     //Size of Tile
     public static final int TILE_WIDTH = SCREEN_WIDTH / NUMBER_TILE_IN_HORIZONTAL;
     public static final int TILE_HEIGHT = SCREEN_HEIGHT / NUMBER_TILE_IN_VERTICAL;
-    //Type of tile
-    public static final int ROAD = 0;
-    public static final int TOWER = 1;
-    public static final int MOUNTAIN = 2;
+
 }

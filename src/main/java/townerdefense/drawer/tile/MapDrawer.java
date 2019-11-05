@@ -8,6 +8,8 @@ import townerdefense.entity.tile.Map;
 public class MapDrawer implements Drawable {
     @Override
     public void draw(GraphicsContext graphicsContext, GameEntity gameEntity, double posX, double posY, double ration) {
-
+        if (!(gameEntity instanceof Map)) {
+            throw new IllegalArgumentException("Entity isn't a map");
+        }
     }
 }
