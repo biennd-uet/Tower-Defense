@@ -1,4 +1,4 @@
-package townerdefense.entity.gametile.tower;
+package townerdefense.entity.tile.tower;
 
 public class NormalTower extends Tower {
 

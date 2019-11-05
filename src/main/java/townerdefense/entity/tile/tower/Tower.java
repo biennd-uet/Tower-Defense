@@ -1,6 +1,6 @@
-package townerdefense.entity.gametile.tower;
+package townerdefense.entity.tile.tower;
 
-import townerdefense.entity.gametile.GameTile;
+import townerdefense.entity.tile.GameTile;
 
 public abstract class Tower implements GameTile {
     private double speed;

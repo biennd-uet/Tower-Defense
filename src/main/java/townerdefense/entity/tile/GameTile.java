@@ -1,4 +1,4 @@
-package townerdefense.entity.gametile;
+package townerdefense.entity.tile;
 
 import townerdefense.entity.GameEntity;
 
