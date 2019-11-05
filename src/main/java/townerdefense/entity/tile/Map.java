@@ -1,8 +1,9 @@
 package townerdefense.entity.tile;
 
-import townerdefense.GameConfig;
+import javafx.scene.canvas.GraphicsContext;
+import townerdefense.entity.DrawableEntity;
 
-public class Map {
+public class Map implements DrawableEntity {
     int[][] map;
 
     public Map() {
@@ -20,6 +21,14 @@ public class Map {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         };
+    }
+
+    public Map(int[][] map) {
+        this.map = map;
+    }
+
+    @Override
+    public void draw(GraphicsContext graphicsContext) {
 
     }
 }
