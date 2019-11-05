@@ -15,7 +15,7 @@ public class GameConfig {
     public static final int NUMBER_TILE_IN_HORIZONTAL = 10;
     public static final int NUMBER_TILE_IN_VERTICAL = 10;
     //Size of Tile
-    public static final int TILE_WIDTH = SCREEN_WIDTH / NUMBER_TILE_IN_HORIZONTAL;
-    public static final int TILE_HEIGHT = SCREEN_HEIGHT / NUMBER_TILE_IN_VERTICAL;
+    public static final int SIZE_TILE_WIDTH = SCREEN_WIDTH / NUMBER_TILE_IN_HORIZONTAL;
+    public static final int SIZE_TILE_HEIGHT = SCREEN_HEIGHT / NUMBER_TILE_IN_VERTICAL;
 
 }

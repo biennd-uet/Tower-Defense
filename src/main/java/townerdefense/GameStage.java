@@ -11,4 +11,8 @@ public class GameStage {
     public void initStage() {
 
     }
+
+    public GameField getGameField() {
+        return gameField;
+    }
 }
