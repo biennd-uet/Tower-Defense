@@ -1,7 +1,7 @@
 package townerdefense;
 
 import townerdefense.entity.Entity;
-import townerdefense.entity.UpdatableEntity;
+import townerdefense.entity.UpdateableEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,8 +33,8 @@ public class GameField {
     //Todo update all enemy
     public void updateEnemy(int deltaTime) {
         for(Entity entity: entities) {
-            if (entity instanceof UpdatableEntity) {
-                ((UpdatableEntity) entity).update(deltaTime);
+            if (entity instanceof UpdateableEntity) {
+                ((UpdateableEntity) entity).update(deltaTime);
             }
         }
     }

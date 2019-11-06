@@ -4,7 +4,9 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import townerdefense.entity.Entity;
-import townerdefense.entity.tile.Map;
+import townerdefense.entity.enemy.NormalEnemy;
+import townerdefense.entity.tile.map.Map;
+import townerdefense.entity.tile.Spawner;
 
 public class GameController extends AnimationTimer {
 
@@ -22,6 +24,8 @@ public class GameController extends AnimationTimer {
         this.gameField = new GameField();
         Map map = new Map();
         this.gameField.addAllEntity(map.getListTile());
+        this.gameField.addEntity(new Spawner());
+        this.gameField.addEntity(new NormalEnemy());
     }
 
     @Override

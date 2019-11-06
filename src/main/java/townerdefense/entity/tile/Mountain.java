@@ -11,6 +11,6 @@ public class Mountain extends Tile {
     @Override
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.setFill(Color.BROWN);
-        graphicsContext.fillRect(posX, posY, posX + with, posY + height);
+        graphicsContext.fillRect(posX, posY, posX + width, posY + height);
     }
 }

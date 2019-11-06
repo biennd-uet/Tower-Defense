@@ -1,16 +1,17 @@
 package townerdefense.entity.enemy;
 
-import townerdefense.entity.UpdatableEntity;
+import townerdefense.GameConfig;
+import townerdefense.entity.UpdateableEntity;
 import townerdefense.entity.tile.Tile;
 
-public abstract class Enemy extends Tile implements UpdatableEntity {
-    private double health;
-    private double speed;
-    private double armor;
-    private double reward;
+public abstract class Enemy extends Tile implements UpdateableEntity {
+    protected double health;
+    protected double speed;
+    protected double armor;
+    protected double reward;
 
-    protected Enemy(double posX, double posY, double with, double height, double health, double speed, double armor, double reward) {
-        super(posX, posY, with, height);
+    protected Enemy(double posX, double posY, double width, double height, double health, double speed, double armor, double reward) {
+        super(posX, posY, width, height);
         this.health = health;
         this.speed = speed;
         this.armor = armor;
@@ -19,6 +20,6 @@ public abstract class Enemy extends Tile implements UpdatableEntity {
 
     @Override
     public void update(int deltaTime) {
-
+        this.posY -= this.speed * deltaTime / GameConfig.NPS;
     }
 }

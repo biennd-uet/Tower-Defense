@@ -1,6 +1,8 @@
 package townerdefense.entity.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import townerdefense.GameConfig;
 
 public class NormalEnemy extends Enemy {
 
@@ -8,8 +10,17 @@ public class NormalEnemy extends Enemy {
         super(posX, posY, with, height, health, speed, armor, reward);
     }
 
+    public NormalEnemy() {
+        this(GameConfig.SPAWNER_DEFAULT_POSX, GameConfig.SPAWNER_DEFAULT_POSY,
+                GameConfig.NORMAL_ENEMY_WIDTH, GameConfig.NORMAL_ENEMY_HEIGHT,
+                GameConfig.NORMAL_ENEMY_HEALTH_MAX, GameConfig.NORMAL_ENEMY_SPEED,
+                GameConfig.NORMAL_ENEMY_ARMOR, GameConfig.NORMAL_ENEMY_REWARD);
+    }
+
     @Override
     public void render(GraphicsContext graphicsContext) {
-
+        graphicsContext.setFill(Color.AQUA);
+        graphicsContext.fillOval(this.getRealPosX(), this.getRealPosY(), this.width, this.height);
     }
+
 }

@@ -1,8 +1,10 @@
-package townerdefense.entity.tile;
+package townerdefense.entity.tile.map;
 
 import townerdefense.GameConfig;
 import townerdefense.TypeOfEntity;
 import townerdefense.entity.Entity;
+import townerdefense.entity.tile.Mountain;
+import townerdefense.entity.tile.Road;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,16 +18,16 @@ public class Map {
         //this.map = new int[GameConfig.NUMBER_TILE_IN_HORIZONTAL][GameConfig.NUMBER_TILE_IN_VERTICAL];
         //TODO: load map from something...
         this(new int[][] {
-                {0, 2, 2, 2, 2, 0, 0, 0, 0, 0},
-                {0, 2, 2, 2, 2, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 2, 2},
+                {0, 2, 2, 2, 2, 2, 2, 0, 2, 2},
+                {0, 2, 2, 2, 2, 2, 2, 0, 2, 2},
+                {0, 2, 2, 2, 2, 2, 2, 0, 2, 2},
+                {0, 2, 2, 2, 2, 2, 2, 0, 2, 2},
+                {0, 2, 2, 2, 2, 2, 2, 0, 2, 2},
+                {0, 2, 2, 2, 2, 2, 2, 0, 2, 2},
+                {0, 2, 2, 2, 2, 2, 2, 0, 2, 2},
+                {0, 2, 2, 2, 2, 2, 2, 0, 2, 2},
+                {0, 2, 2, 2, 2, 2, 2, 0, 0, 0},
         });
     }
 

@@ -1,5 +1,5 @@
 package townerdefense.entity;
 
-public interface UpdatableEntity {
+public interface UpdateableEntity {
     public void update(int deltaTime);
 }
