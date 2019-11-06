@@ -17,13 +17,13 @@ public class GameField {
     public void removeEntity(Entity entity) {
         this.entities.remove(entity);
     }
-    public void removeEntity(Collection<Entity> entities) {
+    public void removeAllEntity(Collection<Entity> entities) {
         this.entities.removeAll(entities);
     }
     public void addEntity(Entity entity) {
         this.entities.add(entity);
     }
-    public void addEntity(Collection<Entity> entities) {
+    public void addAllEntity(Collection<Entity> entities) {
         this.entities.addAll(entities);
     }
     public final Collection<Entity> getListEntries() {

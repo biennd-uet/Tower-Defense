@@ -1,8 +1,9 @@
 package townerdefense.entity.tile.tower;
 
+import townerdefense.entity.UpdatableEntity;
 import townerdefense.entity.tile.Tile;
 
-public abstract class Tower extends Tile {
+public abstract class Tower extends Tile implements UpdatableEntity {
     private double speed;
     private double range;
     private double damage;
@@ -14,4 +15,8 @@ public abstract class Tower extends Tile {
         this.damage = damage;
     }
 
+    @Override
+    public void update(int tick) {
+
+    }
 }
