@@ -17,7 +17,7 @@ public class Map {
         //TODO: load map from something...
         this(new int[][] {
                 {0, 2, 2, 2, 2, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 2, 2, 2, 2, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -42,7 +42,7 @@ public class Map {
         for(int i = 0; i < GameConfig.NUMBER_TILE_IN_VERTICAL; i++) {
             for(int j = 0; j < GameConfig.NUMBER_TILE_IN_HORIZONTAL; j++) {
                 final int posX = j * GameConfig.SIZE_TILE_WIDTH;
-                final int posY = i * GameConfig.SCREEN_HEIGHT;
+                final int posY = i * GameConfig.SIZE_TILE_HEIGHT;
                 final int width = GameConfig.SIZE_TILE_WIDTH;
                 final int height = GameConfig.SIZE_TILE_HEIGHT;
                 switch (map[i][j]) {

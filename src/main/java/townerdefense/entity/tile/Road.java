@@ -10,7 +10,13 @@ public class Road extends Tile {
 
     @Override
     public void draw(GraphicsContext graphicsContext) {
-        graphicsContext.setFill(Color.LIGHTGREEN);
+        graphicsContext.setFill(Color.GREEN);
         graphicsContext.fillRect(posX, posY, posX + with, posY + height);
+        //System.out.println(this.toString());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Road %f %f %f %f\n", this.posX, this.posY, this.with, this.height);
     }
 }
