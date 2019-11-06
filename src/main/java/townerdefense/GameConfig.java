@@ -17,5 +17,10 @@ public class GameConfig {
     //Size of Tile
     public static final int SIZE_TILE_WIDTH = SCREEN_WIDTH / NUMBER_TILE_IN_HORIZONTAL;
     public static final int SIZE_TILE_HEIGHT = SCREEN_HEIGHT / NUMBER_TILE_IN_VERTICAL;
-
+    //FPS
+    public static final int FPS = 60;
+    //nanosecond per second
+    public static final int NPS = 1000000000;
+    //nanosecond per frame
+    public static final int NPF = NPS / FPS;
 }

@@ -5,14 +5,11 @@ import javafx.scene.canvas.GraphicsContext;
 import townerdefense.entity.Entity;
 import townerdefense.entity.tile.Map;
 
-import java.util.Collection;
-import java.util.List;
-
 public class GameController extends AnimationTimer {
 
     private final GraphicsContext graphicsContext;
     private final GameField gameField;
-    private long startTime;
+    private long lastTime;
 
 
     public GameController(GraphicsContext graphicsContext) {
@@ -28,15 +25,24 @@ public class GameController extends AnimationTimer {
 
     @Override
     public void handle(long now) {
-        int time = (int) (System.nanoTime() - now);
-        gameField.updateEnemy(time);
+        int deltaTime = (int) (System.nanoTime() - lastTime);
+
+        if (deltaTime < GameConfig.NPF) {
+            return ;
+        }
+
+        System.out.printf("FPS : %3.2f\n", (double) GameConfig.NPS / deltaTime);
+
+        this.gameField.updateEnemy(deltaTime);
         this.draw();
+
+        this.lastTime = System.nanoTime();
     }
 
     @Override
     public void start() {
         super.start();
-        this.startTime = System.nanoTime();
+        this.lastTime = System.nanoTime();
     }
 
     public void draw() {
