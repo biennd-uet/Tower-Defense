@@ -31,10 +31,10 @@ public class GameField {
     }
 
     //Todo update all enemy
-    public void updateEnemy(int tick) {
+    public void updateEnemy(int deltaTime) {
         for(Entity entity: entities) {
             if (entity instanceof UpdatableEntity) {
-                ((UpdatableEntity) entity).update(tick);
+                ((UpdatableEntity) entity).update(deltaTime);
             }
         }
     }

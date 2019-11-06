@@ -1,5 +1,5 @@
 package townerdefense.entity;
 
 public interface UpdatableEntity {
-    public void update(int tick);
+    public void update(int deltaTime);
 }

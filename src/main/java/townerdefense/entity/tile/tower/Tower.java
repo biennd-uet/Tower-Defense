@@ -16,7 +16,7 @@ public abstract class Tower extends Tile implements UpdatableEntity {
     }
 
     @Override
-    public void update(int tick) {
+    public void update(int deltaTime) {
 
     }
 }

@@ -9,12 +9,12 @@ public class Target extends Tile implements UpdatableEntity {
     }
 
     @Override
-    public void draw(GraphicsContext graphicsContext) {
+    public void render(GraphicsContext graphicsContext) {
 
     }
 
     @Override
-    public void update(int tick) {
+    public void update(int deltaTime) {
 
     }
 }
