@@ -15,11 +15,11 @@ public abstract class Entity implements GameEntity, DrawableEntity {
         this.height = height;
     }
 
-    public double getRealPosX() {
+    protected double getCenterPosX() {
         return this.posX + (GameConfig.SIZE_TILE_WIDTH - this.width) / 2;
     }
 
-    public double getRealPosY() {
+    protected double getCenterPosY() {
         return this.posY + (GameConfig.SIZE_TILE_HEIGHT - this.height) / 2;
     }
 }

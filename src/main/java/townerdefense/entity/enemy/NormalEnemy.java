@@ -3,6 +3,7 @@ package townerdefense.entity.enemy;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import townerdefense.GameConfig;
+import townerdefense.entity.other.Point;
 
 public class NormalEnemy extends Enemy {
 
@@ -20,7 +21,6 @@ public class NormalEnemy extends Enemy {
     @Override
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.setFill(Color.AQUA);
-        graphicsContext.fillOval(this.getRealPosX(), this.getRealPosY(), this.width, this.height);
+        graphicsContext.fillOval(this.getCenterPosX(), this.getCenterPosY(), this.width, this.height);
     }
-
 }

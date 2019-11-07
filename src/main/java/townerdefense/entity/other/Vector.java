@@ -13,8 +13,8 @@ public class Vector implements DrawableEntity {
         B = b;
     }
 
-    public static Vector getVector(Point A, Point B) {
-        return new Vector(A, B);
+    public double getLength() {
+        return Point.getDistance(this.A, this.B);
     }
 
     @Override

@@ -30,12 +30,17 @@ public class GameConfig {
     public static final int NORMAL_ENEMY_WIDTH = 30;
     public static final int NORMAL_ENEMY_HEIGHT = 30;
     public static final int NORMAL_ENEMY_HEALTH_MAX = 100;
-    public static final int NORMAL_ENEMY_SPEED = 125;
+    public static final int NORMAL_ENEMY_SPEED = 300;
     public static final int NORMAL_ENEMY_ARMOR = 20;
     public static final int NORMAL_ENEMY_REWARD = 100; //Gold ?
     //Spawner Config
-    public static final int SPAWNER_WIDTH = (int) 1.75 * SIZE_TILE_WIDTH / 2;
-    public static final int SPAWNER_HEIGHT = (int) 1.75 * SIZE_TILE_HEIGHT / 2;
+    public static final int SPAWNER_WIDTH = 5 * SIZE_TILE_WIDTH / 8;
+    public static final int SPAWNER_HEIGHT = 5 * SIZE_TILE_HEIGHT/ 8;
     public static final int SPAWNER_DEFAULT_POSX = 0;
-    public static final int SPAWNER_DEFAULT_POSY = STAGE_HEIGHT - SIZE_TILE_HEIGHT;
+    public static final int SPAWNER_DEFAULT_POSY = 0;
+    //Target Config
+    public static final int TARGET_WIDTH =  5 * SIZE_TILE_WIDTH / 8;
+    public static final int TARGET_HEIGHT = 5 * SIZE_TILE_HEIGHT / 8;
+    public static final int TARGET_DEFAULT_POSX = 9 * SIZE_TILE_WIDTH;
+    public static final int TARGET_DEFAULT_POSY = 9 * SIZE_TILE_HEIGHT;
 }

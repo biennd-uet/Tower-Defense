@@ -21,6 +21,14 @@ public class Point implements DrawableEntity {
         return y;
     }
 
+    public double getDistance(Point other) {
+        return Math.hypot(this.x - other.x, this.y - other.y);
+    }
+
+    public static double getDistance(Point A, Point B) {
+        return Math.hypot(A.x - B.x, A.y - B.y);
+    }
+
     @Override
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.setFill(Color.RED);
@@ -29,6 +37,6 @@ public class Point implements DrawableEntity {
 
     @Override
     public String toString() {
-        return String.format("(%d, %d)", this.x, this.y);
+        return String.format("(%f, %f)", this.x, this.y);
     }
 }

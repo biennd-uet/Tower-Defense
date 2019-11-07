@@ -18,7 +18,7 @@ public class Spawner extends Tile implements UpdateableEntity {
     @Override
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.setFill(Color.LIGHTGREEN);
-        graphicsContext.fillOval(this.getRealPosX(), this.getRealPosY(), this.width, this.height);
+        graphicsContext.fillOval(this.getCenterPosX(), this.getCenterPosY(), this.width, this.height);
         //System.out.printf("%f %f %f %f\n", this.posX, this.posY, this.with, this.height);
     }
 
