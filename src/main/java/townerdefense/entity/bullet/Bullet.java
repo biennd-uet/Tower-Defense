@@ -2,9 +2,9 @@ package townerdefense.entity.bullet;
 
 import javafx.scene.canvas.GraphicsContext;
 import townerdefense.entity.Entity;
-import townerdefense.entity.UpdatableEntity;
+import townerdefense.entity.UpdateableEntity;
 
-public class Bullet extends Entity implements UpdatableEntity {
+public class Bullet extends Entity implements UpdateableEntity {
     private double speed;
     private double strength;
     private double damage;
@@ -17,12 +17,12 @@ public class Bullet extends Entity implements UpdatableEntity {
     }
 
     @Override
-    public void draw(GraphicsContext graphicsContext) {
+    public void render(GraphicsContext graphicsContext) {
 
     }
 
     @Override
-    public void update(int tick) {
+    public void update(int deltaTime) {
 
     }
 }

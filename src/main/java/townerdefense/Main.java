@@ -11,7 +11,7 @@ public final class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         final Group root = new Group();
-        final Canvas canvas = new Canvas(GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
+        final Canvas canvas = new Canvas(GameConfig.STAGE_WIDTH, GameConfig.STAGE_HEIGHT);
         final GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
         final GameController gameController = new GameController(graphicsContext);

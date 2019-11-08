@@ -1,20 +1,28 @@
 package townerdefense.entity.tile;
 
 import javafx.scene.canvas.GraphicsContext;
-import townerdefense.entity.UpdatableEntity;
+import javafx.scene.paint.Color;
+import townerdefense.GameConfig;
+import townerdefense.entity.UpdateableEntity;
 
-public class Target extends Tile implements UpdatableEntity {
+public class Target extends Tile implements UpdateableEntity {
     public Target(double posX, double posY, double with, double height) {
         super(posX, posY, with, height);
     }
 
-    @Override
-    public void draw(GraphicsContext graphicsContext) {
-
+    public Target() {
+        this(GameConfig.TARGET_DEFAULT_POSX, GameConfig.TARGET_DEFAULT_POSY,
+                GameConfig.TARGET_WIDTH, GameConfig.TARGET_HEIGHT);
     }
 
     @Override
-    public void update(int tick) {
+    public void render(GraphicsContext graphicsContext) {
+        graphicsContext.setFill(Color.RED);
+        graphicsContext.fillOval(this.getCenterPosX(), this.getCenterPosY(), this.width, this.height);
+    }
+
+    @Override
+    public void update(int deltaTime) {
 
     }
 }
