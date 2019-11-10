@@ -21,4 +21,5 @@ public class NormalTower extends Tower {
     public void render(GraphicsContext graphicsContext) {
         super.render(graphicsContext);
     }
+
 }
