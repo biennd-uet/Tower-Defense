@@ -30,30 +30,16 @@ public class Bullet extends Entity implements UpdateableEntity {
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.setFill(Color.AQUA);
         graphicsContext.fillOval(this.getCenterPosX(), this.getCenterPosY(), width, height);
+        //graphicsContext.strokeLine(this.posX, this.posY, this.enemy.getCenterPosX(), this.enemy.getCenterPosY());
     }
 
     @Override
     public void update(int deltaTime) {
-        final double deltaDistance = speed * deltaTime / GameConfig.NPS;
-        final double Distance = Math.sqrt(Math.pow(getCenterPosX() - enemy.getCenterPosX(), 2) + Math.pow(getCenterPosY() - enemy.getCenterPosY(), 2));
-        final double cos = (Math.abs(getCenterPosX() - enemy.getCenterPosX())) / Distance;
-        final double sin = 1 - Math.pow(cos, 2);
-        final double deltaDistanceX = deltaDistance * cos;
-        final double deltaDistanceY = deltaDistance * sin;
-        if(getCenterPosX() < enemy.getCenterPosX() && getCenterPosY() > enemy.getCenterPosY()) {
-            posX = + deltaDistanceX;
-            posY = - deltaDistanceY;
-        } else if(getCenterPosX() > enemy.getCenterPosX() && getCenterPosY() > enemy.getCenterPosY()) {
-            posX = - deltaDistanceX;
-            posY = - deltaDistanceY;
-        } else if(getCenterPosX() > enemy.getCenterPosX() && getCenterPosY() < enemy.getCenterPosY()) {
-            posX = - deltaDistanceX;
-            posY = + deltaDistanceY;
-        } else if(getCenterPosX() < enemy.getCenterPosX() && getCenterPosY() < enemy.getCenterPosY()) {
-            posX = + deltaDistanceX;
-            posY = + deltaDistanceY;
-        }
-        if(deltaDistance <= 10)
-            isCanRemove = true;
+        final double deltaDistance = this.speed * deltaTime / GameConfig.NPS;
+        final double deltaX = enemy.getCenterPosX() - this.posX;
+        final double deltaY = enemy.getCenterPosY() - this.posY;
+        final double theta = Math.atan2(deltaY, deltaX);
+        this.posX += deltaDistance * Math.cos(theta);
+        this.posY += deltaDistance * Math.sin(theta);
     }
 }

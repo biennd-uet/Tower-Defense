@@ -8,6 +8,7 @@ import townerdefense.entity.SpawnableEntity;
 import townerdefense.entity.UpdateableEntity;
 
 public class Spawner extends Tile implements UpdateableEntity, SpawnableEntity {
+
     public Spawner(double posX, double posY, double with, double height) {
         super(posX, posY, with, height);
     }

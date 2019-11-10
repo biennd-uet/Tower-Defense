@@ -55,12 +55,12 @@ public class GameConfig {
     //public static final double TOWER_SPEED_BULLET = 1500;
     public static final double TOWER_SPEED = 1.0; //Attack per Second
     public static final int TOWER_DAMAGE = 20;
-    public static final int TOWER_RANGE = 100;
+    public static final int TOWER_RANGE = 900;
     //public static final int TOWER_RANGE = (int) (SIZE_TILE_WIDTH * Math.sqrt(2) * 1.1);
     //bullet config
     public static final int BULLET_WIDTH = 10;
     public static final int BULLET_HEIGHT = 10;
-    public static final int BULLET_SPEED = 300;//pixel per second
+    public static final int BULLET_SPEED = 100;//pixel per second
 
     //Image
     public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy;
