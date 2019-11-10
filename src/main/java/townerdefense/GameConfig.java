@@ -52,6 +52,7 @@ public class GameConfig {
     public static final int TOWER_DEFAULT_POSY = 4 * SIZE_TILE_HEIGHT;
     public static final int TOWER_WIDTH = SIZE_TILE_WIDTH;
     public static final int TOWER_HEIGHT = SIZE_TILE_HEIGHT;
+    public static final double TOWER_SPEED_BULLET = 1500;
     public static final double TOWER_SPEED = 0.5; //Attack per Second
     public static final int TOWER_DAMAGE = 20;
     public static final int TOWER_RANGE = (int) (SIZE_TILE_WIDTH * Math.sqrt(2) * 1.1);

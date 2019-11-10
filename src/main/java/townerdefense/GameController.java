@@ -48,11 +48,6 @@ public class GameController extends AnimationTimer {
     public void handle(long now) {
         int deltaTime = (int) (System.nanoTime() - lastTime);
 
-//        if (deltaTime < GameConfig.NPF) {
-//            return ;
-//        }
-
-        //System.out.printf("FPS : %3.2f\n", (double) GameConfig.NPS / deltaTime);
 
         this.gameField.updateEnemy(deltaTime);
         this.render();
