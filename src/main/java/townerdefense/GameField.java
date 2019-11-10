@@ -5,7 +5,6 @@ import townerdefense.entity.Entity;
 import townerdefense.entity.SpawnableEntity;
 import townerdefense.entity.UpdateableEntity;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -47,21 +46,21 @@ public class GameField {
 
 
         //Update state
-        GameField.entities.forEach(entity ->  {
+        GameField.entities.forEach(entity -> {
             if(entity instanceof UpdateableEntity) {
                 ((UpdateableEntity) entity).update(deltaTime);
             }
         });
         //Update destroyable entity
         GameField.entities.forEach(entity -> {
-            if (entity instanceof DestroyableEntity) {
+            if(entity instanceof DestroyableEntity) {
                 ((DestroyableEntity) entity).onDestroy();
             }
         });
         //Todo: remove them if are destroyed
         //Update spawnalbe entity
         GameField.entities.forEach(entity -> {
-            if (entity instanceof SpawnableEntity &&
+            if(entity instanceof SpawnableEntity &&
                     ((SpawnableEntity) entity).hasEntityToSpawn()) {
                 spawnedEntity.add(((SpawnableEntity) entity).spawn());
             }

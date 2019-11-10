@@ -55,7 +55,7 @@ public abstract class Tower extends Tile implements UpdateableEntity, SpawnableE
                 entity.getCenterPosX(), entity.getCenterPosY()) <= this.range;
         GameField.entities.stream()
                 .filter(entity -> entity instanceof Enemy)
-                .filter(enemy -> !enemyInRangeQueue.contains(enemy))
+                .filter(enemy -> ! enemyInRangeQueue.contains(enemy))
                 .filter(enemyInRange)
                 .forEach(enemy -> this.enemyInRangeQueue.add((Enemy) enemy));
     }
