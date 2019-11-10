@@ -9,7 +9,12 @@ public class NormalTower extends Tower {
     }
 
     @Override
-    public void draw(GraphicsContext graphicsContext) {
+    public void render(GraphicsContext graphicsContext) {
+
+    }
+
+    @Override
+    public void update(int deltaTime) {
 
     }
 }
