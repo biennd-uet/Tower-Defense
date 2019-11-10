@@ -8,22 +8,22 @@ import java.io.FileNotFoundException;
 
 public class GameConfig {
     //TODO: All settings
-    //Size of Screen
-    public static final int SCREEN_WIDTH = 1080;
-    public static final int SCREEN_HEIGHT = 890;
-    //Size of Stage
-    public static final int STAGE_WIDTH = 1080;
-    public static final int STAGE_HEIGHT = 720;
-    //Name of Game
-    public static final String GAME_TITLE = "Tower Defense";
+    //Unit
+    public static final int SIZE_UNIT = 72;
+    //Size of Tile
+    public static final int SIZE_TILE_WIDTH = SIZE_UNIT;
+    public static final int SIZE_TILE_HEIGHT = SIZE_UNIT;
     //Number of tile in
     public static final int NUMBER_TILE_IN_HORIZONTAL = 10;
     public static final int NUMBER_TILE_IN_VERTICAL = 10;
-    //Size of Tile
-    public static final int SIZE_TILE_WIDTH = STAGE_WIDTH / NUMBER_TILE_IN_HORIZONTAL;
-    public static final int SIZE_TILE_HEIGHT = STAGE_HEIGHT / NUMBER_TILE_IN_VERTICAL;
-    //Unit
-    public static final int SIZE_UNIT = SIZE_TILE_WIDTH * 6 / 10;
+    //Size of Screen
+    public static final int SCREEN_WIDTH = 890;
+    public static final int SCREEN_HEIGHT = 890;
+    //Size of Stage
+    public static final int STAGE_WIDTH = NUMBER_TILE_IN_HORIZONTAL * SIZE_TILE_WIDTH;
+    public static final int STAGE_HEIGHT = NUMBER_TILE_IN_VERTICAL * SIZE_TILE_HEIGHT;
+    //Name of Game
+    public static final String GAME_TITLE = "Tower Defense";
     //FPS
     public static final int FPS = 60;
     //nanosecond per second
@@ -54,7 +54,7 @@ public class GameConfig {
     public static final int TOWER_HEIGHT = SIZE_TILE_HEIGHT;
     public static final double TOWER_SPEED = 0.5; //Attack per Second
     public static final int TOWER_DAMAGE = 20;
-    public static final int TOWER_RANGE = SIZE_UNIT;
+    public static final int TOWER_RANGE = (int) (SIZE_TILE_WIDTH * Math.sqrt(2) * 1.1);
 
     //Image
     public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy;
