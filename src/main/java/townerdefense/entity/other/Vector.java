@@ -13,6 +13,11 @@ public class Vector implements DrawableEntity {
         B = b;
     }
 
+    public static void drawLine(double x1, double y1, double x2, double y2, GraphicsContext graphicsContext) {
+        graphicsContext.setStroke(Color.RED);
+        graphicsContext.strokeLine(x1, y1, x2, y2);
+    }
+
     public double getLength() {
         return Point.getDistance(this.A, this.B);
     }

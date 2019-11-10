@@ -2,11 +2,11 @@ package townerdefense.entity.tile;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 public class Road extends Tile {
     private Image image;
-    public Road(Image image,double posX, double posY, double width, double height) {
+
+    public Road(Image image, double posX, double posY, double width, double height) {
         super(posX, posY, width, height);
         this.image = image;
     }
@@ -17,10 +17,11 @@ public class Road extends Tile {
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-      //  graphicsContext.setFill(Color.GREEN);
-     //   graphicsContext.fillRect(posX, posY, posX + width, posY + height);
+        //graphicsContext.setFill(Color.GREEN);
+        //graphicsContext.fillRect(posX, posY, posX + width, posY + height);
         //System.out.println(this.toString());
-        graphicsContext.drawImage(image,posX,posY,width,height);
+        graphicsContext.drawImage(image, posX, posY, width, height);
+        //graphicsContext.strokeRect(this.posX, this.posY, this.width, this.height);
     }
 
     @Override

@@ -6,7 +6,8 @@ import javafx.scene.paint.Color;
 
 public class Mountain extends Tile {
     protected Image image;
-    public Mountain(Image image,double posX, double posY, double with, double height) {
+
+    public Mountain(Image image, double posX, double posY, double with, double height) {
         super(posX, posY, with, height);
         this.image = image;
     }
@@ -18,6 +19,6 @@ public class Mountain extends Tile {
     @Override
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.setFill(Color.LIGHTBLUE);
-        graphicsContext.fillRect(posX, posY, posX + width, posY + height);
+        graphicsContext.fillRect(posX, posY, width, height);
     }
 }

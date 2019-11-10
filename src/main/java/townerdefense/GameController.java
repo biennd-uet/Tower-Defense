@@ -6,21 +6,22 @@ import javafx.scene.paint.Color;
 import townerdefense.entity.Entity;
 import townerdefense.entity.enemy.NormalEnemy;
 import townerdefense.entity.other.Point;
-import townerdefense.entity.tile.Map;
-import townerdefense.entity.tile.Target;
 import townerdefense.entity.tile.Spawner;
+import townerdefense.entity.tile.Target;
+import townerdefense.entity.tile.map.Map;
 import townerdefense.entity.tile.map.WayPoint;
+import townerdefense.entity.tile.tower.NormalTower;
 
 import java.util.List;
 
 public class GameController extends AnimationTimer {
 
+    public static List<Point> points;
     private final GraphicsContext graphicsContext;
     private final GameField gameField;
-    private long lastTime;
     private final Map map;
     private final WayPoint wayPoint;
-    public static List<Point> points;
+    private long lastTime;
 
 
     public GameController(GraphicsContext graphicsContext) {
@@ -39,6 +40,7 @@ public class GameController extends AnimationTimer {
         this.gameField.addEntity(new WayPoint());
         this.gameField.addEntity(new Spawner());
         this.gameField.addEntity(new Target());
+        this.gameField.addEntity(new NormalTower());
         this.gameField.addEntity(new NormalEnemy());
     }
 
@@ -46,11 +48,6 @@ public class GameController extends AnimationTimer {
     public void handle(long now) {
         int deltaTime = (int) (System.nanoTime() - lastTime);
 
-//        if (deltaTime < GameConfig.NPF) {
-//            return ;
-//        }
-
-        //System.out.printf("FPS : %3.2f\n", (double) GameConfig.NPS / deltaTime);
 
         this.gameField.updateEnemy(deltaTime);
         this.render();
@@ -67,7 +64,7 @@ public class GameController extends AnimationTimer {
     }
 
     public void render() {
-        for(Entity entity: gameField.getListEntries()) {
+        for(Entity entity : gameField.getListEntries()) {
             entity.render(this.graphicsContext);
         }
     }
