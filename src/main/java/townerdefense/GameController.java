@@ -6,9 +6,9 @@ import javafx.scene.paint.Color;
 import townerdefense.entity.Entity;
 import townerdefense.entity.enemy.NormalEnemy;
 import townerdefense.entity.other.Point;
+import townerdefense.entity.tile.Map;
 import townerdefense.entity.tile.Spawner;
 import townerdefense.entity.tile.Target;
-import townerdefense.entity.tile.map.Map;
 import townerdefense.entity.tile.map.WayPoint;
 
 import java.util.List;
