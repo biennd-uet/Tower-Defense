@@ -78,14 +78,14 @@ public abstract class Enemy extends Entity implements UpdateableEntity, MovableE
 
         double deltaX = posX - nextPoint.getX();
         double deltaY = posY - nextPoint.getY();
-        // System.out.println(deltaX + "      " + deltaY +"       "+ posX + "         " + posY);
+         System.out.println(deltaX + "      " + deltaY +"       "+ posX + "         " + posY);
         //*--X---*----*
         //      |
         //      *
         //System.out.println(posX + "          " + posY + "        " + currentPoint.getX() + "          " + currentPoint.getY());
         //   if((int)deltaX == 1)deltaX = 0;
         // if((int)deltaY == 1)deltaY = 0;
-        int a = 6;
+        int a = 10;
         if(this.posX < (nextPoint.getX() + a) && this.posX > (nextPoint.getX() - a) &&
                 this.posY < (nextPoint.getY() + a) && this.posY > (nextPoint.getY() - a)
 
@@ -95,8 +95,8 @@ public abstract class Enemy extends Entity implements UpdateableEntity, MovableE
             //System.out.printf("%s -> %s\n", currentPoint.toString(), this.getNextPoint().toString());
             currentPoint = this.getNextPoint();
             indexCurrentPoint++;
-            int x = (int) ((posX + 10) / GameConfig.SIZE_TILE_WIDTH);
-            int y = (int) ((posY + 10) / GameConfig.SIZE_TILE_HEIGHT);
+            int x = (int) ((posX + 30) / GameConfig.SIZE_TILE_WIDTH);
+            int y = (int) ((posY + 30) / GameConfig.SIZE_TILE_HEIGHT);
 
             //  System.out.println(deltaX + "      " + deltaY +  "      " + x + "     " + y);
             System.out.println(x + "        " + y + "       " + r + "      " + deltaX + "     " + deltaY);
@@ -152,8 +152,8 @@ public abstract class Enemy extends Entity implements UpdateableEntity, MovableE
         graphicsContext.save();
         rotate(graphicsContext, r, posX + width / 2, posY + height / 2);
         graphicsContext.drawImage(image, posX, posY, width, height);
-        (new Point(this.getCenterPosX(), this.getCenterPosY())).render(graphicsContext);
-        graphicsContext.strokeRect(this.posX, this.posY, this.width, this.height);
+   //     (new Point(this.getCenterPosX(), this.getCenterPosY())).render(graphicsContext);
+   //     graphicsContext.strokeRect(this.posX, this.posY, this.width, this.height);
         graphicsContext.restore();
     }
 }
