@@ -18,7 +18,7 @@ public class Target extends Tile implements UpdateableEntity {
     @Override
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.setFill(Color.RED);
-        graphicsContext.fillOval(this.getCenterPosX(), this.getCenterPosY(), this.width, this.height);
+        graphicsContext.fillOval(this.posX, this.posY, this.width, this.height);
     }
 
     @Override

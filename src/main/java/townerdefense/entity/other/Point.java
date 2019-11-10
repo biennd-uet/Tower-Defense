@@ -17,6 +17,10 @@ public class Point implements DrawableEntity {
         return Math.hypot(A.x - B.x, A.y - B.y);
     }
 
+    public static double getDistance(double x1, double y1, double x2, double y2) {
+        return Math.hypot(x1 - x2, y1 - y2);
+    }
+
     public double getX() {
         return x;
     }
@@ -32,7 +36,7 @@ public class Point implements DrawableEntity {
     @Override
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.setFill(Color.RED);
-        graphicsContext.fillOval(this.x, this.y, 10, 10);
+        graphicsContext.fillOval(this.x - 5, this.y - 5, 10, 10);
     }
 
     @Override

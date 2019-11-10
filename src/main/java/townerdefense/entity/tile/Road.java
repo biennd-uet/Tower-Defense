@@ -17,10 +17,11 @@ public class Road extends Tile {
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-        //  graphicsContext.setFill(Color.GREEN);
-        //   graphicsContext.fillRect(posX, posY, posX + width, posY + height);
+        //graphicsContext.setFill(Color.GREEN);
+        //graphicsContext.fillRect(posX, posY, posX + width, posY + height);
         //System.out.println(this.toString());
         graphicsContext.drawImage(image, posX, posY, width, height);
+        graphicsContext.strokeRect(this.posX, this.posY, this.width, this.height);
     }
 
     @Override

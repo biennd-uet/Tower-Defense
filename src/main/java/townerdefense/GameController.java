@@ -6,10 +6,11 @@ import javafx.scene.paint.Color;
 import townerdefense.entity.Entity;
 import townerdefense.entity.enemy.NormalEnemy;
 import townerdefense.entity.other.Point;
-import townerdefense.entity.tile.Map;
 import townerdefense.entity.tile.Spawner;
 import townerdefense.entity.tile.Target;
+import townerdefense.entity.tile.map.Map;
 import townerdefense.entity.tile.map.WayPoint;
+import townerdefense.entity.tile.tower.NormalTower;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class GameController extends AnimationTimer {
         this.gameField.addEntity(new WayPoint());
         this.gameField.addEntity(new Spawner());
         this.gameField.addEntity(new Target());
+        this.gameField.addEntity(new NormalTower());
         this.gameField.addEntity(new NormalEnemy());
     }
 

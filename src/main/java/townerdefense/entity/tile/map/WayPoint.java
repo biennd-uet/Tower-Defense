@@ -4,7 +4,6 @@ import javafx.scene.canvas.GraphicsContext;
 import townerdefense.GameConfig;
 import townerdefense.entity.Entity;
 import townerdefense.entity.other.Point;
-import townerdefense.entity.tile.Map;
 
 import java.util.ArrayList;
 import java.util.List;

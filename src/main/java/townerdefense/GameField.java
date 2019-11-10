@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class GameField {
-    private List<Entity> entities;
+    public static List<Entity> entities;
 
     public GameField() {
         this.entities = new ArrayList<>();

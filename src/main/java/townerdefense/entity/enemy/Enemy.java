@@ -2,7 +2,6 @@ package townerdefense.entity.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
 import townerdefense.GameConfig;
 import townerdefense.GameController;
@@ -11,7 +10,7 @@ import townerdefense.entity.Entity;
 import townerdefense.entity.MovableEntity;
 import townerdefense.entity.UpdateableEntity;
 import townerdefense.entity.other.Point;
-import townerdefense.entity.tile.Map;
+import townerdefense.entity.tile.map.Map;
 
 public abstract class Enemy extends Entity implements UpdateableEntity, MovableEntity {
     protected double health;
@@ -77,15 +76,15 @@ public abstract class Enemy extends Entity implements UpdateableEntity, MovableE
         }
 
 
-         double deltaX = posX - nextPoint.getX();
-         double deltaY = posY - nextPoint.getY();
-       // System.out.println(deltaX + "      " + deltaY +"       "+ posX + "         " + posY);
+        double deltaX = posX - nextPoint.getX();
+        double deltaY = posY - nextPoint.getY();
+        // System.out.println(deltaX + "      " + deltaY +"       "+ posX + "         " + posY);
         //*--X---*----*
         //      |
         //      *
         //System.out.println(posX + "          " + posY + "        " + currentPoint.getX() + "          " + currentPoint.getY());
-     //   if((int)deltaX == 1)deltaX = 0;
-       // if((int)deltaY == 1)deltaY = 0;
+        //   if((int)deltaX == 1)deltaX = 0;
+        // if((int)deltaY == 1)deltaY = 0;
         int a = 6;
         if(this.posX < (nextPoint.getX() + a) && this.posX > (nextPoint.getX() - a) &&
                 this.posY < (nextPoint.getY() + a) && this.posY > (nextPoint.getY() - a)
@@ -96,30 +95,30 @@ public abstract class Enemy extends Entity implements UpdateableEntity, MovableE
             //System.out.printf("%s -> %s\n", currentPoint.toString(), this.getNextPoint().toString());
             currentPoint = this.getNextPoint();
             indexCurrentPoint++;
-            int x = (int)((posX + 10) /GameConfig.SIZE_TILE_WIDTH ) ;
-            int y = (int)((posY + 10)/GameConfig.SIZE_TILE_HEIGHT);
+            int x = (int) ((posX + 10) / GameConfig.SIZE_TILE_WIDTH);
+            int y = (int) ((posY + 10) / GameConfig.SIZE_TILE_HEIGHT);
 
-          //  System.out.println(deltaX + "      " + deltaY +  "      " + x + "     " + y);
-            System.out.println(x+ "        "+ y+ "       "+  r + "      "+ deltaX + "     "+deltaY);
+            //  System.out.println(deltaX + "      " + deltaY +  "      " + x + "     " + y);
+            System.out.println(x + "        " + y + "       " + r + "      " + deltaX + "     " + deltaY);
 
             if(deltaX < 0 && Map.map[y][x] == 2) {
                 r = r + 90;
-            }else if(deltaY < 0 && Map.map[y][x] == 3) {
+            } else if(deltaY < 0 && Map.map[y][x] == 3) {
                 r = r + 90;
-            }else if(deltaX > 0 && Map.map[y][x] == 4) {
+            } else if(deltaX > 0 && Map.map[y][x] == 4) {
                 r = r - 90;
-            }else if(deltaY < 0 && Map.map [y][x] == 5) {
+            } else if(deltaY < 0 && Map.map[y][x] == 5) {
                 r = r - 90;
-            }else if(deltaY > 0 && Map.map [y][x] == 2) {
+            } else if(deltaY > 0 && Map.map[y][x] == 2) {
                 r = r - 90;
-            }else if(deltaX > 0 && Map.map[y][x] == 3) {
+            } else if(deltaX > 0 && Map.map[y][x] == 3) {
                 r = r - 90;
-            }else if(deltaY < 0 && Map.map[y][x] == 4){
-                    r = r + 90;
-            }else if(deltaX > 0 && Map.map[y][x] == 5) {
+            } else if(deltaY < 0 && Map.map[y][x] == 4) {
+                r = r + 90;
+            } else if(deltaX > 0 && Map.map[y][x] == 5) {
                 r = r + 90;
             }
-            if(r == 360)r = 0;
+            if(r == 360) r = 0;
 
             //If over the way
             if(currentPoint == null) {
@@ -147,11 +146,14 @@ public abstract class Enemy extends Entity implements UpdateableEntity, MovableE
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
+
     @Override
     public void render(GraphicsContext graphicsContext) {
-       graphicsContext.save();
-       rotate(graphicsContext,r,posX + width/2,posY + height/2);
-       graphicsContext.drawImage(image,posX,posY,width,height);
-       graphicsContext.restore();
+        graphicsContext.save();
+        rotate(graphicsContext, r, posX + width / 2, posY + height / 2);
+        graphicsContext.drawImage(image, posX, posY, width, height);
+        (new Point(this.getCenterPosX(), this.getCenterPosY())).render(graphicsContext);
+        graphicsContext.strokeRect(this.posX, this.posY, this.width, this.height);
+        graphicsContext.restore();
     }
 }

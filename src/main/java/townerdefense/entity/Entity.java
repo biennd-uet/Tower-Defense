@@ -1,7 +1,6 @@
 package townerdefense.entity;
 
 import javafx.scene.image.Image;
-import townerdefense.GameConfig;
 
 public abstract class Entity implements GameEntity, DrawableEntity {
     protected double posX;
@@ -18,11 +17,19 @@ public abstract class Entity implements GameEntity, DrawableEntity {
 
     }
 
-    protected double getCenterPosX() {
-        return this.posX + (GameConfig.SIZE_TILE_WIDTH - this.width) / 2;
+    public double getCenterPosX() {
+        return this.posX + this.width / 2;
     }
 
-    protected double getCenterPosY() {
-        return this.posY + (GameConfig.SIZE_TILE_HEIGHT - this.height) / 2;
+    public double getCenterPosY() {
+        return this.posY + this.height / 2;
+    }
+
+    public double getPosX() {
+        return posX;
+    }
+
+    public double getPosY() {
+        return posY;
     }
 }

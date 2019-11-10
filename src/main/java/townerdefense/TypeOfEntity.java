@@ -12,6 +12,7 @@ public class TypeOfEntity {
     public static final int ROAD = 0;
     public static final int TOWER = 7;
     public static final int MOUNTAIN = 8;
+
     private TypeOfEntity() {
 
     }

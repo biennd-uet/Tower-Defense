@@ -1,8 +1,9 @@
-package townerdefense.entity.tile;
+package townerdefense.entity.tile.map;
 
 import townerdefense.GameConfig;
 import townerdefense.TypeOfEntity;
 import townerdefense.entity.Entity;
+import townerdefense.entity.tile.Road;
 
 import java.util.ArrayList;
 import java.util.Collection;
