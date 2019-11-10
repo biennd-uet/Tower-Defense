@@ -1,29 +1,38 @@
 package townerdefense.entity.enemy;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.transform.Rotate;
 import townerdefense.GameConfig;
 import townerdefense.GameController;
 import townerdefense.entity.Direction;
+import townerdefense.entity.Entity;
 import townerdefense.entity.MovableEntity;
 import townerdefense.entity.UpdateableEntity;
 import townerdefense.entity.other.Point;
-import townerdefense.entity.tile.Tile;
+import townerdefense.entity.tile.map.Map;
 
-public abstract class Enemy extends Tile implements UpdateableEntity, MovableEntity {
+public abstract class Enemy extends Entity implements UpdateableEntity, MovableEntity {
     protected double health;
     protected double speed;
     protected double armor;
     protected double reward;
+    //Todo: Why not Entity has Image ?
+    protected double r;
     private int indexCurrentPoint;
     private Point currentPoint;
+    private Image image;
 
     private Direction direction;
 
-    protected Enemy(double posX, double posY, double width, double height, double health, double speed, double armor, double reward) {
+    protected Enemy(Image image, double r, double posX, double posY, double width, double height, double health, double speed, double armor, double reward) {
         super(posX, posY, width, height);
         this.health = health;
         this.speed = speed;
         this.armor = armor;
         this.reward = reward;
+        this.image = image;
+        this.r = r;
         this.indexCurrentPoint = 0;
         this.currentPoint = GameController.points.get(0);
         this.calcDirection();
@@ -58,38 +67,93 @@ public abstract class Enemy extends Tile implements UpdateableEntity, MovableEnt
         }
     }
 
+
     private void calcDirection() {
-        if(this.posX - currentPoint.getX() > GameConfig.SIZE_TILE_WIDTH ||
-                this.posY - currentPoint.getY() > GameConfig.SIZE_TILE_HEIGHT) {
+
+        Point nextPoint = this.getNextPoint();
+        if(nextPoint == null) {
+            return;
+        }
+
+
+        double deltaX = posX - nextPoint.getX();
+        double deltaY = posY - nextPoint.getY();
+        // System.out.println(deltaX + "      " + deltaY +"       "+ posX + "         " + posY);
+        //*--X---*----*
+        //      |
+        //      *
+        //System.out.println(posX + "          " + posY + "        " + currentPoint.getX() + "          " + currentPoint.getY());
+        //   if((int)deltaX == 1)deltaX = 0;
+        // if((int)deltaY == 1)deltaY = 0;
+        int a = 6;
+        if(this.posX < (nextPoint.getX() + a) && this.posX > (nextPoint.getX() - a) &&
+                this.posY < (nextPoint.getY() + a) && this.posY > (nextPoint.getY() - a)
+
+        ) {
             //System.out.printf("(%f %f) && (%f %f)\n", this.posX, this.posY,
             // this.currentPoint.getX(), this.currentPoint.getY());
             //System.out.printf("%s -> %s\n", currentPoint.toString(), this.getNextPoint().toString());
             currentPoint = this.getNextPoint();
             indexCurrentPoint++;
+            int x = (int) ((posX + 10) / GameConfig.SIZE_TILE_WIDTH);
+            int y = (int) ((posY + 10) / GameConfig.SIZE_TILE_HEIGHT);
+
+            //  System.out.println(deltaX + "      " + deltaY +  "      " + x + "     " + y);
+            System.out.println(x + "        " + y + "       " + r + "      " + deltaX + "     " + deltaY);
+
+            if(deltaX < 0 && Map.map[y][x] == 2) {
+                r = r + 90;
+            } else if(deltaY < 0 && Map.map[y][x] == 3) {
+                r = r + 90;
+            } else if(deltaX > 0 && Map.map[y][x] == 4) {
+                r = r - 90;
+            } else if(deltaY < 0 && Map.map[y][x] == 5) {
+                r = r - 90;
+            } else if(deltaY > 0 && Map.map[y][x] == 2) {
+                r = r - 90;
+            } else if(deltaX > 0 && Map.map[y][x] == 3) {
+                r = r - 90;
+            } else if(deltaY < 0 && Map.map[y][x] == 4) {
+                r = r + 90;
+            } else if(deltaX > 0 && Map.map[y][x] == 5) {
+                r = r + 90;
+            }
+            if(r == 360) r = 0;
+
             //If over the way
             if(currentPoint == null) {
                 //Todo Destroy enemy
                 return;
             }
         }
-        Point nextPoint = this.getNextPoint();
-        if(nextPoint == null) {
-            return;
-        }
-
-        final double deltaX = posX - nextPoint.getX();
-        final double deltaY = posY - nextPoint.getY();
-        //*--X---*----*
-        //      |
-        //      *
         if(deltaX < 0) {
             direction = Direction.RIGHT;
+
+
         } else if(deltaY < 0) {
             direction = Direction.DOWN;
+
         } else if(deltaX > 0) {
             direction = Direction.LEFT;
+
         } else {
             direction = Direction.UP;
+
         }
+    }
+
+    private void rotate(GraphicsContext gc, double angle, double px, double py) {
+        Rotate r = new Rotate(angle, px, py);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+    }
+
+    @Override
+    public void render(GraphicsContext graphicsContext) {
+        graphicsContext.save();
+        rotate(graphicsContext, r, posX + width / 2, posY + height / 2);
+        graphicsContext.drawImage(image, posX, posY, width, height);
+        (new Point(this.getCenterPosX(), this.getCenterPosY())).render(graphicsContext);
+        graphicsContext.strokeRect(this.posX, this.posY, this.width, this.height);
+        graphicsContext.restore();
     }
 }

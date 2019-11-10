@@ -1,18 +1,27 @@
 package townerdefense.entity.tile;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 
 public class Road extends Tile {
-    public Road(double posX, double posY, double with, double height) {
-        super(posX, posY, with, height);
+    private Image image;
+
+    public Road(Image image, double posX, double posY, double width, double height) {
+        super(posX, posY, width, height);
+        this.image = image;
+    }
+
+    public Road(double posX, double posY, double width, double height) {
+        super(posX, posY, width, height);
     }
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-        graphicsContext.setFill(Color.GREEN);
-        graphicsContext.fillRect(posX, posY, posX + width, posY + height);
+        //graphicsContext.setFill(Color.GREEN);
+        //graphicsContext.fillRect(posX, posY, posX + width, posY + height);
         //System.out.println(this.toString());
+        graphicsContext.drawImage(image, posX, posY, width, height);
+        graphicsContext.strokeRect(this.posX, this.posY, this.width, this.height);
     }
 
     @Override
