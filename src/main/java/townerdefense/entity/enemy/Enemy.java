@@ -59,22 +59,22 @@ public abstract class Enemy extends Tile implements UpdateableEntity, MovableEnt
     }
 
     private void calcDirection() {
-        if (this.posX - currentPoint.getX() > GameConfig.SIZE_TILE_WIDTH ||
-        this.posY - currentPoint.getY() > GameConfig.SIZE_TILE_HEIGHT) {
+        if(this.posX - currentPoint.getX() > GameConfig.SIZE_TILE_WIDTH ||
+                this.posY - currentPoint.getY() > GameConfig.SIZE_TILE_HEIGHT) {
             //System.out.printf("(%f %f) && (%f %f)\n", this.posX, this.posY,
             // this.currentPoint.getX(), this.currentPoint.getY());
             //System.out.printf("%s -> %s\n", currentPoint.toString(), this.getNextPoint().toString());
             currentPoint = this.getNextPoint();
             indexCurrentPoint++;
             //If over the way
-            if (currentPoint == null) {
+            if(currentPoint == null) {
                 //Todo Destroy enemy
-                return ;
+                return;
             }
         }
         Point nextPoint = this.getNextPoint();
-        if (nextPoint == null) {
-            return ;
+        if(nextPoint == null) {
+            return;
         }
 
         final double deltaX = posX - nextPoint.getX();
@@ -82,11 +82,11 @@ public abstract class Enemy extends Tile implements UpdateableEntity, MovableEnt
         //*--X---*----*
         //      |
         //      *
-        if (deltaX < 0) {
+        if(deltaX < 0) {
             direction = Direction.RIGHT;
-        } else if (deltaY < 0) {
+        } else if(deltaY < 0) {
             direction = Direction.DOWN;
-        } else if (deltaX > 0) {
+        } else if(deltaX > 0) {
             direction = Direction.LEFT;
         } else {
             direction = Direction.UP;

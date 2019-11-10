@@ -3,7 +3,6 @@ package townerdefense.entity.enemy;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import townerdefense.GameConfig;
-import townerdefense.entity.other.Point;
 
 public class NormalEnemy extends Enemy {
 

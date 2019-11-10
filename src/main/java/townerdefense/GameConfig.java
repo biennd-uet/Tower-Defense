@@ -1,10 +1,6 @@
 package townerdefense;
 
 public class GameConfig {
-    //Make it can not declaration
-    private GameConfig(){
-
-    }
     //TODO: All settings
     //Size of Screen
     public static final int SCREEN_WIDTH = 1080;
@@ -35,12 +31,16 @@ public class GameConfig {
     public static final int NORMAL_ENEMY_REWARD = 100; //Gold ?
     //Spawner Config
     public static final int SPAWNER_WIDTH = 5 * SIZE_TILE_WIDTH / 8;
-    public static final int SPAWNER_HEIGHT = 5 * SIZE_TILE_HEIGHT/ 8;
+    public static final int SPAWNER_HEIGHT = 5 * SIZE_TILE_HEIGHT / 8;
     public static final int SPAWNER_DEFAULT_POSX = 0;
     public static final int SPAWNER_DEFAULT_POSY = 0;
     //Target Config
-    public static final int TARGET_WIDTH =  5 * SIZE_TILE_WIDTH / 8;
+    public static final int TARGET_WIDTH = 5 * SIZE_TILE_WIDTH / 8;
     public static final int TARGET_HEIGHT = 5 * SIZE_TILE_HEIGHT / 8;
     public static final int TARGET_DEFAULT_POSX = 9 * SIZE_TILE_WIDTH;
     public static final int TARGET_DEFAULT_POSY = 9 * SIZE_TILE_HEIGHT;
+    //Make it can not declaration
+    private GameConfig() {
+
+    }
 }

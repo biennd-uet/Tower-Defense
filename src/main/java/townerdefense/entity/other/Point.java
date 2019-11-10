@@ -13,6 +13,10 @@ public class Point implements DrawableEntity {
         this.y = y;
     }
 
+    public static double getDistance(Point A, Point B) {
+        return Math.hypot(A.x - B.x, A.y - B.y);
+    }
+
     public double getX() {
         return x;
     }
@@ -23,10 +27,6 @@ public class Point implements DrawableEntity {
 
     public double getDistance(Point other) {
         return Math.hypot(this.x - other.x, this.y - other.y);
-    }
-
-    public static double getDistance(Point A, Point B) {
-        return Math.hypot(A.x - B.x, A.y - B.y);
     }
 
     @Override

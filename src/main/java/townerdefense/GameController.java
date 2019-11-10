@@ -6,21 +6,21 @@ import javafx.scene.paint.Color;
 import townerdefense.entity.Entity;
 import townerdefense.entity.enemy.NormalEnemy;
 import townerdefense.entity.other.Point;
+import townerdefense.entity.tile.Spawner;
 import townerdefense.entity.tile.Target;
 import townerdefense.entity.tile.map.Map;
-import townerdefense.entity.tile.Spawner;
 import townerdefense.entity.tile.map.WayPoint;
 
 import java.util.List;
 
 public class GameController extends AnimationTimer {
 
+    public static List<Point> points;
     private final GraphicsContext graphicsContext;
     private final GameField gameField;
-    private long lastTime;
     private final Map map;
     private final WayPoint wayPoint;
-    public static List<Point> points;
+    private long lastTime;
 
 
     public GameController(GraphicsContext graphicsContext) {
@@ -67,7 +67,7 @@ public class GameController extends AnimationTimer {
     }
 
     public void render() {
-        for(Entity entity: gameField.getListEntries()) {
+        for(Entity entity : gameField.getListEntries()) {
             entity.render(this.graphicsContext);
         }
     }

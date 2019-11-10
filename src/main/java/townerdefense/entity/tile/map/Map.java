@@ -32,7 +32,7 @@ public class Map {
     }
 
     public Map(int[][] map) {
-        if (map == null
+        if(map == null
                 || map.length != GameConfig.NUMBER_TILE_IN_VERTICAL
                 || map[0].length != GameConfig.NUMBER_TILE_IN_HORIZONTAL) {
             throw new IllegalArgumentException("Not is map in tower defense");
