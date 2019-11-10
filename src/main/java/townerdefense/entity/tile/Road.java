@@ -21,7 +21,7 @@ public class Road extends Tile {
         //graphicsContext.fillRect(posX, posY, posX + width, posY + height);
         //System.out.println(this.toString());
         graphicsContext.drawImage(image, posX, posY, width, height);
-        graphicsContext.strokeRect(this.posX, this.posY, this.width, this.height);
+        //graphicsContext.strokeRect(this.posX, this.posY, this.width, this.height);
     }
 
     @Override

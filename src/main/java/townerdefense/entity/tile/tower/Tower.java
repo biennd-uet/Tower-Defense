@@ -32,14 +32,15 @@ public abstract class Tower extends Tile implements UpdateableEntity {
 
     @Override
     public void update(int deltaTime) {
-        this.getEnemyInRage();
+        this.removeEnemyOutRange();
+        this.findEnemyInRange();
     }
 
-    private void getEnemyInRage() {
+    private void findEnemyInRange() {
         Predicate<Entity> enemyInRange = entity -> {
             if(entity instanceof Enemy && ! enemyQueue.contains(entity)) {
                 if(Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
-                        entity.getCenterPosX(), entity.getCenterPosY()) < this.range) {
+                        entity.getCenterPosX(), entity.getCenterPosY()) <= this.range) {
                     return true;
                 }
             }
@@ -48,17 +49,22 @@ public abstract class Tower extends Tile implements UpdateableEntity {
         GameField.entities.stream().filter(enemyInRange).forEach(enemy -> this.enemyQueue.add((Enemy) enemy));
     }
 
+    private void removeEnemyOutRange() {
+        Predicate<Entity> enemyOutRange = enemy -> Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
+                enemy.getCenterPosX(), enemy.getCenterPosY()) > this.range;
+        this.enemyQueue.removeIf(enemyOutRange);
+    }
+
     @Override
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.setFill(Color.BLUE);
         graphicsContext.fillOval(this.posX, this.posY,
                 this.width, this.height);
         (new Point(this.getCenterPosX(), getCenterPosY())).render(graphicsContext);
-//        if (this.enemyQueue.peek() == null) {
-//            return ;
-//        }
-//        Vector.drawLine(this.enemyQueue.peek().getCenterPosX(), this.enemyQueue.peek().getCenterPosY(),
-//                this.getCenterPosX(), this.getCenterPosY(),
-//                graphicsContext);
+        if (this.enemyQueue.peek() != null) {
+            assert enemyQueue.peek() != null;
+            graphicsContext.strokeLine(this.getCenterPosX(), this.getCenterPosY(),
+                    enemyQueue.peek().getCenterPosX(), enemyQueue.peek().getCenterPosY());
+        }
     }
 }
