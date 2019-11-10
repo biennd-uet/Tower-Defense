@@ -1,45 +1,72 @@
 package townerdefense;
 
+import townerdefense.entity.DestroyableEntity;
 import townerdefense.entity.Entity;
+import townerdefense.entity.SpawnableEntity;
 import townerdefense.entity.UpdateableEntity;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class GameField {
     public static List<Entity> entities;
+    private List<Entity> spawnedEntity = new ArrayList<>();
 
     public GameField() {
         this.entities = new ArrayList<>();
     }
 
     public void removeEntity(Entity entity) {
-        this.entities.remove(entity);
+        entities.remove(entity);
     }
 
     public void removeAllEntity(Collection<Entity> entities) {
-        this.entities.removeAll(entities);
+        GameField.entities.removeAll(entities);
     }
 
     public void addEntity(Entity entity) {
-        this.entities.add(entity);
+        entities.add(entity);
     }
 
     public void addAllEntity(Collection<Entity> entities) {
-        this.entities.addAll(entities);
+        GameField.entities.addAll(entities);
     }
 
     public final Collection<Entity> getListEntries() {
-        return this.entities;
+        return entities;
     }
 
     //Todo update all enemy
     public void updateEnemy(int deltaTime) {
-        for(Entity entity : entities) {
+        //Step by step update game field
+        //1. Update state
+        //2. Update destroyable entity
+        //3. Update spawnalbe entity
+
+
+        //Update state
+        GameField.entities.forEach(entity ->  {
             if(entity instanceof UpdateableEntity) {
                 ((UpdateableEntity) entity).update(deltaTime);
             }
-        }
+        });
+        //Update destroyable entity
+        GameField.entities.forEach(entity -> {
+            if (entity instanceof DestroyableEntity) {
+                ((DestroyableEntity) entity).onDestroy();
+            }
+        });
+        //Todo: remove them if are destroyed
+        //Update spawnalbe entity
+        GameField.entities.forEach(entity -> {
+            if (entity instanceof SpawnableEntity &&
+                    ((SpawnableEntity) entity).hasEntityToSpawn()) {
+                spawnedEntity.add(((SpawnableEntity) entity).spawn());
+            }
+        });
+        //Add them to game field
+        GameField.entities.addAll(spawnedEntity);
     }
 }
