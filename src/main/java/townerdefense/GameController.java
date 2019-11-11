@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import townerdefense.entity.Entity;
+import townerdefense.entity.enemy.Enemy;
 import townerdefense.entity.enemy.NormalEnemy;
 import townerdefense.entity.other.Point;
 import townerdefense.entity.tile.Spawner;
@@ -21,6 +22,7 @@ public class GameController extends AnimationTimer {
     private final GameField gameField;
     private final Map map;
     private final WayPoint wayPoint;
+    private final Spawner spawner;
     private long lastTime;
 
 
@@ -30,25 +32,24 @@ public class GameController extends AnimationTimer {
         //GameStage gameStage = new GameStage();
         //this.gameField = gameStage.getGameField()
         //Todo: comment this code after finish before code
-        map = new Map();
-        wayPoint = new WayPoint();
+        this.map = new Map();
+        this.wayPoint = new WayPoint();
+        this.spawner = new Spawner();
         points = wayPoint.getPoints();
 
         this.gameField = new GameField();
 
         this.gameField.addAllEntity(map.getListTile());
-        this.gameField.addEntity(new WayPoint());
-        this.gameField.addEntity(new Spawner());
+        this.gameField.addEntity(this.wayPoint);
+        this.gameField.addEntity(this.spawner);
         this.gameField.addEntity(new Target());
         this.gameField.addEntity(new NormalTower());
         this.gameField.addEntity(new NormalEnemy());
-
     }
 
     @Override
     public void handle(long now) {
         int deltaTime = (int) (now - lastTime);
-
 
         this.gameField.updateEnemy(deltaTime);
 

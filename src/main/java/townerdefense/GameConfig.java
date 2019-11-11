@@ -42,6 +42,7 @@ public class GameConfig {
     public static final int SPAWNER_HEIGHT = SIZE_UNIT;
     public static final int SPAWNER_DEFAULT_POSX = 0;
     public static final int SPAWNER_DEFAULT_POSY = SIZE_TILE_HEIGHT;
+    public static final double SPAWNER_SPEED_SPAWN = 1.0;
     //Target Config
     public static final int TARGET_WIDTH = SIZE_UNIT;
     public static final int TARGET_HEIGHT = SIZE_UNIT;
@@ -55,7 +56,7 @@ public class GameConfig {
     //public static final double TOWER_SPEED_BULLET = 1500;
     public static final double TOWER_SPEED = 1.0; //Attack per Second
     public static final int TOWER_DAMAGE = 20;
-    public static final int TOWER_RANGE = 900;
+    public static final int TOWER_RANGE = 300;
     //public static final int TOWER_RANGE = (int) (SIZE_TILE_WIDTH * Math.sqrt(2) * 1.1);
     //bullet config
     public static final int BULLET_WIDTH = 10;

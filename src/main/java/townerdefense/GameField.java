@@ -3,7 +3,7 @@ package townerdefense;
 import townerdefense.entity.DestroyableEntity;
 import townerdefense.entity.Entity;
 import townerdefense.entity.SpawnableEntity;
-import townerdefense.entity.UpdateableEntity;
+import townerdefense.entity.UpdatableEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,8 +48,8 @@ public class GameField {
 
         //Update state
         GameField.entities.forEach(entity -> {
-            if(entity instanceof UpdateableEntity) {
-                ((UpdateableEntity) entity).update(deltaTime);
+            if(entity instanceof UpdatableEntity) {
+                ((UpdatableEntity) entity).update(deltaTime);
             }
         });
         //Update destroyable entity

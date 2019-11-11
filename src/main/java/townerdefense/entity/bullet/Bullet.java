@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import townerdefense.GameConfig;
 import townerdefense.entity.DestroyableEntity;
 import townerdefense.entity.Entity;
-import townerdefense.entity.UpdateableEntity;
+import townerdefense.entity.UpdatableEntity;
 import townerdefense.entity.enemy.Enemy;
 
 public class Bullet extends Entity implements UpdateableEntity, DestroyableEntity {

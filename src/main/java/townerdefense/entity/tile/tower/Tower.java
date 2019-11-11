@@ -7,7 +7,7 @@ import townerdefense.GameConfig;
 import townerdefense.GameField;
 import townerdefense.entity.Entity;
 import townerdefense.entity.SpawnableEntity;
-import townerdefense.entity.UpdateableEntity;
+import townerdefense.entity.UpdatableEntity;
 import townerdefense.entity.bullet.Bullet;
 import townerdefense.entity.enemy.Enemy;
 import townerdefense.entity.other.Point;
@@ -17,7 +17,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.function.Predicate;
 
-public abstract class Tower extends Tile implements UpdateableEntity, SpawnableEntity {
+public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEntity {
     private final double timeBetweenTwoAttack;
     protected Queue<Enemy> enemyInRangeQueue;
     private double speed;
