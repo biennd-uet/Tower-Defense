@@ -27,7 +27,7 @@ public class GameConfig {
     //Name of Game
     public static final String GAME_TITLE = "Tower Defense";
     //FPS
-    public static final int FPS = 60;
+    public static final int FPS = 120;
     //nanosecond per second
     public static final int NPS = 1000000000;
     //nanosecond per frame
@@ -56,9 +56,9 @@ public class GameConfig {
     public static final int TOWER_WIDTH = SIZE_TILE_WIDTH;
     public static final int TOWER_HEIGHT = SIZE_TILE_HEIGHT;
     //public static final double TOWER_SPEED_BULLET = 1500;
-    public static final double TOWER_SPEED = 2.0; //Attack per Second
+    public static final double TOWER_SPEED = 2.5; //Attack per Second
     public static final int TOWER_DAMAGE = 20;
-    public static final int TOWER_RANGE = 300;
+    public static final int TOWER_RANGE = 600;
     //public static final int TOWER_RANGE = (int) (SIZE_TILE_WIDTH * Math.sqrt(2) * 1.1);
     //bullet config
     public static final int BULLET_WIDTH = 10;
