@@ -13,11 +13,11 @@ public class TypeOfEntity {
     public static final int TOWER = 7;
     public static final int MOUNTAIN = 8;
 
-    public static enum TypeOfEnemy {
-        NORMAL_ENEMY;
-    }
-
     private TypeOfEntity() {
 
+    }
+
+    public static enum TypeOfEnemy {
+        NORMAL_ENEMY;
     }
 }

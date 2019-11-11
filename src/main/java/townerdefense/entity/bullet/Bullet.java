@@ -3,7 +3,6 @@ package townerdefense.entity.bullet;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import townerdefense.GameConfig;
-import townerdefense.GameField;
 import townerdefense.entity.DestroyableEntity;
 import townerdefense.entity.Entity;
 import townerdefense.entity.UpdatableEntity;
@@ -33,7 +32,6 @@ public class Bullet extends Entity implements UpdatableEntity, DestroyableEntity
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.setFill(Color.AQUA);
         graphicsContext.fillOval(this.getCenterPosX(), this.getCenterPosY(), width, height);
-        //graphicsContext.strokeLine(this.posX, this.posY, this.enemy.getCenterPosX(), this.enemy.getCenterPosY());
     }
 
     @Override

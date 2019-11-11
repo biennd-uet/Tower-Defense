@@ -3,22 +3,17 @@ package townerdefense.entity.tile;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import townerdefense.GameConfig;
-import townerdefense.TypeOfEntity;
-import townerdefense.entity.Entity;
 import townerdefense.entity.SpawnableEntity;
 import townerdefense.entity.UpdatableEntity;
 import townerdefense.entity.enemy.Enemy;
-import townerdefense.entity.enemy.NormalEnemy;
 
 import java.util.ArrayDeque;
-import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
 
 public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
+    private final double timeBetweenSpawnEnemy;
     private Queue<Enemy> enemies;
     private double lastTimeSpawn;
-    private final double timeBetweenSpawnEnemy;
 
     public Spawner(double posX, double posY, double with, double height) {
         super(posX, posY, with, height);
@@ -36,7 +31,6 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.setFill(Color.LIGHTGREEN);
         graphicsContext.fillOval(this.posX, this.posY, this.width, this.height);
-        //System.out.printf("%f %f %f %f\n", this.posX, this.posY, this.with, this.height);
     }
 
     @Override
@@ -56,6 +50,6 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
 
     @Override
     public boolean hasEntityToSpawn() {
-        return !enemies.isEmpty() && timeBetweenSpawnEnemy + lastTimeSpawn <= System.nanoTime();
+        return ! enemies.isEmpty() && timeBetweenSpawnEnemy + lastTimeSpawn <= System.nanoTime();
     }
 }
