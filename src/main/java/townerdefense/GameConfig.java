@@ -27,7 +27,7 @@ public class GameConfig {
     //Name of Game
     public static final String GAME_TITLE = "Tower Defense";
     //FPS
-    public static final int FPS = 120;
+    public static final int FPS = 60;
     //nanosecond per second
     public static final int NPS = 1000000000;
     //nanosecond per frame

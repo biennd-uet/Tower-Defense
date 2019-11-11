@@ -50,7 +50,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
             double deltaX = enemyInRangeQueue.peek().getCenterPosX() - this.getCenterPosX();
             double deltaY = enemyInRangeQueue.peek().getCenterPosY() - this.getCenterPosY();
             theta = Math.toDegrees(Math.PI - Math.atan2(deltaX,deltaY));
-            System.out.println(theta);
+            //System.out.println(theta);
         }
 
 
