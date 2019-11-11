@@ -3,8 +3,10 @@ package townerdefense.entity.tile.tower;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import townerdefense.GameConfig;
 import townerdefense.GameField;
 import townerdefense.entity.Entity;
+import townerdefense.entity.SpawnableEntity;
 import townerdefense.entity.UpdateableEntity;
 import townerdefense.entity.bullet.Bullet;
 import townerdefense.entity.enemy.Enemy;
@@ -12,18 +14,17 @@ import townerdefense.entity.other.Point;
 import townerdefense.entity.tile.Tile;
 
 import java.util.ArrayDeque;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.function.Predicate;
 
-public abstract class Tower extends Tile implements UpdateableEntity {
-    protected Queue<Enemy> enemyQueue;
+public abstract class Tower extends Tile implements UpdateableEntity, SpawnableEntity {
+    private final double timeBetweenTwoAttack;
+    protected Queue<Enemy> enemyInRangeQueue;
     private double speed;
     private double range;
     private double damage;
     private Image image;
-    private Queue<Bullet> bullet = new LinkedList<>();
+    private double lastTimeAttack;
 
     public Tower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
         super(posX, posY, width, height);
@@ -31,49 +32,38 @@ public abstract class Tower extends Tile implements UpdateableEntity {
         this.speed = speed;
         this.range = range;
         this.damage = damage;
-        enemyQueue = new ArrayDeque<>();
-
+        enemyInRangeQueue = new ArrayDeque<>();
+        this.lastTimeAttack = 0;
+        timeBetweenTwoAttack = GameConfig.NPS / this.speed;
     }
 
     @Override
     public void update(int deltaTime) {
-        int time = 0;
-        time = +deltaTime;
-        if(time >= 10*deltaTime && Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
-                enemyQueue.peek().getCenterPosX(), enemyQueue.peek().getCenterPosY()) <= this.range){
-            bullet.add(new Bullet(enemyQueue.peek(),getCenterPosX(),getCenterPosY(),10,10,this.speed,this.damage));
-            time = 0;
-        }
-        if(!bullet.isEmpty()){
-            for(Bullet a :bullet){
-                a.update(deltaTime);
-            }
-        }
         this.removeEnemyOutRange();
         this.findEnemyInRange();
-        if(!bullet.isEmpty()){
-            if(bullet.peek().isCanRemove)bullet.poll();
-        }
+    }
+
+    //aim and attack
+    @Override
+    public Bullet spawn() {
+        lastTimeAttack = System.nanoTime();
+        return new Bullet(enemyInRangeQueue.peek(), this.getCenterPosX(), this.getCenterPosY(), this.damage);
     }
 
     private void findEnemyInRange() {
-        Predicate<Entity> enemyInRange = entity -> {
-            if(entity instanceof Enemy && ! enemyQueue.contains(entity)) {
-                if(Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
-                        entity.getCenterPosX(), entity.getCenterPosY()) <= this.range) {
-                    return true;
-                }
-            }
-            return false;
-        };
-        GameField.entities.stream().filter(enemyInRange).forEach(enemy -> this.enemyQueue.add((Enemy) enemy));
-
+        Predicate<Entity> enemyInRange = entity -> Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
+                entity.getCenterPosX(), entity.getCenterPosY()) <= this.range;
+        GameField.entities.stream()
+                .filter(entity -> entity instanceof Enemy)
+                .filter(enemy -> !enemyInRangeQueue.contains(enemy))
+                .filter(enemyInRange)
+                .forEach(enemy -> this.enemyInRangeQueue.add((Enemy) enemy));
     }
 
     private void removeEnemyOutRange() {
         Predicate<Entity> enemyOutRange = enemy -> Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
                 enemy.getCenterPosX(), enemy.getCenterPosY()) > this.range;
-        this.enemyQueue.removeIf(enemyOutRange);
+        this.enemyInRangeQueue.removeIf(enemyOutRange);
     }
 
     @Override
@@ -82,16 +72,15 @@ public abstract class Tower extends Tile implements UpdateableEntity {
         graphicsContext.setFill(Color.BLUE);
         graphicsContext.fillOval(this.posX, this.posY,
                 this.width, this.height);
-        (new Point(this.getCenterPosX(), getCenterPosY())).render(graphicsContext);
-        if (this.enemyQueue.peek() != null) {
-            assert enemyQueue.peek() != null;
+        //(new Point(this.getCenterPosX(), getCenterPosY())).render(graphicsContext);
+        if(this.enemyInRangeQueue.peek() != null) {
             graphicsContext.strokeLine(this.getCenterPosX(), this.getCenterPosY(),
-                    enemyQueue.peek().getCenterPosX(), enemyQueue.peek().getCenterPosY());
+                    enemyInRangeQueue.peek().getCenterPosX(), enemyInRangeQueue.peek().getCenterPosY());
         }
-        if(!bullet.isEmpty()){
-            for(Bullet a:bullet){
-                a.render(graphicsContext);
-            }
-        }
+    }
+
+    @Override
+    public boolean hasEntityToSpawn() {
+        return enemyInRangeQueue.size() > 0 && lastTimeAttack + timeBetweenTwoAttack <= System.nanoTime();
     }
 }

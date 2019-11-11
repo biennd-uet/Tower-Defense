@@ -42,19 +42,22 @@ public class GameController extends AnimationTimer {
         this.gameField.addEntity(new Target());
         this.gameField.addEntity(new NormalTower());
         this.gameField.addEntity(new NormalEnemy());
+
     }
 
     @Override
     public void handle(long now) {
-        int deltaTime = (int) (System.nanoTime() - lastTime);
+        int deltaTime = (int) (now - lastTime);
 
 
         this.gameField.updateEnemy(deltaTime);
+
         this.render();
+
         this.graphicsContext.setFill(Color.GOLD);
         this.graphicsContext.fillText(String.format("%f", (double) GameConfig.NPS / deltaTime), 10, 20);
 
-        this.lastTime = System.nanoTime();
+        this.lastTime = now;
     }
 
     @Override

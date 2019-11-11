@@ -3,9 +3,12 @@ package townerdefense.entity.tile;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import townerdefense.GameConfig;
+import townerdefense.entity.Entity;
+import townerdefense.entity.SpawnableEntity;
 import townerdefense.entity.UpdateableEntity;
 
-public class Spawner extends Tile implements UpdateableEntity {
+public class Spawner extends Tile implements UpdateableEntity, SpawnableEntity {
+
     public Spawner(double posX, double posY, double with, double height) {
         super(posX, posY, with, height);
     }
@@ -25,5 +28,15 @@ public class Spawner extends Tile implements UpdateableEntity {
     @Override
     public void update(int deltaTime) {
 
+    }
+
+    @Override
+    public Entity spawn() {
+        return null;
+    }
+
+    @Override
+    public boolean hasEntityToSpawn() {
+        return false;
     }
 }
