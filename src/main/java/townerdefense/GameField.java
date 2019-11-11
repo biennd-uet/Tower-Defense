@@ -12,6 +12,7 @@ import java.util.List;
 public class GameField {
     public static List<Entity> entities;
     private List<Entity> spawnedEntity = new ArrayList<>();
+    private List<Entity> destroyEntity = new ArrayList<>();
 
     public GameField() {
         this.entities = new ArrayList<>();
@@ -53,11 +54,12 @@ public class GameField {
         });
         //Update destroyable entity
         GameField.entities.forEach(entity -> {
-            if(entity instanceof DestroyableEntity) {
-                ((DestroyableEntity) entity).onDestroy();
+            if (entity instanceof DestroyableEntity && ((DestroyableEntity) entity).onDestroy()) {
+                destroyEntity.add(entity);
             }
         });
         //Todo: remove them if are destroyed
+
         //Update spawnalbe entity
         GameField.entities.forEach(entity -> {
             if(entity instanceof SpawnableEntity &&
@@ -67,5 +69,6 @@ public class GameField {
         });
         //Add them to game field
         GameField.entities.addAll(spawnedEntity);
+        GameField.entities.removeAll(destroyEntity);
     }
 }

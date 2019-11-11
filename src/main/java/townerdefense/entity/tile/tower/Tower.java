@@ -81,6 +81,6 @@ public abstract class Tower extends Tile implements UpdateableEntity, SpawnableE
 
     @Override
     public boolean hasEntityToSpawn() {
-        return enemyInRangeQueue.size() > 0 && lastTimeAttack + timeBetweenTwoAttack <= System.nanoTime();
+        return enemyInRangeQueue.size() > 0 && lastTimeAttack + timeBetweenTwoAttack <= System.nanoTime() ;
     }
 }
