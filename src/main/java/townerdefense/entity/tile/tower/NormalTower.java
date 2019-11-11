@@ -12,7 +12,7 @@ public class NormalTower extends Tower {
 
     //Default
     public NormalTower() {
-        this(null, GameConfig.TOWER_DEFAULT_POSX, GameConfig.TOWER_DEFAULT_POSY,
+        this(GameConfig.IMTower1, GameConfig.TOWER_DEFAULT_POSX, GameConfig.TOWER_DEFAULT_POSY,
                 GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
                 GameConfig.TOWER_SPEED, GameConfig.TOWER_RANGE, GameConfig.TOWER_DAMAGE);
     }

@@ -5,14 +5,14 @@ import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
 import townerdefense.GameConfig;
 import townerdefense.GameController;
-import townerdefense.entity.Direction;
-import townerdefense.entity.Entity;
-import townerdefense.entity.MovableEntity;
-import townerdefense.entity.UpdateableEntity;
+import townerdefense.TypeOfEntity;
+import townerdefense.entity.*;
 import townerdefense.entity.other.Point;
 import townerdefense.entity.tile.map.Map;
 
-public abstract class Enemy extends Entity implements UpdateableEntity, MovableEntity {
+import java.lang.reflect.Type;
+
+public abstract class Enemy extends Entity implements UpdatableEntity, MovableEntity, AttackedableEntity, DestroyableEntity {
     protected double health;
     protected double speed;
     protected double armor;
@@ -75,35 +75,21 @@ public abstract class Enemy extends Entity implements UpdateableEntity, MovableE
             return;
         }
 
-
         double deltaX = posX - nextPoint.getX();
         double deltaY = posY - nextPoint.getY();
-         System.out.println(deltaX + "      " + deltaY +"       "+ posX + "         " + posY);
-        //*--X---*----*
-        //      |
-        //      *
-        //System.out.println(posX + "          " + posY + "        " + currentPoint.getX() + "          " + currentPoint.getY());
-        //   if((int)deltaX == 1)deltaX = 0;
-        // if((int)deltaY == 1)deltaY = 0;
-        int a = 10;
-        if(this.posX < (nextPoint.getX() + a) && this.posX > (nextPoint.getX() - a) &&
-                this.posY < (nextPoint.getY() + a) && this.posY > (nextPoint.getY() - a)
+        //System.out.println(deltaX + "      " + deltaY +"       "+ posX + "         " + posY);
 
-        ) {
-            //System.out.printf("(%f %f) && (%f %f)\n", this.posX, this.posY,
-            // this.currentPoint.getX(), this.currentPoint.getY());
-            //System.out.printf("%s -> %s\n", currentPoint.toString(), this.getNextPoint().toString());
+        final int epsilon = 10;
+        if(Math.abs(this.posX - this.getNextPoint().getX()) < epsilon &&
+                Math.abs(this.posY - this.getNextPoint().getY()) < epsilon) {
             currentPoint = this.getNextPoint();
             indexCurrentPoint++;
             int x = (int) ((posX + 30) / GameConfig.SIZE_TILE_WIDTH);
             int y = (int) ((posY + 30) / GameConfig.SIZE_TILE_HEIGHT);
 
-            //  System.out.println(deltaX + "      " + deltaY +  "      " + x + "     " + y);
-            System.out.println(x + "        " + y + "       " + r + "      " + deltaX + "     " + deltaY);
-
             if(deltaX < 0 && Map.map[y][x] == 2) {
                 r = r + 90;
-            } else if(deltaY < 0 && Map.map[y][x] == 3) {
+            } else if(deltaY < 0 && Map.map[y][x] == TypeOfEntity.ROAD3) {
                 r = r + 90;
             } else if(deltaX > 0 && Map.map[y][x] == 4) {
                 r = r - 90;
@@ -128,17 +114,12 @@ public abstract class Enemy extends Entity implements UpdateableEntity, MovableE
         }
         if(deltaX < 0) {
             direction = Direction.RIGHT;
-
-
         } else if(deltaY < 0) {
             direction = Direction.DOWN;
-
         } else if(deltaX > 0) {
             direction = Direction.LEFT;
-
         } else {
             direction = Direction.UP;
-
         }
     }
 
@@ -149,11 +130,26 @@ public abstract class Enemy extends Entity implements UpdateableEntity, MovableE
 
     @Override
     public void render(GraphicsContext graphicsContext) {
+        //System.out.printf("%f %f %f %f\n", this.posX, this.posY, this.speed, this.r);
         graphicsContext.save();
         rotate(graphicsContext, r, posX + width / 2, posY + height / 2);
         graphicsContext.drawImage(image, posX, posY, width, height);
-   //     (new Point(this.getCenterPosX(), this.getCenterPosY())).render(graphicsContext);
-   //     graphicsContext.strokeRect(this.posX, this.posY, this.width, this.height);
+
         graphicsContext.restore();
+    }
+
+    @Override
+    public void onAttacked(double damage) {
+        this.health -= damage;
+    }
+
+    @Override
+    public boolean isDestroy() {
+        return health <= 0.0;
+    }
+
+    @Override
+    public void onDestroy() {
+
     }
 }

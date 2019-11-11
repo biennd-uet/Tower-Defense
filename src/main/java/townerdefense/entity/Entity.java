@@ -1,6 +1,9 @@
 package townerdefense.entity;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 
 public abstract class Entity implements GameEntity, DrawableEntity {
     protected double posX;
@@ -32,4 +35,6 @@ public abstract class Entity implements GameEntity, DrawableEntity {
     public double getPosY() {
         return posY;
     }
+
+
 }

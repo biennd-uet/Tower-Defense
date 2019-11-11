@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import townerdefense.entity.Entity;
+import townerdefense.entity.enemy.Enemy;
 import townerdefense.entity.enemy.NormalEnemy;
 import townerdefense.entity.other.Point;
 import townerdefense.entity.tile.Spawner;
@@ -21,7 +22,9 @@ public class GameController extends AnimationTimer {
     private final GameField gameField;
     private final Map map;
     private final WayPoint wayPoint;
+    private final Spawner spawner;
     private long lastTime;
+    private long lag;
 
 
     public GameController(GraphicsContext graphicsContext) {
@@ -30,36 +33,50 @@ public class GameController extends AnimationTimer {
         //GameStage gameStage = new GameStage();
         //this.gameField = gameStage.getGameField()
         //Todo: comment this code after finish before code
-        map = new Map();
-        wayPoint = new WayPoint();
+        this.map = new Map();
+        this.wayPoint = new WayPoint();
+        this.spawner = new Spawner();
         points = wayPoint.getPoints();
 
         this.gameField = new GameField();
 
         this.gameField.addAllEntity(map.getListTile());
-        this.gameField.addEntity(new WayPoint());
-        this.gameField.addEntity(new Spawner());
+        //this.gameField.addEntity(this.wayPoint);
+        this.gameField.addEntity(this.spawner);
         this.gameField.addEntity(new Target());
         this.gameField.addEntity(new NormalTower());
-        this.gameField.addEntity(new NormalEnemy());
+        //this.gameField.addEntity(new NormalEnemy());
+        this.spawner.addEnemy(new NormalEnemy());
+        this.spawner.addEnemy(new NormalEnemy());
+        this.spawner.addEnemy(new NormalEnemy());
+        this.spawner.addEnemy(new NormalEnemy());
     }
 
     @Override
     public void handle(long now) {
-        int deltaTime = (int) (System.nanoTime() - lastTime);
 
+        final double elapsed = now - lastTime;
+        lastTime = now;
+        lag += elapsed;
+        //Todo Get input
 
-        this.gameField.updateEnemy(deltaTime);
+        while (lag >= GameConfig.NPF) {
+            this.gameField.updateEnemy(GameConfig.NPF);
+            lag -= GameConfig.NPF;
+        }
+
         this.render();
-        this.graphicsContext.setFill(Color.GOLD);
-        this.graphicsContext.fillText(String.format("%f", (double) GameConfig.NPS / deltaTime), 10, 20);
 
-        this.lastTime = System.nanoTime();
+        this.graphicsContext.setFill(Color.GOLD);
+        this.graphicsContext.fillText(String.format("%f", (double) GameConfig.NPS / elapsed), 10, 20);
+
+        this.lastTime = now;
     }
 
     @Override
     public void start() {
         super.start();
+        lag = 0;
         this.lastTime = System.nanoTime();
     }
 
