@@ -3,9 +3,9 @@ package townerdefense.entity.tile;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import townerdefense.GameConfig;
-import townerdefense.entity.UpdateableEntity;
+import townerdefense.entity.UpdatableEntity;
 
-public class Target extends Tile implements UpdateableEntity {
+public class Target extends Tile implements UpdatableEntity {
     public Target(double posX, double posY, double with, double height) {
         super(posX, posY, with, height);
     }
