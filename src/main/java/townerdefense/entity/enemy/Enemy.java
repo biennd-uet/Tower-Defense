@@ -6,16 +6,13 @@ import javafx.scene.transform.Rotate;
 import townerdefense.GameConfig;
 import townerdefense.GameController;
 import townerdefense.TypeOfEntity;
-import townerdefense.entity.Direction;
-import townerdefense.entity.Entity;
-import townerdefense.entity.MovableEntity;
-import townerdefense.entity.UpdatableEntity;
+import townerdefense.entity.*;
 import townerdefense.entity.other.Point;
 import townerdefense.entity.tile.map.Map;
 
 import java.lang.reflect.Type;
 
-public abstract class Enemy extends Entity implements UpdatableEntity, MovableEntity {
+public abstract class Enemy extends Entity implements UpdatableEntity, MovableEntity, AttackedableEntity, DestroyableEntity {
     protected double health;
     protected double speed;
     protected double armor;
@@ -133,7 +130,7 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-        System.out.printf("%f %f %f %f\n", this.posX, this.posY, this.speed, this.r);
+        //System.out.printf("%f %f %f %f\n", this.posX, this.posY, this.speed, this.r);
         graphicsContext.save();
         rotate(graphicsContext, r, posX + width / 2, posY + height / 2);
         graphicsContext.drawImage(image, posX, posY, width, height);
@@ -141,4 +138,18 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
         graphicsContext.restore();
     }
 
+    @Override
+    public void onAttacked(double damage) {
+        this.health -= damage;
+    }
+
+    @Override
+    public boolean isDestroy() {
+        return health <= 0.0;
+    }
+
+    @Override
+    public void onDestroy() {
+
+    }
 }

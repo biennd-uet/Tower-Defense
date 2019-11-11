@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import townerdefense.GameConfig;
 import townerdefense.GameField;
+import townerdefense.entity.DestroyableEntity;
 import townerdefense.entity.Entity;
 import townerdefense.entity.SpawnableEntity;
 import townerdefense.entity.UpdatableEntity;
@@ -53,7 +54,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     private void findEnemyInRange() {
         Predicate<Entity> enemyInRange = entity -> Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
                 entity.getCenterPosX(), entity.getCenterPosY()) <= this.range;
-        GameField.entities.stream()
+        GameField.entities.parallelStream()
                 .filter(entity -> entity instanceof Enemy)
                 .filter(enemy -> ! enemyInRangeQueue.contains(enemy))
                 .filter(enemyInRange)
@@ -61,7 +62,8 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     }
 
     private void removeEnemyOutRange() {
-        Predicate<Entity> enemyOutRange = enemy -> Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
+        Predicate<Entity> enemyOutRange = enemy -> ((DestroyableEntity) enemy).isDestroy() ||
+                Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
                 enemy.getCenterPosX(), enemy.getCenterPosY()) > this.range;
         this.enemyInRangeQueue.removeIf(enemyOutRange);
     }

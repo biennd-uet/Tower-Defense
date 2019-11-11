@@ -40,11 +40,15 @@ public class GameController extends AnimationTimer {
         this.gameField = new GameField();
 
         this.gameField.addAllEntity(map.getListTile());
-        this.gameField.addEntity(this.wayPoint);
+        //this.gameField.addEntity(this.wayPoint);
         this.gameField.addEntity(this.spawner);
         this.gameField.addEntity(new Target());
         this.gameField.addEntity(new NormalTower());
-        this.gameField.addEntity(new NormalEnemy());
+        //this.gameField.addEntity(new NormalEnemy());
+        this.spawner.addEnemy(new NormalEnemy());
+        this.spawner.addEnemy(new NormalEnemy());
+        this.spawner.addEnemy(new NormalEnemy());
+        this.spawner.addEnemy(new NormalEnemy());
     }
 
     @Override

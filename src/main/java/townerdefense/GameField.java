@@ -54,12 +54,14 @@ public class GameField {
         });
         //Update destroyable entity
         GameField.entities.forEach(entity -> {
-            if (entity instanceof DestroyableEntity && ((DestroyableEntity) entity).onDestroy()) {
+            if (entity instanceof DestroyableEntity && ((DestroyableEntity) entity).isDestroy()) {
                 destroyEntity.add(entity);
             }
         });
-        //Todo: remove them if are destroyed
 
+        destroyEntity.forEach(entity -> ((DestroyableEntity) entity).onDestroy() );
+        GameField.entities.removeAll(destroyEntity);
+        destroyEntity.clear();
         //Update spawnalbe entity
         GameField.entities.forEach(entity -> {
             if(entity instanceof SpawnableEntity &&
@@ -69,6 +71,6 @@ public class GameField {
         });
         //Add them to game field
         GameField.entities.addAll(spawnedEntity);
-        GameField.entities.removeAll(destroyEntity);
+        spawnedEntity.clear();
     }
 }
