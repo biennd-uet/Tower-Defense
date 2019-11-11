@@ -60,7 +60,7 @@ public class GameConfig {
     //bullet config
     public static final int BULLET_WIDTH = 10;
     public static final int BULLET_HEIGHT = 10;
-    public static final int BULLET_SPEED = 100;//pixel per second
+    public static final int BULLET_SPEED = 300;//pixel per second
 
     //Image
     public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy;
