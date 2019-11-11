@@ -24,6 +24,7 @@ public class GameController extends AnimationTimer {
     private final WayPoint wayPoint;
     private final Spawner spawner;
     private long lastTime;
+    private long lag;
 
 
     public GameController(GraphicsContext graphicsContext) {
@@ -53,14 +54,21 @@ public class GameController extends AnimationTimer {
 
     @Override
     public void handle(long now) {
-        int deltaTime = (int) (now - lastTime);
 
-        this.gameField.updateEnemy(deltaTime);
+        final double elapsed = now - lastTime;
+        lastTime = now;
+        lag += elapsed;
+        //Todo Get input
+
+        while (lag >= GameConfig.NPF) {
+            this.gameField.updateEnemy(GameConfig.NPF);
+            lag -= GameConfig.NPF;
+        }
 
         this.render();
 
         this.graphicsContext.setFill(Color.GOLD);
-        this.graphicsContext.fillText(String.format("%f", (double) GameConfig.NPS / deltaTime), 10, 20);
+        this.graphicsContext.fillText(String.format("%f", (double) GameConfig.NPS / elapsed), 10, 20);
 
         this.lastTime = now;
     }
@@ -68,6 +76,7 @@ public class GameController extends AnimationTimer {
     @Override
     public void start() {
         super.start();
+        lag = 0;
         this.lastTime = System.nanoTime();
     }
 
