@@ -5,9 +5,10 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import townerdefense.GameConfig;
 import townerdefense.GameField;
+import townerdefense.entity.DestroyableEntity;
 import townerdefense.entity.Entity;
 import townerdefense.entity.SpawnableEntity;
-import townerdefense.entity.UpdateableEntity;
+import townerdefense.entity.UpdatableEntity;
 import townerdefense.entity.bullet.Bullet;
 import townerdefense.entity.enemy.Enemy;
 import townerdefense.entity.other.Point;
@@ -17,7 +18,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.function.Predicate;
 
-public abstract class Tower extends Tile implements UpdateableEntity, SpawnableEntity {
+public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEntity {
     private final double timeBetweenTwoAttack;
     protected Queue<Enemy> enemyInRangeQueue;
     private double speed;
@@ -53,15 +54,16 @@ public abstract class Tower extends Tile implements UpdateableEntity, SpawnableE
     private void findEnemyInRange() {
         Predicate<Entity> enemyInRange = entity -> Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
                 entity.getCenterPosX(), entity.getCenterPosY()) <= this.range;
-        GameField.entities.stream()
+        GameField.entities.parallelStream()
                 .filter(entity -> entity instanceof Enemy)
-                .filter(enemy -> !enemyInRangeQueue.contains(enemy))
+                .filter(enemy -> ! enemyInRangeQueue.contains(enemy))
                 .filter(enemyInRange)
                 .forEach(enemy -> this.enemyInRangeQueue.add((Enemy) enemy));
     }
 
     private void removeEnemyOutRange() {
-        Predicate<Entity> enemyOutRange = enemy -> Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
+        Predicate<Entity> enemyOutRange = enemy -> ((DestroyableEntity) enemy).isDestroy() ||
+                Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
                 enemy.getCenterPosX(), enemy.getCenterPosY()) > this.range;
         this.enemyInRangeQueue.removeIf(enemyOutRange);
     }

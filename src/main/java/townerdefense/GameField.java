@@ -3,9 +3,8 @@ package townerdefense;
 import townerdefense.entity.DestroyableEntity;
 import townerdefense.entity.Entity;
 import townerdefense.entity.SpawnableEntity;
-import townerdefense.entity.UpdateableEntity;
+import townerdefense.entity.UpdatableEntity;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -48,28 +47,30 @@ public class GameField {
 
 
         //Update state
-        GameField.entities.forEach(entity ->  {
-            if(entity instanceof UpdateableEntity) {
-                ((UpdateableEntity) entity).update(deltaTime);
+        GameField.entities.forEach(entity -> {
+            if(entity instanceof UpdatableEntity) {
+                ((UpdatableEntity) entity).update(deltaTime);
             }
         });
         //Update destroyable entity
         GameField.entities.forEach(entity -> {
-            if (entity instanceof DestroyableEntity && ((DestroyableEntity) entity).onDestroy()) {
+            if (entity instanceof DestroyableEntity && ((DestroyableEntity) entity).isDestroy()) {
                 destroyEntity.add(entity);
             }
         });
-        //Todo: remove them if are destroyed
 
+        destroyEntity.forEach(entity -> ((DestroyableEntity) entity).onDestroy() );
+        GameField.entities.removeAll(destroyEntity);
+        destroyEntity.clear();
         //Update spawnalbe entity
         GameField.entities.forEach(entity -> {
-            if (entity instanceof SpawnableEntity &&
+            if(entity instanceof SpawnableEntity &&
                     ((SpawnableEntity) entity).hasEntityToSpawn()) {
                 spawnedEntity.add(((SpawnableEntity) entity).spawn());
             }
         });
         //Add them to game field
         GameField.entities.addAll(spawnedEntity);
-        GameField.entities.removeAll(destroyEntity);
+        spawnedEntity.clear();
     }
 }
