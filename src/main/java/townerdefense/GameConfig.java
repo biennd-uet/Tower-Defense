@@ -2,6 +2,8 @@ package townerdefense;
 
 
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritableImage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,7 +27,7 @@ public class GameConfig {
     //Name of Game
     public static final String GAME_TITLE = "Tower Defense";
     //FPS
-    public static final int FPS = 120;
+    public static final int FPS = 60;
     //nanosecond per second
     public static final int NPS = 1000000000;
     //nanosecond per frame
@@ -64,7 +66,7 @@ public class GameConfig {
     public static final int BULLET_SPEED = 500;//pixel per second
 
     //Image
-    public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy;
+    public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy,IMTower,IMTower1;
 
     static {
 
@@ -77,13 +79,23 @@ public class GameConfig {
             IM5 = new Image(new FileInputStream("assets/5.png"));
             IM6 = new Image(new FileInputStream("assets/6.png"));
             IMEnemy = new Image(new FileInputStream("assets/enemy.png"));
+            IMTower = new Image(new FileInputStream("assets/tower.png"));
+            IMTower1 = cropImage(IMTower,0,0,4,4);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
     }
-
+    public static Image cropImage(Image image,int x,int y,int a,int b){
+        int W = (int) image.getWidth()/a;
+        int H = (int) image.getHeight()/b;
+        int pX = x*W;
+        int pY = y*H;
+        PixelReader reader = image.getPixelReader();
+        WritableImage newImage = new WritableImage(reader, pX, pY, W, H);
+        return newImage;
+    }
     //Make it can not declaration
     private GameConfig() {
 
