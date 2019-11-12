@@ -65,7 +65,7 @@ public class GameConfig {
     public static final int BULLET_SPEED = 500;//pixel per second
 
     //Image
-    public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy, IMTower, IMTower1;
+    public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy, IMTower, IMTower1,IMBlank,IMBullet;
 
     static {
 
@@ -80,6 +80,8 @@ public class GameConfig {
             IMEnemy = new Image(new FileInputStream("assets/enemy.png"));
             IMTower = new Image(new FileInputStream("assets/tower.png"));
             IMTower1 = cropImage(IMTower, 0, 0, 4, 4);
+            IMBlank = cropImage(new Image( new FileInputStream("assets/towers_walls_blank.png")),0,0,6,5);
+            IMBullet = new Image( new FileInputStream("assets/bullet.png"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
