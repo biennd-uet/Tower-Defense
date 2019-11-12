@@ -10,8 +10,6 @@ import townerdefense.entity.*;
 import townerdefense.entity.other.Point;
 import townerdefense.entity.tile.map.Map;
 
-import java.lang.reflect.Type;
-
 public abstract class Enemy extends Entity implements UpdatableEntity, MovableEntity, AttackedableEntity, DestroyableEntity {
     protected double health;
     protected double speed;
@@ -130,7 +128,6 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-        //System.out.printf("%f %f %f %f\n", this.posX, this.posY, this.speed, this.r);
         graphicsContext.save();
         rotate(graphicsContext, r, posX + width / 2, posY + height / 2);
         graphicsContext.drawImage(image, posX, posY, width, height);

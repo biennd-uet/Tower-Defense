@@ -4,7 +4,6 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import townerdefense.entity.Entity;
-import townerdefense.entity.enemy.Enemy;
 import townerdefense.entity.enemy.NormalEnemy;
 import townerdefense.entity.other.Point;
 import townerdefense.entity.tile.Spawner;

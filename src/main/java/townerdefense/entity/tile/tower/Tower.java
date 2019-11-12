@@ -2,7 +2,6 @@ package townerdefense.entity.tile.tower;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import townerdefense.GameConfig;
 import townerdefense.GameField;
@@ -30,7 +29,6 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     private double theta;
 
 
-
     public Tower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
         super(posX, posY, width, height);
         this.image = image;
@@ -46,14 +44,11 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     public void update(int deltaTime) {
         this.removeEnemyOutRange();
         this.findEnemyInRange();
-        if(!enemyInRangeQueue.isEmpty()){
+        if(! enemyInRangeQueue.isEmpty()) {
             double deltaX = enemyInRangeQueue.peek().getCenterPosX() - this.getCenterPosX();
             double deltaY = enemyInRangeQueue.peek().getCenterPosY() - this.getCenterPosY();
-            theta = Math.toDegrees(Math.PI - Math.atan2(deltaX,deltaY));
-            //System.out.println(theta);
+            theta = Math.toDegrees(Math.PI - Math.atan2(deltaX, deltaY));
         }
-
-
     }
 
     //aim and attack
@@ -76,32 +71,27 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     private void removeEnemyOutRange() {
         Predicate<Entity> enemyOutRange = enemy -> ((DestroyableEntity) enemy).isDestroy() ||
                 Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
-                enemy.getCenterPosX(), enemy.getCenterPosY()) > this.range;
+                        enemy.getCenterPosX(), enemy.getCenterPosY()) > this.range;
         this.enemyInRangeQueue.removeIf(enemyOutRange);
     }
+
     private void rotate(GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
+
     @Override
     public void render(GraphicsContext graphicsContext) {
+        graphicsContext.drawImage(GameConfig.IMBlank,posX,posY,width,height);
         graphicsContext.save();
         rotate(graphicsContext, theta, posX + width / 2, posY + height / 2);
         graphicsContext.drawImage(image, posX, posY, width, height);
 
         graphicsContext.restore();
-    //    graphicsContext.setFill(Color.BLUE);
-    //    graphicsContext.fillOval(this.posX, this.posY,
-           //     this.width, this.height);
-        //(new Point(this.getCenterPosX(), getCenterPosY())).render(graphicsContext);
-        if(this.enemyInRangeQueue.peek() != null) {
-            graphicsContext.strokeLine(this.getCenterPosX(), this.getCenterPosY(),
-                    enemyInRangeQueue.peek().getCenterPosX(), enemyInRangeQueue.peek().getCenterPosY());
-        }
     }
 
     @Override
     public boolean hasEntityToSpawn() {
-        return enemyInRangeQueue.size() > 0 && lastTimeAttack + timeBetweenTwoAttack <= System.nanoTime() ;
+        return enemyInRangeQueue.size() > 0 && lastTimeAttack + timeBetweenTwoAttack <= System.nanoTime();
     }
 }

@@ -2,6 +2,7 @@ package townerdefense.entity.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import townerdefense.GameConfig;
 
 
@@ -27,8 +28,18 @@ public class NormalEnemy extends Enemy {
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-        // graphicsContext.setFill(Color.AQUA);
-        // graphicsContext.fillOval(this.getCenterPosX(), this.getCenterPosY(), this.width, this.height);
         super.render(graphicsContext);
+
+        final double percentHealth = health / GameConfig.NORMAL_ENEMY_HEALTH_MAX;
+        if(percentHealth <= 0.25) {
+            graphicsContext.setFill(Color.RED);
+        } else if(percentHealth <= 0.5) {
+            graphicsContext.setFill(Color.ORANGE);
+        } else {
+            graphicsContext.setFill(Color.LIGHTGREEN);
+        }
+
+        graphicsContext.fillRect(this.getPosX(), this.getPosY() + 2,
+                width * percentHealth, 2);
     }
 }
