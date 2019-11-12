@@ -53,7 +53,7 @@ public class Bullet extends Entity implements UpdatableEntity, DestroyableEntity
         double deltaX = enemy.getCenterPosX() - this.posX;
         double deltaY = enemy.getCenterPosY() - this.posY;
         double theta = Math.atan2(deltaY, deltaX);
-        apha = Math.toDegrees(Math.PI - theta);
+        apha = Math.toDegrees(Math.PI/2 + theta);
         this.posX += deltaDistance * Math.cos(theta);
         this.posY += deltaDistance * Math.sin(theta);
     }

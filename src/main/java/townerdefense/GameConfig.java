@@ -60,8 +60,8 @@ public class GameConfig {
     public static final int TOWER_DAMAGE = 20;
     public static final int TOWER_RANGE = 700;
     //bullet config
-    public static final int BULLET_WIDTH = 10;
-    public static final int BULLET_HEIGHT = 10;
+    public static final int BULLET_WIDTH = 5;
+    public static final int BULLET_HEIGHT = 20;
     public static final int BULLET_SPEED = 500;//pixel per second
 
     //Image
