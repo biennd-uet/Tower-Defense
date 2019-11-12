@@ -3,7 +3,6 @@ package townerdefense;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import townerdefense.entity.Entity;
 import townerdefense.entity.enemy.NormalEnemy;
 import townerdefense.entity.other.Point;
 import townerdefense.entity.tile.Spawner;
@@ -13,6 +12,7 @@ import townerdefense.entity.tile.map.WayPoint;
 import townerdefense.entity.tile.tower.NormalTower;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameController extends AnimationTimer {
 
@@ -80,8 +80,9 @@ public class GameController extends AnimationTimer {
     }
 
     public void render() {
-        for(Entity entity : gameField.getListEntries()) {
-            entity.render(this.graphicsContext);
-        }
+        GameField.entities
+                .parallelStream()
+                .collect(Collectors.toList())
+                .forEach(entity -> entity.render(this.graphicsContext));
     }
 }
