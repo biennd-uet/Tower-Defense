@@ -54,12 +54,12 @@ public class GameField {
         });
         //Update destroyable entity
         GameField.entities.forEach(entity -> {
-            if (entity instanceof DestroyableEntity && ((DestroyableEntity) entity).isDestroy()) {
+            if(entity instanceof DestroyableEntity && ((DestroyableEntity) entity).isDestroy()) {
                 destroyEntity.add(entity);
             }
         });
 
-        destroyEntity.forEach(entity -> ((DestroyableEntity) entity).onDestroy() );
+        destroyEntity.forEach(entity -> ((DestroyableEntity) entity).onDestroy());
         GameField.entities.removeAll(destroyEntity);
         destroyEntity.clear();
         //Update spawnalbe entity
