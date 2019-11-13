@@ -2,8 +2,12 @@ package townerdefense;
 
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import javafx.util.Duration;
+import javafx.animation.Interpolator;
+import javafx.animation.Transition;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -65,7 +69,7 @@ public class GameConfig {
     public static final int BULLET_SPEED = 500;//pixel per second
 
     //Image
-    public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy, IMTower, IMTower1,IMBlank,IMBullet;
+    public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy, IMTower, IMTower1,IMBlank,IMBullet,IMAnimationWp,IMExplosion;
 
     static {
 
@@ -82,7 +86,8 @@ public class GameConfig {
             IMTower1 = cropImage(IMTower, 0, 0, 4, 4);
             IMBlank = cropImage(new Image( new FileInputStream("assets/towers_walls_blank.png")),0,0,6,5);
             IMBullet = new Image( new FileInputStream("assets/bullet.png"));
-
+            IMAnimationWp = new Image(new FileInputStream("assets/turret_01_mk1.png"));
+            IMExplosion = new Image(new FileInputStream("assets/explosion.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -90,9 +95,7 @@ public class GameConfig {
     }
 
     //Make it can not declaration
-    private GameConfig() {
 
-    }
 
     public static Image cropImage(Image image, int x, int y, int a, int b) {
         int W = (int) image.getWidth() / a;
@@ -103,5 +106,6 @@ public class GameConfig {
         WritableImage newImage = new WritableImage(reader, pX, pY, W, H);
         return newImage;
     }
+
 
 }

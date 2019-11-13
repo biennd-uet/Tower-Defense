@@ -21,6 +21,11 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
     private Point currentPoint;
     private Image image;
 
+    private double frame_number = 0;
+    private double x = 0;
+    private double y = 0;
+    private boolean dead = false;
+
     private Direction direction;
 
     protected Enemy(Image image, double r, double posX, double posY, double width, double height, double health, double speed, double armor, double reward) {
@@ -45,24 +50,26 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public void update(int deltaTime) {
-        calcDirection();
-        final double deltaDistance = speed * deltaTime / GameConfig.NPS;
-        switch (direction) {
-            case RIGHT:
-                posX += deltaDistance;
-                break;
-            case LEFT:
-                posX -= deltaDistance;
-                break;
-            case DOWN:
-                posY += deltaDistance;
-                break;
-            case UP:
-                posY -= deltaDistance;
-                break;
-            default:
-                break;
-        }
+       if(health > 0){
+           calcDirection();
+           final double deltaDistance = speed * deltaTime / GameConfig.NPS;
+           switch (direction) {
+               case RIGHT:
+                   posX += deltaDistance;
+                   break;
+               case LEFT:
+                   posX -= deltaDistance;
+                   break;
+               case DOWN:
+                   posY += deltaDistance;
+                   break;
+               case UP:
+                   posY -= deltaDistance;
+                   break;
+               default:
+                   break;
+           }
+       }
     }
 
 
@@ -133,6 +140,35 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
         graphicsContext.drawImage(image, posX, posY, width, height);
 
         graphicsContext.restore();
+        if(this.health < 0){
+            frame_number = frame_number + 0.4;
+            if(frame_number < 5){
+                x = ((int)frame_number)*GameConfig.IMExplosion.getWidth()/5;
+                y = 0;
+            }else if(frame_number >= 5 && frame_number < 10){
+                x = (((int)frame_number) - 5)*GameConfig.IMExplosion.getWidth()/5;
+                y = GameConfig.IMExplosion.getHeight()/3;
+            }else{
+                x = (((int)frame_number) - 10)*GameConfig.IMExplosion.getWidth()/5;
+                y = 2*GameConfig.IMExplosion.getHeight()/3;
+            }
+
+            // Clear the canvas
+
+
+            // Draw next image
+            graphicsContext.drawImage(GameConfig.IMExplosion, x, y,
+                    GameConfig.IMExplosion.getWidth()/5,
+                    GameConfig.IMExplosion.getHeight()/3,
+                    posX, posY,
+                    width,
+                    height);
+            if(frame_number > 15){
+                frame_number = 0;
+                dead = true;
+            }
+        }
+
     }
 
     @Override
@@ -142,7 +178,7 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public boolean isDestroy() {
-        return health <= 0.0;
+        return dead;
     }
 
     @Override
