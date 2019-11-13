@@ -1,7 +1,13 @@
 package townerdefense;
 
 import javafx.animation.AnimationTimer;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import townerdefense.entity.Entity;
 import townerdefense.entity.enemy.NormalEnemy;
@@ -26,7 +32,7 @@ public class GameController extends AnimationTimer {
     private long lag;
 
 
-    public GameController(GraphicsContext graphicsContext) {
+    public GameController(GraphicsContext graphicsContext, Pane pane) {
         this.graphicsContext = graphicsContext;
         //Todo: init Game field with GameStage and get return this
         //GameStage gameStage = new GameStage();
@@ -49,6 +55,9 @@ public class GameController extends AnimationTimer {
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
+
+
+
     }
 
     @Override

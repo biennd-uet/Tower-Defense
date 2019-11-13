@@ -25,7 +25,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     private double range;
     private double damage;
     private Image image;
-    private double lastTimeAttack;
+    protected double lastTimeAttack;
     private double theta;
 
 
@@ -52,11 +52,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     }
 
     //aim and attack
-    @Override
-    public Bullet spawn() {
-        lastTimeAttack = System.nanoTime();
-        return new Bullet(enemyInRangeQueue.peek(), this.getCenterPosX(), this.getCenterPosY(), this.damage);
-    }
+
 
     private void findEnemyInRange() {
         Predicate<Entity> enemyInRange = entity -> Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
