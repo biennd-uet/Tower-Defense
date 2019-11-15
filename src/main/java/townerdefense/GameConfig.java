@@ -63,13 +63,31 @@ public class GameConfig {
     public static final double TOWER_SPEED = 2.5; //Attack per Second
     public static final int TOWER_DAMAGE = 20;
     public static final int TOWER_RANGE = 700;
+
+    public static final double BEAM_TOWER_SPEED = 1.3; //Attack per Second
+    public static final int BEAM_TOWER_DAMAGE = 30;
+
+    public static final double ROCKET_TOWER_SPEED = 1.5; //Attack per Second
+    public static final int ROCKET_TOWER_DAMAGE = 50;
+    public static final int ROCKET_TOWER_RANGE = 700;
+
+
+
     //bullet config
-    public static final int BULLET_WIDTH = 5;
+    public static final int BULLET_WIDTH = 8;
     public static final int BULLET_HEIGHT = 20;
     public static final int BULLET_SPEED = 500;//pixel per second
 
+    public static final int BEAM_WIDTH = STAGE_WIDTH;
+    public static final int BEAM_HEIGHT = SIZE_UNIT;
+
+    public static final int ROCKET_WIDTH = 20;
+    public static final int ROCKET_HEIGHT = 45;
+    public static final int ROCKET_SPEED = 200;
+
+
     //Image
-    public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy, IMTower, IMTower1,IMBlank,IMBullet,IMAnimationWp,IMExplosion;
+    public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy, IMTower, IMTower1,IMBlank,IMBullet,IMAnimationWp,IMExplosion,IMBeamTower,IMBeam,IMRoketTower,IMRoket;
 
     static {
 
@@ -88,6 +106,10 @@ public class GameConfig {
             IMBullet = new Image( new FileInputStream("assets/bullet.png"));
             IMAnimationWp = new Image(new FileInputStream("assets/turret_01_mk1.png"));
             IMExplosion = new Image(new FileInputStream("assets/explosion.png"));
+            IMBeamTower = cropImage(IMTower,0,1,4,4);
+            IMBeam = new Image(new FileInputStream("assets/beam.png"));
+            IMRoketTower = cropImage(IMTower,3,3,4,4);
+            IMRoket = new Image(new FileInputStream("assets/rocket.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

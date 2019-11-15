@@ -16,7 +16,9 @@ import townerdefense.entity.tile.Spawner;
 import townerdefense.entity.tile.Target;
 import townerdefense.entity.tile.map.Map;
 import townerdefense.entity.tile.map.WayPoint;
+import townerdefense.entity.tile.tower.BeamTower;
 import townerdefense.entity.tile.tower.NormalTower;
+import townerdefense.entity.tile.tower.RoketTower;
 
 import java.util.List;
 
@@ -50,7 +52,12 @@ public class GameController extends AnimationTimer {
         this.gameField.addEntity(this.spawner);
         this.gameField.addEntity(new Target());
         this.gameField.addEntity(new NormalTower());
+      //  this.gameField.addEntity(new BeamTower());
         //this.gameField.addEntity(new NormalEnemy());
+        this.gameField.addEntity(new RoketTower());
+        this.spawner.addEnemy(new NormalEnemy());
+        this.spawner.addEnemy(new NormalEnemy());
+        this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
