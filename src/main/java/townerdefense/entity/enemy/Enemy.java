@@ -2,6 +2,7 @@ package townerdefense.entity.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import townerdefense.GameConfig;
 import townerdefense.GameController;
@@ -168,6 +169,7 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
                 dead = true;
             }
         }
+
 
     }
 

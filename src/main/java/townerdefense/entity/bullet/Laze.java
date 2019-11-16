@@ -31,6 +31,30 @@ public class Laze extends Bullet {
     private final double RIGHT = posX + GameConfig.STAGE_WIDTH/GameConfig.NUMBER_TILE_IN_HORIZONTAL;
 
 
+    private boolean UP(Enemy enemy){
+        if(enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + GameConfig.TOWER_WIDTH)
+                && enemy.getCenterPosY() < getCenterPosY() - GameConfig.TOWER_HEIGHT/2)return true;
+        else return false;
+    }
+
+    private boolean LEFT(Enemy enemy){
+        if(enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + GameConfig.TOWER_HEIGHT)
+                && enemy.getCenterPosX() < getCenterPosX() - GameConfig.TOWER_WIDTH/2)return true;
+        else return false;
+    }
+
+    private boolean DOWN(Enemy enemy){
+        if(enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + GameConfig.TOWER_WIDTH)
+                && enemy.getCenterPosY() > getCenterPosY() + GameConfig.TOWER_HEIGHT/2)return true;
+        else return false;
+    }
+
+    private boolean RIGHT(Enemy enemy){
+        if(enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + GameConfig.TOWER_HEIGHT)
+                && enemy.getCenterPosX() > getCenterPosX() + GameConfig.TOWER_WIDTH/2)return true;
+        else return false;
+    }
+
     public Laze(Queue<Enemy> enemyQueue,Image image, double posX, double posY, double with, double height, double speed, double damage) {
         super(image, posX, posY, with, height, speed, damage);
         this.enemyQueue = enemyQueue;
@@ -43,19 +67,21 @@ public class Laze extends Bullet {
     @Override
     public void render(GraphicsContext graphicsContext) {
         if(!enemyQueue.isEmpty()){
-            if(enemyQueue.peek().getPosX() < posX && Math.abs(enemyQueue.peek().getPosX() - posX) < 10){
+            if(LEFT(enemyQueue.peek())){
                 apha = 180;
-            }else if(enemyQueue.peek().getPosX() > posX && Math.abs(enemyQueue.peek().getPosX() - posX) < 10){
+            }else if(RIGHT(enemyQueue.peek())){
                 apha = 0;
-            }else if(enemyQueue.peek().getPosY() > posY && Math.abs(enemyQueue.peek().getPosY() - posY) < 10){
+            }else if(DOWN(enemyQueue.peek())){
                 apha = 90;
-            }else if(enemyQueue.peek().getPosY() < posY && Math.abs(enemyQueue.peek().getPosY() - posY) < 10){
+            }else if(UP((enemyQueue.peek()))){
                 apha = -90;
             }
-            //super.render(graphicsContext);
+            //super.render(graphicsContext);System.out.println(frame_number);
+            System.out.println(frame_number);
             frame_number = frame_number + 0.4;
             x = ((int)frame_number)*GameConfig.IMBeam.getWidth()/10;
             if(frame_number > 10)frame_number = 0;
+
             graphicsContext.save();
             rotate(graphicsContext, apha, posX , posY);
             graphicsContext.drawImage(image,x,y,
@@ -72,14 +98,14 @@ public class Laze extends Bullet {
     public void update(int deltaTime) {
         //super.update(deltaTime);
         if(!enemyQueue.isEmpty()){
-            if(enemyQueue.peek().getPosX() < posX && Math.abs(enemyQueue.peek().getPosX() - posX) < 10){
+            if(LEFT(enemyQueue.peek())){
                 posY = LEFT;
-            }else if(enemyQueue.peek().getPosX() > posX && Math.abs(enemyQueue.peek().getPosX() - posX) < 10){
+            }else if(RIGHT(enemyQueue.peek())){
                 posX = RIGHT;
-            }else if(enemyQueue.peek().getPosY() > posY && Math.abs(enemyQueue.peek().getPosY() - posY) < 10){
+            }else if(DOWN(enemyQueue.peek())){
                 posX = LEFT;
                 posY = RIGHT;
-            }else if(enemyQueue.peek().getPosY() < posY && Math.abs(enemyQueue.peek().getPosY() - posY) < 10){
+            }else if(UP(enemyQueue.peek())){
 
             }
         }
@@ -91,11 +117,7 @@ public class Laze extends Bullet {
     public boolean isDestroy() {
        /* return enemy.isDestroy() || Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
                 enemy.getCenterPosX(), this.getCenterPosY()) <= GameConfig.SIZE_UNIT;*/
-       if(!enemyQueue.isEmpty()){
-           return enemyQueue.peek().isDestroy();
-       }else {
-           return false;
-       }
+       return frame_number == 0;
 
     }
 

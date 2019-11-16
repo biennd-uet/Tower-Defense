@@ -39,10 +39,31 @@ public class GameConfig {
     //Enemy Config
     public static final int NORMAL_ENEMY_WIDTH = SIZE_UNIT;
     public static final int NORMAL_ENEMY_HEIGHT = SIZE_UNIT;
+
+
     public static final int NORMAL_ENEMY_HEALTH_MAX = 100;
-    public static final int NORMAL_ENEMY_SPEED = 300;
-    public static final int NORMAL_ENEMY_ARMOR = 20;
-    public static final int NORMAL_ENEMY_REWARD = 100; //Gold ?
+    public static final int NORMAL_ENEMY_SPEED = 250;
+    public static final int NORMAL_ENEMY_ARMOR = 30;
+    public static final int NORMAL_ENEMY_REWARD = 1; //Gold ?
+
+
+    public static final long SMALLER_ENEMY_HEALTH = 50;
+    public static final long SMALLER_ENEMY_ARMOR = 10;
+    public static final double SMALLER_ENEMY_SPEED = 200;
+    public static final long SMALLER_ENEMY_REWARD = 2;
+
+
+    public static final long TANKER_ENEMY_HEALTH = 300;
+    public static final long TANKER_ENEMY_ARMOR = 50;
+    public static final double TANKER_ENEMY_SPEED = 150;
+    public static final long TANKER_ENEMY_REWARD = 3;
+
+
+    public static final long BOSS_ENEMY_HEALTH = 500;
+    public static final long BOSS_ENEMY_ARMOR = 80;
+    public static final double BOSS_ENEMY_SPEED = 150;
+    public static final long BOSS_ENEMY_REWARD = 10;
+
     //Spawner Config
     public static final int SPAWNER_WIDTH = SIZE_UNIT;
     public static final int SPAWNER_HEIGHT = SIZE_UNIT;
@@ -76,18 +97,20 @@ public class GameConfig {
     //bullet config
     public static final int BULLET_WIDTH = 8;
     public static final int BULLET_HEIGHT = 20;
-    public static final int BULLET_SPEED = 500;//pixel per second
+    public static final int BULLET_SPEED = 900;//pixel per second
 
     public static final int BEAM_WIDTH = STAGE_WIDTH;
     public static final int BEAM_HEIGHT = SIZE_UNIT;
 
     public static final int ROCKET_WIDTH = 20;
     public static final int ROCKET_HEIGHT = 45;
-    public static final int ROCKET_SPEED = 200;
+    public static final int ROCKET_SPEED = 400;
 
 
     //Image
-    public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy, IMTower, IMTower1,IMBlank,IMBullet,IMAnimationWp,IMExplosion,IMBeamTower,IMBeam,IMRoketTower,IMRoket;
+    public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy,
+            IMTower, IMTower1,IMBlank,IMBullet,IMAnimationWp,IMExplosion,
+            IMBeamTower,IMBeam,IMRoketTower,IMRoket,IMBoss,IMTankEnemy,IMPlane;
 
     static {
 
@@ -110,6 +133,9 @@ public class GameConfig {
             IMBeam = new Image(new FileInputStream("assets/beam.png"));
             IMRoketTower = cropImage(IMTower,3,3,4,4);
             IMRoket = new Image(new FileInputStream("assets/rocket.png"));
+            IMBoss = new Image(new FileInputStream("assets/FinalBoss.png"));
+            IMTankEnemy = new Image(new FileInputStream("assets/TankEnemy.png"));
+            IMPlane = new Image(new FileInputStream("assets/plane.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
