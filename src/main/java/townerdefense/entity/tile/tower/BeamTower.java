@@ -14,6 +14,7 @@ import townerdefense.entity.bullet.Bullet;
 import townerdefense.entity.bullet.Laze;
 import townerdefense.entity.bullet.NormalBullet;
 import townerdefense.entity.enemy.Enemy;
+import townerdefense.entity.enemy.Plane;
 import townerdefense.entity.other.Point;
 import townerdefense.entity.tile.SpriteAnimation;
 
@@ -56,7 +57,7 @@ public class BeamTower extends Tower {
                     GameConfig.BEAM_TOWER_SPEED, GameConfig.TOWER_RANGE, GameConfig.TOWER_DAMAGE);
         }
     private void findEnemyInRange() {
-        Predicate<Entity> enemyInRange = entity -> UP(entity) || DOWN(entity) ||LEFT(entity) || RIGHT(entity) ;
+        Predicate<Entity> enemyInRange = entity -> (UP(entity) || DOWN(entity) ||LEFT(entity) || RIGHT(entity)) && !(entity instanceof Plane) ;
         GameField.entities.parallelStream()
                 .filter(entity -> entity instanceof Enemy)
                 .filter(enemy -> ! enemyInRangeQueue.contains(enemy))
@@ -77,9 +78,9 @@ public class BeamTower extends Tower {
     @Override
     public void update(int deltaTime) {
         //super.update(deltaTime);
-        this.findEnemyInRange();
-        this.removeEnemyOutRange();
-        System.out.println(enemyInRangeQueue.size());
+       // this.findEnemyInRange();
+
+     //   System.out.println(enemyInRangeQueue.size());
         if(!enemyInRangeQueue.isEmpty()){
             if(LEFT(enemyInRangeQueue.peek())){
                 theta = -90;
@@ -91,12 +92,13 @@ public class BeamTower extends Tower {
                 theta = 0;
             }
         }
+       // this.removeEnemyOutRange();
     }
 
     @Override
         public Bullet spawn() {
             lastTimeAttack = System.nanoTime();
-            return new Laze(enemyInRangeQueue, this.getCenterPosX(), this.getCenterPosY(), GameConfig.TOWER_DAMAGE);
+            return new Laze(enemyInRangeQueue, posX,posY, GameConfig.TOWER_DAMAGE);
         }
 
     }

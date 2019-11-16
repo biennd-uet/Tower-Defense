@@ -10,7 +10,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import townerdefense.entity.Entity;
+import townerdefense.entity.enemy.BossEnemy;
 import townerdefense.entity.enemy.NormalEnemy;
+import townerdefense.entity.enemy.Plane;
+import townerdefense.entity.enemy.TankEnemy;
 import townerdefense.entity.other.Point;
 import townerdefense.entity.tile.Spawner;
 import townerdefense.entity.tile.Target;
@@ -52,7 +55,7 @@ public class GameController extends AnimationTimer {
         this.gameField.addEntity(this.spawner);
         this.gameField.addEntity(new Target());
         this.gameField.addEntity(new NormalTower());
-      //  this.gameField.addEntity(new BeamTower());
+        this.gameField.addEntity(new BeamTower());
         //this.gameField.addEntity(new NormalEnemy());
         this.gameField.addEntity(new RoketTower());
         this.spawner.addEnemy(new NormalEnemy());
@@ -62,6 +65,12 @@ public class GameController extends AnimationTimer {
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
+        this.spawner.addEnemy(new Plane());
+        this.spawner.addEnemy(new Plane());
+        this.spawner.addEnemy(new Plane());
+        this.spawner.addEnemy(new TankEnemy());
+        this.spawner.addEnemy(new TankEnemy());
+        this.spawner.addEnemy(new BossEnemy());
 
 
 

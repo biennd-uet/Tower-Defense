@@ -16,7 +16,8 @@ public abstract class Bullet extends Entity implements UpdatableEntity, Destroya
     private double speed;
     private double damage;
     private Enemy enemy;
-    private double theta=0;
+    private double theta = 0;
+    private double apha;
     private Image image;
 
     public Bullet(Enemy enemy,Image image, double posX, double posY, double with, double height, double speed, double damage) {
@@ -42,7 +43,7 @@ public abstract class Bullet extends Entity implements UpdatableEntity, Destroya
      //   graphicsContext.setFill(Color.AQUA);
      //   graphicsContext.fillOval(this.getCenterPosX(), this.getCenterPosY(), width, height);
         graphicsContext.save();
-        rotate(graphicsContext, Math.toDegrees(Math.PI/2 + theta), posX + width / 2, posY + height / 2);
+        rotate(graphicsContext, apha, posX + width / 2, posY + height / 2);
         graphicsContext.drawImage(image, posX, posY, width, height);
 
         graphicsContext.restore();
@@ -56,7 +57,7 @@ public abstract class Bullet extends Entity implements UpdatableEntity, Destroya
             double deltaX = enemy.getCenterPosX() - this.posX;
             double deltaY = enemy.getCenterPosY() - this.posY;
              theta = Math.atan2(deltaY, deltaX);
-          //  apha = Math.toDegrees(Math.PI/2 + theta);
+            apha = Math.toDegrees(Math.PI/2 + theta);
             this.posX += deltaDistance * Math.cos(theta);
             this.posY += deltaDistance * Math.sin(theta);
         }else {
