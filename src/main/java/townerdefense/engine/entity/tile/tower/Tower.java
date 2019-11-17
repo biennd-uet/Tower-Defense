@@ -20,12 +20,12 @@ import java.util.function.Predicate;
 public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEntity {
     private final double timeBetweenTwoAttack;
     protected Queue<Enemy> enemyInRangeQueue;
+    protected double lastTimeAttack;
+    protected double theta;
     private double speed;
     private double range;
     private double damage;
     private Image image;
-    protected double lastTimeAttack;
-    protected double theta;
 
 
     public Tower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
@@ -77,7 +77,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-        graphicsContext.drawImage(GameConfig.IMBlank,posX,posY,width,height);
+        graphicsContext.drawImage(GameConfig.IMBlank, posX, posY, width, height);
         graphicsContext.save();
         rotate(graphicsContext, theta, posX + width / 2, posY + height / 2);
         graphicsContext.drawImage(image, posX, posY, width, height);
@@ -87,6 +87,6 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
 
     @Override
     public boolean hasEntityToSpawn() {
-        return enemyInRangeQueue.size() > 0 && lastTimeAttack + timeBetweenTwoAttack <= System.nanoTime() ;
+        return enemyInRangeQueue.size() > 0 && lastTimeAttack + timeBetweenTwoAttack <= System.nanoTime();
     }
 }

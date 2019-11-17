@@ -18,7 +18,7 @@ public class RoketTower extends Tower {
 
     //Default
     public RoketTower() {
-        this(GameConfig.IMRoketTower, GameConfig.SIZE_UNIT*6 ,GameConfig.SIZE_UNIT*4 ,
+        this(GameConfig.IMRoketTower, GameConfig.SIZE_UNIT * 6, GameConfig.SIZE_UNIT * 4,
                 GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
                 GameConfig.ROCKET_TOWER_SPEED, GameConfig.ROCKET_TOWER_RANGE, GameConfig.ROCKET_TOWER_DAMAGE);
     }
@@ -31,9 +31,9 @@ public class RoketTower extends Tower {
     @Override
     public Bullet spawn() {
         lastTimeAttack = System.nanoTime();
-        double pX = this.getCenterPosX() - GameConfig.ROCKET_WIDTH/2;
-        double pY = this.getCenterPosY() - GameConfig.ROCKET_HEIGHT/2;
-        return new Roket(enemyInRangeQueue.peek(),pX,pY,GameConfig.ROCKET_TOWER_DAMAGE);
+        double pX = this.getCenterPosX() - GameConfig.ROCKET_WIDTH / 2;
+        double pY = this.getCenterPosY() - GameConfig.ROCKET_HEIGHT / 2;
+        return new Roket(enemyInRangeQueue.peek(), pX, pY, GameConfig.ROCKET_TOWER_DAMAGE);
     }
 
 }

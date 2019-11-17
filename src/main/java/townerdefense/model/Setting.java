@@ -2,22 +2,21 @@ package townerdefense.model;
 
 
 public class Setting {
-    private boolean hasMusic;
-    private boolean hasSound;
-
-
     //Singleton Pattern
     private static Setting setting;
-    public static Setting getInstance() {
-        if (setting == null) {
-            setting = new Setting();
-        }
-        return setting;
-    }
+    private boolean hasMusic;
+    private boolean hasSound;
 
     private Setting() {
         hasSound = true;
         hasMusic = true;
+    }
+
+    public static Setting getInstance() {
+        if(setting == null) {
+            setting = new Setting();
+        }
+        return setting;
     }
 
     public boolean hasSound() {

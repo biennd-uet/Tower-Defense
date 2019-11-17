@@ -1,13 +1,14 @@
 package townerdefense.engine.entity.tile.map;
 
 import townerdefense.engine.GameConfig;
-import townerdefense.engine.TypeOfEntity;
+import townerdefense.engine.entity.TypeOfEntity;
 import townerdefense.engine.entity.Entity;
 import townerdefense.engine.entity.tile.Road;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 public class Map {
     public static int[][] map;
@@ -56,26 +57,26 @@ public class Map {
                 final int posY = i * GameConfig.SIZE_TILE_HEIGHT;
                 final int width = GameConfig.SIZE_TILE_WIDTH;
                 final int height = GameConfig.SIZE_TILE_HEIGHT;
-                switch (map[i][j]) {
-                    case TypeOfEntity.ROAD0:
+                switch (Objects.requireNonNull(TypeOfEntity.getTypeOfEntityByType(map[i][j]))) {
+                    case ROAD0:
                         this.tileList.add(new Road(GameConfig.IM0, posX, posY, width, height));
                         break;
-                    case TypeOfEntity.ROAD1:
+                    case ROAD1:
                         this.tileList.add(new Road(GameConfig.IM1, posX, posY, width, height));
                         break;
-                    case TypeOfEntity.ROAD2:
+                    case ROAD2:
                         this.tileList.add(new Road(GameConfig.IM2, posX, posY, width, height));
                         break;
-                    case TypeOfEntity.ROAD3:
+                    case ROAD3:
                         this.tileList.add(new Road(GameConfig.IM3, posX, posY, width, height));
                         break;
-                    case TypeOfEntity.ROAD4:
+                    case ROAD4:
                         this.tileList.add(new Road(GameConfig.IM4, posX, posY, width, height));
                         break;
-                    case TypeOfEntity.ROAD5:
+                    case ROAD5:
                         this.tileList.add(new Road(GameConfig.IM5, posX, posY, width, height));
                         break;
-                    case TypeOfEntity.ROAD6:
+                    case ROAD6:
                         this.tileList.add(new Road(GameConfig.IM6, posX, posY, width, height));
                         break;
                     default:

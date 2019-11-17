@@ -2,12 +2,8 @@ package townerdefense.engine;
 
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
-import javafx.util.Duration;
-import javafx.animation.Interpolator;
-import javafx.animation.Transition;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -27,6 +23,8 @@ public class GameConfig {
     public static final int SCREEN_HEIGHT = 860;
     //1200 - 1080 = 120
     //860 - 720 = 140
+    //Size of pick tower pick (Square)
+    public static final int SIZE_SQUARE_IN_BAR = 140;
     //Size of Stage
     public static final int STAGE_WIDTH = NUMBER_TILE_IN_HORIZONTAL * SIZE_TILE_WIDTH;
     public static final int STAGE_HEIGHT = NUMBER_TILE_IN_VERTICAL * SIZE_TILE_HEIGHT;
@@ -95,7 +93,6 @@ public class GameConfig {
     public static final int ROCKET_TOWER_RANGE = 700;
 
 
-
     //bullet config
     public static final int BULLET_WIDTH = 8;
     public static final int BULLET_HEIGHT = 20;
@@ -111,8 +108,8 @@ public class GameConfig {
 
     //Image
     public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy,
-            IMTower, IMTower1,IMBlank,IMBullet,IMAnimationWp,IMExplosion,
-            IMBeamTower,IMBeam,IMRoketTower,IMRoket,IMBoss,IMTankEnemy,IMPlane;
+            IMTower, IMTower1, IMBlank, IMBullet, IMAnimationWp, IMExplosion,
+            IMBeamTower, IMBeam, IMRoketTower, IMRoket, IMBoss, IMTankEnemy, IMPlane;
 
     static {
 
@@ -127,13 +124,13 @@ public class GameConfig {
             IMEnemy = new Image(new FileInputStream("assets/enemy.png"));
             IMTower = new Image(new FileInputStream("assets/tower.png"));
             IMTower1 = cropImage(IMTower, 0, 0, 4, 4);
-            IMBlank = cropImage(new Image( new FileInputStream("assets/towers_walls_blank.png")),0,0,6,5);
-            IMBullet = new Image( new FileInputStream("assets/bullet.png"));
+            IMBlank = cropImage(new Image(new FileInputStream("assets/towers_walls_blank.png")), 0, 0, 6, 5);
+            IMBullet = new Image(new FileInputStream("assets/bullet.png"));
             IMAnimationWp = new Image(new FileInputStream("assets/turret_01_mk1.png"));
             IMExplosion = new Image(new FileInputStream("assets/explosion.png"));
-            IMBeamTower = cropImage(IMTower,0,1,4,4);
+            IMBeamTower = cropImage(IMTower, 0, 1, 4, 4);
             IMBeam = new Image(new FileInputStream("assets/beam.png"));
-            IMRoketTower = cropImage(IMTower,3,3,4,4);
+            IMRoketTower = cropImage(IMTower, 3, 3, 4, 4);
             IMRoket = new Image(new FileInputStream("assets/rocket.png"));
             IMBoss = new Image(new FileInputStream("assets/FinalBoss.png"));
             IMTankEnemy = new Image(new FileInputStream("assets/TankEnemy.png"));

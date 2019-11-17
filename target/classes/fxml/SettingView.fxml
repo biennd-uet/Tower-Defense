@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="townerdefense.control.SettingController">
-   <children>
-      <Button fx:id="cancelButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" />
-      <VBox alignment="CENTER" layoutX="192.0" layoutY="64.0" prefHeight="200.0" prefWidth="100.0">
-         <children>
-            <CheckBox fx:id="soundCheckbox" mnemonicParsing="false" onAction="#switchStateSound" text="Sound" />
-            <CheckBox fx:id="musicCheckBox" mnemonicParsing="false" onAction="#switchSateMusic" text="Music" />
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </VBox>
-   </children>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
+            fx:controller="townerdefense.control.SettingController">
+    <children>
+        <Button fx:id="cancelButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false"
+                onAction="#handleCancelButton" text="Cancel"/>
+        <VBox alignment="CENTER" layoutX="192.0" layoutY="64.0" prefHeight="200.0" prefWidth="100.0">
+            <children>
+                <CheckBox fx:id="soundCheckbox" mnemonicParsing="false" onAction="#switchStateSound" text="Sound"/>
+                <CheckBox fx:id="musicCheckBox" mnemonicParsing="false" onAction="#switchSateMusic" text="Music"/>
+            </children>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+        </VBox>
+    </children>
 </AnchorPane>

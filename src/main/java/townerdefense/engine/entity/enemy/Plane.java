@@ -14,7 +14,7 @@ public class Plane extends Enemy {
 
     private Plane(Image image, double r, double posX, double posY, double with, double height, double health, double speed, double armor, double reward) {
         super(image, r, posX, posY, with, height, health, speed, armor, reward);
-        this.r = Math.toDegrees(Math.PI/2 - theta);
+        this.r = Math.toDegrees(Math.PI / 2 - theta);
     }
 
     public Plane() {
@@ -51,12 +51,12 @@ public class Plane extends Enemy {
 
     @Override
     public void update(int deltaTime) {
-       if(health > 0){
-           double deltaDistance = this.speed * deltaTime / GameConfig.NPS;
+        if(health > 0) {
+            double deltaDistance = this.speed * deltaTime / GameConfig.NPS;
 
-           this.posX += deltaDistance * Math.cos(theta);
-           this.posY += deltaDistance * Math.sin(theta);
+            this.posX += deltaDistance * Math.cos(theta);
+            this.posY += deltaDistance * Math.sin(theta);
 
-       }
+        }
     }
 }

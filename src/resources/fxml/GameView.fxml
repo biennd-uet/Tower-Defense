@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
 <?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="townerdefense.control.GameController">
-   <center>
-      <Group fx:id="gameArea" BorderPane.alignment="TOP_LEFT">
-         <children>
-            <Canvas fx:id="canvas" height="720.0" width="1200.0" />
-         </children>
-      </Group>
-   </center>
-   <right>
-      <StackPane fx:id="infomation" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="120.0" BorderPane.alignment="CENTER" />
-   </right>
-   <bottom>
-      <HBox fx:id="listTower" alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />
-   </bottom>
+    <center>
+        <Group fx:id="gameArea" BorderPane.alignment="TOP_LEFT">
+            <children>
+                <Canvas fx:id="canvas" height="720.0" width="1200.0" />
+            </children>
+        </Group>
+    </center>
+    <right>
+        <StackPane fx:id="infomation" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="120.0" BorderPane.alignment="CENTER" />
+    </right>
+    <bottom>
+        <HBox fx:id="listTower" alignment="BASELINE_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="1200.0" BorderPane.alignment="BOTTOM_LEFT">
+            <children>
+                <ImageView fx:id="tower1" fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="tower2" fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="tower3" fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="tower4" fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </HBox>
+    </bottom>
 </BorderPane>
