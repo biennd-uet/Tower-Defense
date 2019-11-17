@@ -17,15 +17,15 @@ public class WayPoint extends Entity {
         this.points = new ArrayList<>();
 
         this.points.add(new Point(GameConfig.SPAWNER_DEFAULT_POSX, GameConfig.SPAWNER_DEFAULT_POSY));
-        this.points.add(new Point(9 * GameConfig.SIZE_TILE_WIDTH, 1 * GameConfig.SIZE_TILE_HEIGHT));
         this.points.add(new Point(9 * GameConfig.SIZE_TILE_WIDTH, 3 * GameConfig.SIZE_TILE_HEIGHT));
-        this.points.add(new Point(0 * GameConfig.SIZE_TILE_WIDTH, 3 * GameConfig.SIZE_TILE_HEIGHT));
-        this.points.add(new Point(0 * GameConfig.SIZE_TILE_WIDTH, 5 * GameConfig.SIZE_TILE_HEIGHT));
-        this.points.add(new Point(9 * GameConfig.SIZE_TILE_WIDTH, 5 * GameConfig.SIZE_TILE_HEIGHT));
-        this.points.add(new Point(9 * GameConfig.SIZE_TILE_WIDTH, 7 * GameConfig.SIZE_TILE_HEIGHT));
-        this.points.add(new Point(0 * GameConfig.SIZE_TILE_WIDTH, 7 * GameConfig.SIZE_TILE_HEIGHT));
-        this.points.add(new Point(0 * GameConfig.SIZE_TILE_WIDTH, 9 * GameConfig.SIZE_TILE_HEIGHT));
         this.points.add(new Point(9 * GameConfig.SIZE_TILE_WIDTH, 9 * GameConfig.SIZE_TILE_HEIGHT));
+        this.points.add(new Point(3 * GameConfig.SIZE_TILE_WIDTH, 9 * GameConfig.SIZE_TILE_HEIGHT));
+        this.points.add(new Point(3 * GameConfig.SIZE_TILE_WIDTH, 16 * GameConfig.SIZE_TILE_HEIGHT));
+        this.points.add(new Point(15 * GameConfig.SIZE_TILE_WIDTH, 16 * GameConfig.SIZE_TILE_HEIGHT));
+        this.points.add(new Point(15 * GameConfig.SIZE_TILE_WIDTH, 3 * GameConfig.SIZE_TILE_HEIGHT));
+        this.points.add(new Point(25 * GameConfig.SIZE_TILE_WIDTH, 3 * GameConfig.SIZE_TILE_HEIGHT));
+        this.points.add(new Point(25 * GameConfig.SIZE_TILE_WIDTH, 16 * GameConfig.SIZE_TILE_HEIGHT));
+        this.points.add(new Point(29 * GameConfig.SIZE_TILE_WIDTH, 16 * GameConfig.SIZE_TILE_HEIGHT));
     }
 
     //Todo Generate from Map
