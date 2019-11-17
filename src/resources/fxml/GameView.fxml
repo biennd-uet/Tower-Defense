@@ -7,22 +7,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity"
-            xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="townerdefense.control.GameController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="townerdefense.control.GameController">
    <center>
-      <Group fx:id="gameArea" BorderPane.alignment="CENTER">
+      <Group fx:id="gameArea" BorderPane.alignment="TOP_LEFT">
          <children>
-            <Canvas fx:id="canvas" height="108.0" width="164.0" />
+            <Canvas fx:id="canvas" height="720.0" width="1200.0" />
          </children>
       </Group>
    </center>
    <right>
-      <StackPane fx:id="infomation" BorderPane.alignment="CENTER" />
+      <StackPane fx:id="infomation" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="120.0" BorderPane.alignment="CENTER" />
    </right>
    <bottom>
-      <HBox fx:id="listTower" BorderPane.alignment="CENTER" />
+      <HBox fx:id="listTower" alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>
