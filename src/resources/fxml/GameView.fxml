@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="townerdefense.control.GameController">
+   <center>
+      <Group fx:id="gameArea" BorderPane.alignment="CENTER">
+         <children>
+            <Canvas fx:id="canvas" height="108.0" width="164.0" />
+         </children>
+      </Group>
+   </center>
+   <right>
+      <StackPane fx:id="infomation" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <HBox fx:id="listTower" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>
