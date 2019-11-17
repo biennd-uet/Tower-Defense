@@ -25,8 +25,8 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     private double range;
     private double damage;
     private Image image;
-    private double lastTimeAttack;
-    private double theta;
+    protected double lastTimeAttack;
+    protected double theta;
 
 
     public Tower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
@@ -52,11 +52,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     }
 
     //aim and attack
-    @Override
-    public Bullet spawn() {
-        lastTimeAttack = System.nanoTime();
-        return new Bullet(enemyInRangeQueue.peek(), this.getCenterPosX(), this.getCenterPosY(), this.damage);
-    }
+
 
     private void findEnemyInRange() {
         Predicate<Entity> enemyInRange = entity -> Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
@@ -75,7 +71,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
         this.enemyInRangeQueue.removeIf(enemyOutRange);
     }
 
-    private void rotate(GraphicsContext gc, double angle, double px, double py) {
+    public void rotate(GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
@@ -92,6 +88,6 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
 
     @Override
     public boolean hasEntityToSpawn() {
-        return enemyInRangeQueue.size() > 0 && lastTimeAttack + timeBetweenTwoAttack <= System.nanoTime();
+        return enemyInRangeQueue.size() > 0 && lastTimeAttack + timeBetweenTwoAttack <= System.nanoTime() ;
     }
 }

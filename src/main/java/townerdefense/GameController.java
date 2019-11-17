@@ -1,15 +1,27 @@
 package townerdefense;
 
 import javafx.animation.AnimationTimer;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import townerdefense.entity.Entity;
+import townerdefense.entity.enemy.BossEnemy;
 import townerdefense.entity.enemy.NormalEnemy;
+import townerdefense.entity.enemy.Plane;
+import townerdefense.entity.enemy.TankEnemy;
 import townerdefense.entity.other.Point;
 import townerdefense.entity.tile.Spawner;
 import townerdefense.entity.tile.Target;
 import townerdefense.entity.tile.map.Map;
 import townerdefense.entity.tile.map.WayPoint;
+import townerdefense.entity.tile.tower.BeamTower;
 import townerdefense.entity.tile.tower.NormalTower;
+import townerdefense.entity.tile.tower.RoketTower;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,7 +38,7 @@ public class GameController extends AnimationTimer {
     private long lag;
 
 
-    public GameController(GraphicsContext graphicsContext) {
+    public GameController(GraphicsContext graphicsContext, Pane pane) {
         this.graphicsContext = graphicsContext;
         //Todo: init Game field with GameStage and get return this
         //GameStage gameStage = new GameStage();
@@ -44,11 +56,25 @@ public class GameController extends AnimationTimer {
         this.gameField.addEntity(this.spawner);
         this.gameField.addEntity(new Target());
         this.gameField.addEntity(new NormalTower());
+        this.gameField.addEntity(new BeamTower());
         //this.gameField.addEntity(new NormalEnemy());
+        this.gameField.addEntity(new RoketTower());
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
+        this.spawner.addEnemy(new NormalEnemy());
+        this.spawner.addEnemy(new NormalEnemy());
+        this.spawner.addEnemy(new NormalEnemy());
+        this.spawner.addEnemy(new Plane());
+        this.spawner.addEnemy(new Plane());
+        this.spawner.addEnemy(new Plane());
+        this.spawner.addEnemy(new TankEnemy());
+        this.spawner.addEnemy(new TankEnemy());
+        this.spawner.addEnemy(new BossEnemy());
+
+
+
     }
 
     @Override
