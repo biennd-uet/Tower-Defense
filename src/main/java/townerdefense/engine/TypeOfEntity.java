@@ -2,6 +2,7 @@ package townerdefense.engine;
 
 public class TypeOfEntity {
     //Type of tile
+
     public static final int ROAD0 = 0;
     public static final int ROAD1 = 1;
     public static final int ROAD2 = 2;
