@@ -15,16 +15,18 @@ import java.io.FileNotFoundException;
 public class GameConfig {
     //TODO: All settings
     //Unit
-    public static final int SIZE_UNIT = 72;
+    public static final int SIZE_UNIT = 36;
     //Size of Tile
     public static final int SIZE_TILE_WIDTH = SIZE_UNIT;
     public static final int SIZE_TILE_HEIGHT = SIZE_UNIT;
     //Number of tile in
-    public static final int NUMBER_TILE_IN_HORIZONTAL = 10;
-    public static final int NUMBER_TILE_IN_VERTICAL = 10;
+    public static final int NUMBER_TILE_IN_HORIZONTAL = 30;
+    public static final int NUMBER_TILE_IN_VERTICAL = 20;
     //Size of Screen
-    public static final int SCREEN_WIDTH = 890;
-    public static final int SCREEN_HEIGHT = 890;
+    public static final int SCREEN_WIDTH = 1200;
+    public static final int SCREEN_HEIGHT = 860;
+    //1200 - 1080 = 120
+    //860 - 720 = 140
     //Size of Stage
     public static final int STAGE_WIDTH = NUMBER_TILE_IN_HORIZONTAL * SIZE_TILE_WIDTH;
     public static final int STAGE_HEIGHT = NUMBER_TILE_IN_VERTICAL * SIZE_TILE_HEIGHT;
