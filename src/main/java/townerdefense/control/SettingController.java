@@ -50,7 +50,7 @@ public class SettingController implements Initializable {
 
     @FXML
     public void switchStateSound(ActionEvent event) {
-        if(soundCheckbox.isSelected()) {
+        if (soundCheckbox.isSelected()) {
             setting.turnOnSound();
         } else {
             setting.turnOffSound();
@@ -59,7 +59,7 @@ public class SettingController implements Initializable {
 
     @FXML
     public void switchSateMusic(ActionEvent event) {
-        if(musicCheckBox.isSelected()) {
+        if (musicCheckBox.isSelected()) {
             setting.turnOnMusic();
         } else {
             setting.turnOffMusic();

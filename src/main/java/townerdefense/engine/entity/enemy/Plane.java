@@ -37,9 +37,9 @@ public class Plane extends Enemy {
 
 
         final double percentHealth = health / GameConfig.SMALLER_ENEMY_HEALTH;
-        if(percentHealth <= 0.25) {
+        if (percentHealth <= 0.25) {
             graphicsContext.setFill(Color.RED);
-        } else if(percentHealth <= 0.5) {
+        } else if (percentHealth <= 0.5) {
             graphicsContext.setFill(Color.ORANGE);
         } else {
             graphicsContext.setFill(Color.LIGHTGREEN);
@@ -51,7 +51,7 @@ public class Plane extends Enemy {
 
     @Override
     public void update(int deltaTime) {
-        if(health > 0) {
+        if (health > 0) {
             double deltaDistance = this.speed * deltaTime / GameConfig.NPS;
 
             this.posX += deltaDistance * Math.cos(theta);

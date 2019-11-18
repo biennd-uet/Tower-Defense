@@ -6,6 +6,7 @@ import javafx.scene.transform.Rotate;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.DestroyableEntity;
 import townerdefense.engine.entity.Entity;
+import townerdefense.engine.entity.GameEntity;
 import townerdefense.engine.entity.UpdatableEntity;
 import townerdefense.engine.entity.enemy.Enemy;
 import townerdefense.engine.entity.other.Point;
@@ -53,7 +54,7 @@ public abstract class Bullet extends Entity implements UpdatableEntity, Destroya
     @Override
     public void update(int deltaTime) {
         double deltaDistance = this.speed * deltaTime / GameConfig.NPS;
-        if(! enemy.isDestroy()) {
+        if (!enemy.isDestroy()) {
 
             double deltaX = enemy.getCenterPosX() - this.posX;
             double deltaY = enemy.getCenterPosY() - this.posY;
@@ -72,7 +73,7 @@ public abstract class Bullet extends Entity implements UpdatableEntity, Destroya
     public boolean isDestroy() {
         return (this.getCenterPosX() < GameConfig.STAGE_WIDTH && this.getCenterPosX() < 0 && this.getCenterPosY() < GameConfig.STAGE_HEIGHT && this.getCenterPosY() > 0)
                 || Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
-                enemy.getCenterPosX(), this.getCenterPosY()) <= 10;
+                enemy.getCenterPosX(), enemy.getCenterPosY()) <= GameConfig.SIZE_TILE_WIDTH;
     }
 
     @Override

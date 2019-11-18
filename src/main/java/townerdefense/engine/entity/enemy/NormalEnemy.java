@@ -31,9 +31,9 @@ public class NormalEnemy extends Enemy {
         super.render(graphicsContext);
 
         final double percentHealth = health / GameConfig.NORMAL_ENEMY_HEALTH_MAX;
-        if(percentHealth <= 0.25) {
+        if (percentHealth <= 0.25) {
             graphicsContext.setFill(Color.RED);
-        } else if(percentHealth <= 0.5) {
+        } else if (percentHealth <= 0.5) {
             graphicsContext.setFill(Color.ORANGE);
         } else {
             graphicsContext.setFill(Color.LIGHTGREEN);

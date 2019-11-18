@@ -27,6 +27,7 @@ public class GameField {
     }
 
     public void addEntity(Entity entity) {
+        System.out.println("Add Entity");
         entities.add(entity);
     }
 
@@ -48,13 +49,13 @@ public class GameField {
 
         //Update state
         GameField.entities.forEach(entity -> {
-            if(entity instanceof UpdatableEntity) {
+            if (entity instanceof UpdatableEntity) {
                 ((UpdatableEntity) entity).update(deltaTime);
             }
         });
         //Update destroyable entity
         GameField.entities.forEach(entity -> {
-            if(entity instanceof DestroyableEntity && ((DestroyableEntity) entity).isDestroy()) {
+            if (entity instanceof DestroyableEntity && ((DestroyableEntity) entity).isDestroy()) {
                 destroyEntity.add(entity);
             }
         });
@@ -64,7 +65,7 @@ public class GameField {
         destroyEntity.clear();
         //Update spawnalbe entity
         GameField.entities.forEach(entity -> {
-            if(entity instanceof SpawnableEntity &&
+            if (entity instanceof SpawnableEntity &&
                     ((SpawnableEntity) entity).hasEntityToSpawn()) {
                 spawnedEntity.add(((SpawnableEntity) entity).spawn());
             }

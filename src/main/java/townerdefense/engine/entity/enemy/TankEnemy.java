@@ -31,9 +31,9 @@ public class TankEnemy extends Enemy {
         super.render(graphicsContext);
 
         final double percentHealth = health / GameConfig.TANKER_ENEMY_HEALTH;
-        if(percentHealth <= 0.25) {
+        if (percentHealth <= 0.25) {
             graphicsContext.setFill(Color.RED);
-        } else if(percentHealth <= 0.5) {
+        } else if (percentHealth <= 0.5) {
             graphicsContext.setFill(Color.ORANGE);
         } else {
             graphicsContext.setFill(Color.LIGHTGREEN);

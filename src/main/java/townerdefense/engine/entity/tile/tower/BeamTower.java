@@ -31,41 +31,41 @@ public class BeamTower extends Tower {
     }
 
     private boolean UP(Entity enemy) {
-        if(enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + width) && enemy.getCenterPosY() < getCenterPosY() - height / 2)
+        if (enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + width) && enemy.getCenterPosY() < getCenterPosY() - height / 2)
             return true;
         else return false;
     }
 
     private boolean LEFT(Entity enemy) {
-        if(enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + height) && enemy.getCenterPosX() < getCenterPosX() - width / 2)
+        if (enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + height) && enemy.getCenterPosX() < getCenterPosX() - width / 2)
             return true;
         else return false;
     }
 
     private boolean DOWN(Entity enemy) {
-        if(enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + width) && enemy.getCenterPosY() > getCenterPosY() + height / 2)
+        if (enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + width) && enemy.getCenterPosY() > getCenterPosY() + height / 2)
             return true;
         else return false;
     }
 
     private boolean RIGHT(Entity enemy) {
-        if(enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + height) && enemy.getCenterPosX() > getCenterPosX() + width / 2)
+        if (enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + height) && enemy.getCenterPosX() > getCenterPosX() + width / 2)
             return true;
         else return false;
     }
 
     private void findEnemyInRange() {
-        Predicate<Entity> enemyInRange = entity -> (UP(entity) || DOWN(entity) || LEFT(entity) || RIGHT(entity)) && ! (entity instanceof Plane);
+        Predicate<Entity> enemyInRange = entity -> (UP(entity) || DOWN(entity) || LEFT(entity) || RIGHT(entity)) && !(entity instanceof Plane);
         GameField.entities.parallelStream()
                 .filter(entity -> entity instanceof Enemy)
-                .filter(enemy -> ! enemyInRangeQueue.contains(enemy))
+                .filter(enemy -> !enemyInRangeQueue.contains(enemy))
                 .filter(enemyInRange)
                 .forEach(enemy -> this.enemyInRangeQueue.add((Enemy) enemy));
     }
 
     private void removeEnemyOutRange() {
         Predicate<Entity> enemyOutRange = enemy -> ((DestroyableEntity) enemy).isDestroy() ||
-                ! (UP(enemy) && DOWN(enemy) && LEFT(enemy) && RIGHT(enemy));
+                !(UP(enemy) && DOWN(enemy) && LEFT(enemy) && RIGHT(enemy));
         this.enemyInRangeQueue.removeIf(enemyOutRange);
     }
 
@@ -80,12 +80,12 @@ public class BeamTower extends Tower {
         // this.findEnemyInRange();
 
         //   System.out.println(enemyInRangeQueue.size());
-        if(! enemyInRangeQueue.isEmpty()) {
-            if(LEFT(enemyInRangeQueue.peek())) {
-                theta = - 90;
-            } else if(RIGHT(enemyInRangeQueue.peek())) {
+        if (!enemyInRangeQueue.isEmpty()) {
+            if (LEFT(enemyInRangeQueue.peek())) {
+                theta = -90;
+            } else if (RIGHT(enemyInRangeQueue.peek())) {
                 theta = 90;
-            } else if(DOWN(enemyInRangeQueue.peek())) {
+            } else if (DOWN(enemyInRangeQueue.peek())) {
                 theta = 180;
             } else {
                 theta = 0;

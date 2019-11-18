@@ -8,4 +8,5 @@ module towerdefense {
     opens townerdefense;
     opens townerdefense.engine;
     opens townerdefense.control;
+    opens townerdefense.model;
 }

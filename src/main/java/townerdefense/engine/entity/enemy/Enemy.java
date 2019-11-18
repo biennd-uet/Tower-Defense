@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
 import townerdefense.control.GameController;
 import townerdefense.engine.GameConfig;
-import townerdefense.engine.entity.TypeOfEntity;
 import townerdefense.engine.entity.*;
 import townerdefense.engine.entity.other.Point;
 import townerdefense.engine.entity.tile.map.Map;
@@ -42,7 +41,7 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
     }
 
     public Point getNextPoint() {
-        if(this.indexCurrentPoint < GameController.points.size() - 1) {
+        if (this.indexCurrentPoint < GameController.points.size() - 1) {
             return GameController.points.get(indexCurrentPoint + 1);
         }
         return null;
@@ -50,7 +49,7 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public void update(int deltaTime) {
-        if(health > 0) {
+        if (health > 0) {
             calcDirection();
             final double deltaDistance = speed * deltaTime / GameConfig.NPS;
             switch (direction) {
@@ -76,7 +75,7 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
     private void calcDirection() {
 
         Point nextPoint = this.getNextPoint();
-        if(nextPoint == null) {
+        if (nextPoint == null) {
             return;
         }
 
@@ -85,43 +84,43 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
         //System.out.println(deltaX + "      " + deltaY +"       "+ posX + "         " + posY);
 
         final int epsilon = 10;
-        if(Math.abs(this.posX - this.getNextPoint().getX()) < epsilon &&
+        if (Math.abs(this.posX - this.getNextPoint().getX()) < epsilon &&
                 Math.abs(this.posY - this.getNextPoint().getY()) < epsilon) {
             currentPoint = this.getNextPoint();
             indexCurrentPoint++;
             int x = (int) ((posX + 30) / GameConfig.SIZE_TILE_WIDTH);
             int y = (int) ((posY + 30) / GameConfig.SIZE_TILE_HEIGHT);
 
-            if(deltaX < 0 && Map.map[y][x] == 2) {
+            if (deltaX < 0 && Map.map[y][x] == 2) {
                 r = r + 90;
-            } else if(deltaY < 0 && Map.map[y][x] == TypeOfEntity.ROAD3.value) {
+            } else if (deltaY < 0 && Map.map[y][x] == TypeOfEntity.ROAD3.value) {
                 r = r + 90;
-            } else if(deltaX > 0 && Map.map[y][x] == TypeOfEntity.ROAD4.value) {
+            } else if (deltaX > 0 && Map.map[y][x] == TypeOfEntity.ROAD4.value) {
                 r = r - 90;
-            } else if(deltaY < 0 && Map.map[y][x] == TypeOfEntity.ROAD5.value) {
+            } else if (deltaY < 0 && Map.map[y][x] == TypeOfEntity.ROAD5.value) {
                 r = r - 90;
-            } else if(deltaY > 0 && Map.map[y][x] == TypeOfEntity.ROAD2.value) {
+            } else if (deltaY > 0 && Map.map[y][x] == TypeOfEntity.ROAD2.value) {
                 r = r - 90;
-            } else if(deltaX > 0 && Map.map[y][x] == TypeOfEntity.ROAD3.value) {
+            } else if (deltaX > 0 && Map.map[y][x] == TypeOfEntity.ROAD3.value) {
                 r = r - 90;
-            } else if(deltaY < 0 && Map.map[y][x] == TypeOfEntity.ROAD4.value) {
+            } else if (deltaY < 0 && Map.map[y][x] == TypeOfEntity.ROAD4.value) {
                 r = r + 90;
-            } else if(deltaX > 0 && Map.map[y][x] == TypeOfEntity.ROAD5.value) {
+            } else if (deltaX > 0 && Map.map[y][x] == TypeOfEntity.ROAD5.value) {
                 r = r + 90;
             }
-            if(r == 360) r = 0;
+            if (r == 360) r = 0;
 
             //If over the way
-            if(currentPoint == null) {
+            if (currentPoint == null) {
                 //Todo Destroy enemy
                 return;
             }
         }
-        if(deltaX < 0) {
+        if (deltaX < 0) {
             direction = Direction.RIGHT;
-        } else if(deltaY < 0) {
+        } else if (deltaY < 0) {
             direction = Direction.DOWN;
-        } else if(deltaX > 0) {
+        } else if (deltaX > 0) {
             direction = Direction.LEFT;
         } else {
             direction = Direction.UP;
@@ -140,12 +139,12 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
         graphicsContext.drawImage(image, posX, posY, width, height);
 
         graphicsContext.restore();
-        if(this.health < 0) {
+        if (this.health < 0) {
             frame_number = frame_number + 0.4;
-            if(frame_number < 5) {
+            if (frame_number < 5) {
                 x = ((int) frame_number) * GameConfig.IMExplosion.getWidth() / 5;
                 y = 0;
-            } else if(frame_number >= 5 && frame_number < 10) {
+            } else if (frame_number >= 5 && frame_number < 10) {
                 x = (((int) frame_number) - 5) * GameConfig.IMExplosion.getWidth() / 5;
                 y = GameConfig.IMExplosion.getHeight() / 3;
             } else {
@@ -163,7 +162,7 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
                     posX, posY,
                     width,
                     height);
-            if(frame_number > 15) {
+            if (frame_number > 15) {
                 frame_number = 0;
                 dead = true;
             }

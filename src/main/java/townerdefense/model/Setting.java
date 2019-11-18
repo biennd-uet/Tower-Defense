@@ -13,7 +13,7 @@ public class Setting {
     }
 
     public static Setting getInstance() {
-        if(setting == null) {
+        if (setting == null) {
             setting = new Setting();
         }
         return setting;

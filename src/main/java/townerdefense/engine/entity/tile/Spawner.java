@@ -50,6 +50,6 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
 
     @Override
     public boolean hasEntityToSpawn() {
-        return ! enemies.isEmpty() && timeBetweenSpawnEnemy + lastTimeSpawn <= System.nanoTime();
+        return !enemies.isEmpty() && timeBetweenSpawnEnemy + lastTimeSpawn <= System.nanoTime();
     }
 }

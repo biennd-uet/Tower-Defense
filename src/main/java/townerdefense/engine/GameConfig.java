@@ -83,7 +83,7 @@ public class GameConfig {
     //public static final double TOWER_SPEED_BULLET = 1500;
     public static final double TOWER_SPEED = 2.5; //Attack per Second
     public static final int TOWER_DAMAGE = 20;
-    public static final int TOWER_RANGE = 700;
+    public static final int TOWER_RANGE = 200;
 
     public static final double BEAM_TOWER_SPEED = 1.3; //Attack per Second
     public static final int BEAM_TOWER_DAMAGE = 30;

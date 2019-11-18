@@ -1,6 +1,6 @@
 package townerdefense.engine.entity;
 
-public enum  TypeOfEntity {
+public enum TypeOfEntity {
     ROAD0(0), ROAD1(1),
     ROAD2(2), ROAD3(3),
     ROAD4(4), ROAD5(5),
@@ -13,7 +13,7 @@ public enum  TypeOfEntity {
     }
 
     public static TypeOfEntity getTypeOfEntityByType(int value) {
-        for(TypeOfEntity typeOfEntity : TypeOfEntity.values()) {
+        for (TypeOfEntity typeOfEntity : TypeOfEntity.values()) {
             if (typeOfEntity.value == value) {
                 return typeOfEntity;
             }
