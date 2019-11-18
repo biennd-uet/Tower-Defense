@@ -21,6 +21,7 @@ import townerdefense.engine.entity.tile.Spawner;
 import townerdefense.engine.entity.tile.Target;
 import townerdefense.engine.entity.tile.map.Map;
 import townerdefense.engine.entity.tile.map.WayPoint;
+import townerdefense.engine.entity.tile.tower.MachineGunTower;
 import townerdefense.engine.entity.tile.tower.NormalTower;
 import townerdefense.engine.entity.tile.tower.RoketTower;
 
@@ -72,18 +73,18 @@ public class GameController extends AnimationTimer implements Initializable {
 
         this.map = new Map();
         this.wayPoint = new WayPoint();
-        this.spawner = new Spawner();
-        points = wayPoint.getPoints();
 
+        points = wayPoint.getPoints();
         this.gameField = new GameField();
 
         this.gameField.addAllEntity(map.getListTile());
+        this.spawner = new Spawner();
         this.gameField.addEntity(this.spawner);
         this.gameField.addEntity(new Target());
         this.gameField.addEntity(new NormalTower());
         this.gameField.addEntity(new RoketTower());
-        this.gameField.addEntity(new NormalEnemy());
-
+       // this.gameField.addEntity(new MachineGunTower());
+/*
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
@@ -95,7 +96,7 @@ public class GameController extends AnimationTimer implements Initializable {
         this.spawner.addEnemy(new Plane());
         this.spawner.addEnemy(new TankEnemy());
         this.spawner.addEnemy(new TankEnemy());
-        this.spawner.addEnemy(new BossEnemy());
+        this.spawner.addEnemy(new BossEnemy());*/
 
         System.out.println("Start game ");
 
