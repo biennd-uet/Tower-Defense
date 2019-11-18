@@ -1,12 +1,13 @@
 package townerdefense.engine.entity;
 
-import townerdefense.engine.entity.bullet.Bullet;
-
 import java.util.Collection;
 
 public interface SpawnableEntity {
     boolean hasEntityToSpawn();
 
+    boolean hasEntitiesToSpawn();
+
     Entity spawn();
-    Collection<Bullet> spawnAll();
+
+    Collection<? extends Entity> spawnAll();
 }

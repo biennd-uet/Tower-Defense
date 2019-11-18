@@ -5,8 +5,6 @@ import javafx.scene.image.Image;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.bullet.Bullet;
 import townerdefense.engine.entity.bullet.NormalBullet;
-import townerdefense.engine.entity.other.MediaManager;
-import javafx.scene.media.*;
 
 import java.util.Collection;
 
@@ -36,9 +34,9 @@ public class NormalTower extends Tower {
     public Bullet spawn() {
 
         lastTimeAttack = System.nanoTime();
-        double pX = this.getCenterPosX() - GameConfig.BULLET_WIDTH/2;
-        double pY = this.getCenterPosY() - GameConfig.BULLET_HEIGHT/2;
-        return new NormalBullet(enemyInRangeQueue.peek(),pX,pY,GameConfig.TOWER_DAMAGE);
+        double pX = this.getCenterPosX() - GameConfig.BULLET_WIDTH / 2;
+        double pY = this.getCenterPosY() - GameConfig.BULLET_HEIGHT / 2;
+        return new NormalBullet(enemyInRangeQueue.peek(), pX, pY, GameConfig.TOWER_DAMAGE);
     }
 
     @Override

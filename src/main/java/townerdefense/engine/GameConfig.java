@@ -2,12 +2,8 @@ package townerdefense.engine;
 
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
-import javafx.util.Duration;
-import javafx.animation.Interpolator;
-import javafx.animation.Transition;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -41,30 +37,30 @@ public class GameConfig {
     //Enemy Config
 
 
-    public static final int NORMAL_ENEMY_WIDTH = (int)(SIZE_UNIT*1.5);
-    public static final int NORMAL_ENEMY_HEIGHT = (int)(SIZE_UNIT*1.5);
+    public static final int NORMAL_ENEMY_WIDTH = (int) (SIZE_UNIT * 1.5);
+    public static final int NORMAL_ENEMY_HEIGHT = (int) (SIZE_UNIT * 1.5);
     public static final int NORMAL_ENEMY_HEALTH_MAX = 100;
     public static final int NORMAL_ENEMY_SPEED = 250;
     public static final int NORMAL_ENEMY_ARMOR = 30;
     public static final int NORMAL_ENEMY_REWARD = 1; //Gold ?
 
-    public static final long SMALLER_ENEMY_WIDTH = SIZE_UNIT*3;
-    public static final long SMALLER_ENEMY_HEIGHT = SIZE_UNIT*3;
+    public static final long SMALLER_ENEMY_WIDTH = SIZE_UNIT * 3;
+    public static final long SMALLER_ENEMY_HEIGHT = SIZE_UNIT * 3;
     public static final long SMALLER_ENEMY_HEALTH = 50;
     public static final long SMALLER_ENEMY_ARMOR = 10;
     public static final double SMALLER_ENEMY_SPEED = 200;
     public static final long SMALLER_ENEMY_REWARD = 2;
 
 
-    public static final long TANKER_ENEMY_WIDTH = SIZE_UNIT*2;
-    public static final long TANKER_ENEMY_HEIGHT = SIZE_UNIT*2;
+    public static final long TANKER_ENEMY_WIDTH = SIZE_UNIT * 2;
+    public static final long TANKER_ENEMY_HEIGHT = SIZE_UNIT * 2;
     public static final long TANKER_ENEMY_HEALTH = 300;
     public static final long TANKER_ENEMY_ARMOR = 50;
     public static final double TANKER_ENEMY_SPEED = 150;
     public static final long TANKER_ENEMY_REWARD = 3;
 
-    public static final long BOSS_ENEMY_WIDTH = SIZE_UNIT*2;
-    public static final long BOSS_ENEMY_HEIGHT = SIZE_UNIT*2;
+    public static final long BOSS_ENEMY_WIDTH = SIZE_UNIT * 2;
+    public static final long BOSS_ENEMY_HEIGHT = SIZE_UNIT * 2;
     public static final long BOSS_ENEMY_HEALTH = 500;
     public static final long BOSS_ENEMY_ARMOR = 80;
     public static final double BOSS_ENEMY_SPEED = 150;
@@ -74,7 +70,7 @@ public class GameConfig {
     public static final int SPAWNER_WIDTH = SIZE_UNIT;
     public static final int SPAWNER_HEIGHT = SIZE_UNIT;
     public static final int SPAWNER_DEFAULT_POSX = 0;
-    public static final int SPAWNER_DEFAULT_POSY = 3*SIZE_TILE_HEIGHT;
+    public static final int SPAWNER_DEFAULT_POSY = 3 * SIZE_TILE_HEIGHT;
     public static final double SPAWNER_SPEED_SPAWN = 1.0;
     //Target Config
     public static final int TARGET_WIDTH = SIZE_UNIT;
@@ -99,7 +95,6 @@ public class GameConfig {
     public static final int ROCKET_TOWER_RANGE = 700;
 
 
-
     //bullet config
     public static final int BULLET_WIDTH = 8;
     public static final int BULLET_HEIGHT = 20;
@@ -114,9 +109,9 @@ public class GameConfig {
 
 
     //Image
-    public static Image IM_1,IM0, IM1, IM2, IM3, IM4, IM5, IM6,IM10, IMEnemy,
-            IMTower, IMTower1,IMBlank,IMBullet,IMAnimationWp,IMExplosion,
-            IMBeamTower,IMBeam,IMRoketTower,IMRoket,IMBoss,IMTankEnemy,IMPlane,IMMachineGunTower;
+    public static Image IM_1, IM0, IM1, IM2, IM3, IM4, IM5, IM6, IM10, IMEnemy,
+            IMTower, IMTower1, IMBlank, IMBullet, IMAnimationWp, IMExplosion,
+            IMBeamTower, IMBeam, IMRoketTower, IMRoket, IMBoss, IMTankEnemy, IMPlane, IMMachineGunTower;
 
     static {
 
@@ -127,18 +122,18 @@ public class GameConfig {
             IMEnemy = new Image(new FileInputStream("assets/enemy.png"));
             IMTower = new Image(new FileInputStream("assets/tower.png"));
             IMTower1 = cropImage(IMTower, 0, 0, 4, 4);
-            IMBlank = cropImage(new Image( new FileInputStream("assets/towers_walls_blank.png")),0,0,6,5);
-            IMBullet = new Image( new FileInputStream("assets/bullet.png"));
+            IMBlank = cropImage(new Image(new FileInputStream("assets/towers_walls_blank.png")), 0, 0, 6, 5);
+            IMBullet = new Image(new FileInputStream("assets/bullet.png"));
             IMAnimationWp = new Image(new FileInputStream("assets/turret_01_mk1.png"));
             IMExplosion = new Image(new FileInputStream("assets/explosion.png"));
-            IMBeamTower = cropImage(IMTower,0,1,4,4);
+            IMBeamTower = cropImage(IMTower, 0, 1, 4, 4);
             IMBeam = new Image(new FileInputStream("assets/beam.png"));
-            IMRoketTower = cropImage(IMTower,3,3,4,4);
+            IMRoketTower = cropImage(IMTower, 3, 3, 4, 4);
             IMRoket = new Image(new FileInputStream("assets/rocket.png"));
             IMBoss = new Image(new FileInputStream("assets/FinalBoss.png"));
             IMTankEnemy = new Image(new FileInputStream("assets/TankEnemy.png"));
             IMPlane = new Image(new FileInputStream("assets/plane.png"));
-            IMMachineGunTower = cropImage(IMTower,3,0,4,4);
+            IMMachineGunTower = cropImage(IMTower, 3, 0, 4, 4);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
