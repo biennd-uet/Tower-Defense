@@ -6,6 +6,8 @@ import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.bullet.Bullet;
 import townerdefense.engine.entity.bullet.Roket;
 
+import java.util.Collection;
+
 public class RoketTower extends Tower {
     private double frame_number = 0;
     private double x = 0;
@@ -18,7 +20,7 @@ public class RoketTower extends Tower {
 
     //Default
     public RoketTower() {
-        this(GameConfig.IMRoketTower, GameConfig.SIZE_UNIT*6 ,GameConfig.SIZE_UNIT*4 ,
+        this(GameConfig.IMRoketTower, GameConfig.SIZE_UNIT*6 ,GameConfig.SIZE_UNIT*5 ,
                 GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
                 GameConfig.ROCKET_TOWER_SPEED, GameConfig.ROCKET_TOWER_RANGE, GameConfig.ROCKET_TOWER_DAMAGE);
     }
@@ -35,5 +37,8 @@ public class RoketTower extends Tower {
         double pY = this.getCenterPosY() - GameConfig.ROCKET_HEIGHT/2;
         return new Roket(enemyInRangeQueue.peek(),pX,pY,GameConfig.ROCKET_TOWER_DAMAGE);
     }
-
+    @Override
+    public Collection<Bullet> spawnAll() {
+        return null;
+    }
 }

@@ -14,22 +14,22 @@ public class TankEnemy extends Enemy {
 
     public TankEnemy() {
         this(GameConfig.IMTankEnemy, 0, GameConfig.SPAWNER_DEFAULT_POSX, GameConfig.SPAWNER_DEFAULT_POSY,
-                GameConfig.NORMAL_ENEMY_WIDTH, GameConfig.NORMAL_ENEMY_HEIGHT,
+                GameConfig.TANKER_ENEMY_WIDTH, GameConfig.TANKER_ENEMY_HEIGHT,
                 GameConfig.TANKER_ENEMY_HEALTH, GameConfig.TANKER_ENEMY_SPEED,
                 GameConfig.TANKER_ENEMY_ARMOR, GameConfig.TANKER_ENEMY_REWARD);
     }
 
     public TankEnemy(double posX, double posY) {
         this(GameConfig.IMTankEnemy, 0, posX, posY,
-                GameConfig.NORMAL_ENEMY_WIDTH, GameConfig.NORMAL_ENEMY_HEIGHT,
+                GameConfig.TANKER_ENEMY_WIDTH, GameConfig.TANKER_ENEMY_HEIGHT,
                 GameConfig.TANKER_ENEMY_HEALTH, GameConfig.TANKER_ENEMY_SPEED,
                 GameConfig.TANKER_ENEMY_ARMOR, GameConfig.TANKER_ENEMY_REWARD);
     }
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-        super.render(graphicsContext);
 
+        super.render(graphicsContext);
         final double percentHealth = health / GameConfig.TANKER_ENEMY_HEALTH;
         if(percentHealth <= 0.25) {
             graphicsContext.setFill(Color.RED);

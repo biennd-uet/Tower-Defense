@@ -130,7 +130,11 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
         }
     }
 
-    private void rotate(GraphicsContext gc, double angle, double px, double py) {
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void rotate(GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
@@ -139,7 +143,7 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.save();
         rotate(graphicsContext, r, posX + width / 2, posY + height / 2);
-        graphicsContext.drawImage(image, posX, posY, width, height);
+        graphicsContext.drawImage(this.getImage(), this.getCenterPosX() - width/2, this.getCenterPosY() - height/2, width, height);
 
         graphicsContext.restore();
         if(this.health < 0){
@@ -156,15 +160,16 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
             }
 
             // Clear the canvas
-
+            int pX = (int)(getCenterPosX() - width);
+            int pY = (int)(getCenterPosY() - height);
 
             // Draw next image
             graphicsContext.drawImage(GameConfig.IMExplosion, x, y,
                     GameConfig.IMExplosion.getWidth()/5,
                     GameConfig.IMExplosion.getHeight()/3,
-                    posX, posY,
-                    width,
-                    height);
+                    pX, pY,
+                    width*2,
+                    height*2);
             if(frame_number > 15){
                 frame_number = 0;
                 dead = true;
@@ -172,6 +177,10 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
         }
 
 
+    }
+
+    public Image getImage() {
+        return image;
     }
 
     @Override
