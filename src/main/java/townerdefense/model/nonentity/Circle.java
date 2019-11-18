@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import townerdefense.engine.GameConfig;
 
-public class Circle extends NonEntity{
+public class Circle extends NonEntity {
     private final double radius;
 
     public Circle(double posX, double posY, double radius) {

@@ -12,10 +12,9 @@ import townerdefense.engine.entity.tile.map.Map;
 public abstract class Enemy extends Entity implements UpdatableEntity, MovableEntity, AttackedableEntity, DestroyableEntity {
     protected double health;
     protected double speed;
-    protected double armor;
-    protected double reward;
-    //Todo: Why not Entity has Image ?
-    protected double r;
+    double r;
+    private double armor;
+    private double reward;
     private int indexCurrentPoint;
     private Point currentPoint;
     private Image image;
@@ -89,13 +88,13 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
             currentPoint = this.getNextPoint();
             indexCurrentPoint++;
             posX = currentPoint.getX();
-            posY = currentPoint.getY() ;
+            posY = currentPoint.getY();
             int x = (int) ((posX) / GameConfig.SIZE_TILE_WIDTH);
             int y = (int) ((posY) / GameConfig.SIZE_TILE_HEIGHT);
 
             if (deltaX < 0 && Map.map[y][x] == 2) {
                 r = r + 90;
-            } else if(deltaY < 0 && Map.map[y][x] == 3) {
+            } else if (deltaY < 0 && Map.map[y][x] == 3) {
                 r = r + 90;
             } else if (deltaX > 0 && Map.map[y][x] == TypeOfEntity.ROAD4.value) {
                 r = r - 90;
@@ -103,9 +102,9 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
                 r = r - 90;
             } else if (deltaY > 0 && Map.map[y][x] == TypeOfEntity.ROAD2.value) {
                 r = r - 90;
-            } else if(deltaX < 0 && Map.map[y][x] == 3) {
+            } else if (deltaX < 0 && Map.map[y][x] == 3) {
                 r = r - 90;
-            } else if(deltaY > 0 && Map.map[y][x] == 4) {
+            } else if (deltaY > 0 && Map.map[y][x] == 4) {
                 r = r + 90;
             } else if (deltaX > 0 && Map.map[y][x] == TypeOfEntity.ROAD5.value) {
                 r = r + 90;

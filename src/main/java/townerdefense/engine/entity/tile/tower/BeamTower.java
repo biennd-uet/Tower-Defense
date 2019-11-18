@@ -30,6 +30,12 @@ public class BeamTower extends Tower {
                 GameConfig.BEAM_TOWER_SPEED, GameConfig.TOWER_RANGE, GameConfig.TOWER_DAMAGE);
     }
 
+    public BeamTower(double posX, double posY) {
+        this(GameConfig.IMBeamTower, posX, posY,
+                GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
+                GameConfig.BEAM_TOWER_SPEED, GameConfig.TOWER_RANGE, GameConfig.TOWER_DAMAGE);
+    }
+
     private boolean UP(Entity enemy) {
         if (enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + width) && enemy.getCenterPosY() < getCenterPosY() - height / 2)
             return true;

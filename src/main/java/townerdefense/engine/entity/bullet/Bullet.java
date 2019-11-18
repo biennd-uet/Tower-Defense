@@ -6,7 +6,6 @@ import javafx.scene.transform.Rotate;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.DestroyableEntity;
 import townerdefense.engine.entity.Entity;
-import townerdefense.engine.entity.GameEntity;
 import townerdefense.engine.entity.UpdatableEntity;
 import townerdefense.engine.entity.enemy.Enemy;
 import townerdefense.engine.entity.other.Point;

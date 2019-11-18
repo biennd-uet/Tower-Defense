@@ -7,9 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -26,8 +24,9 @@ import townerdefense.engine.entity.tile.Spawner;
 import townerdefense.engine.entity.tile.Target;
 import townerdefense.engine.entity.tile.map.Map;
 import townerdefense.engine.entity.tile.map.WayPoint;
+import townerdefense.engine.entity.tile.tower.BeamTower;
 import townerdefense.engine.entity.tile.tower.NormalTower;
-import townerdefense.engine.entity.tile.tower.RoketTower;
+import townerdefense.engine.entity.tile.tower.RocketTower;
 import townerdefense.engine.entity.tile.tower.TypeOfTower;
 import townerdefense.model.nonentity.Circle;
 import townerdefense.model.nonentity.NonEntity;
@@ -47,7 +46,7 @@ public class GameController extends AnimationTimer implements Initializable {
     @FXML
     private Canvas canvas;
     @FXML
-    private StackPane infomation;
+    private StackPane information;
     @FXML
     private HBox listTower;
     @FXML
@@ -78,21 +77,13 @@ public class GameController extends AnimationTimer implements Initializable {
 
         System.out.println("Init game...");
 
-        canvas.setWidth(GameConfig.STAGE_WIDTH);
-        canvas.setHeight(GameConfig.STAGE_HEIGHT);
-
-        this.graphicsContext = canvas.getGraphicsContext2D();
-        this.isPickedTower = false;
-
-        System.out.println("Setting game...");
-
+        initSetting();
+        initUserInterface();
 
         //Todo: init Game field with GameStage and get return this
         //GameStage gameStage = new GameStage();
         //this.gameField = gameStage.getGameField()
         //Todo: comment this code after finish before code
-
-        tower1.setImage(TypeOfTower.NORMAL_TOWER.getImage());
 
         this.map = new Map();
         this.wayPoint = new WayPoint();
@@ -106,7 +97,7 @@ public class GameController extends AnimationTimer implements Initializable {
         this.gameField.addEntity(this.spawner);
         this.gameField.addEntity(new Target());
         this.gameField.addEntity(new NormalTower());
-        this.gameField.addEntity(new RoketTower());
+        this.gameField.addEntity(new RocketTower());
         this.gameField.addEntity(new NormalEnemy());
 
         this.spawner.addEnemy(new NormalEnemy());
@@ -127,6 +118,26 @@ public class GameController extends AnimationTimer implements Initializable {
         System.out.println("Start game ");
 
         this.start();
+    }
+
+    private void initUserInterface() {
+        tower1.setImage(TypeOfTower.NormalTower.getImage());
+        tower2.setImage(TypeOfTower.RocketTower.getImage());
+        tower3.setImage(TypeOfTower.BeamTower.getImage());
+    }
+
+    private void initSetting() {
+        canvas.setWidth(GameConfig.STAGE_WIDTH);
+        canvas.setHeight(GameConfig.STAGE_HEIGHT);
+
+        this.graphicsContext = canvas.getGraphicsContext2D();
+        this.isPickedTower = false;
+
+        System.out.println("Setting game...");
+    }
+
+    private void initGameField() {
+
     }
 
     @Override
@@ -169,25 +180,56 @@ public class GameController extends AnimationTimer implements Initializable {
         NonEntity.nonEntities.forEach(nonEntity -> nonEntity.render(graphicsContext));
     }
 
-
-    private TypeOfTower getTypeOfTower(double posX, double posY) {
-        int serialOfSquare = (int) posX / GameConfig.SIZE_SQUARE_IN_BAR;
-
-        switch (serialOfSquare) {
-            case 0:
-                return TypeOfTower.NORMAL_TOWER;
-            default:
-                break;
-        }
-
-        return null;
-    }
-
     private TypeOfEntity getTypeOfTile(double posX, double posY) {
         int positionTileInX = (int) Math.round(posX / GameConfig.SIZE_TILE_WIDTH);
         int positionTileInY = (int) Math.round(posY / GameConfig.SIZE_TILE_HEIGHT);
 
         return TypeOfEntity.getTypeOfEntityByType(Map.map[positionTileInY][positionTileInX]);
+    }
+
+    private void setOnDragDetectedPickerBar(MouseEvent event, ImageView tower1, TypeOfTower typeOfTowerPicked) {
+        final double posX = GameConfig.SIZE_TILE_WIDTH * Math.round(event.getSceneX() / GameConfig.SIZE_TILE_WIDTH);
+        final double posY = GameConfig.SIZE_TILE_HEIGHT * Math.round(event.getSceneY() / GameConfig.SIZE_TILE_HEIGHT);
+        NonEntity.nonEntities.add(new Rect(posX, posY, GameConfig.SIZE_TILE_WIDTH, GameConfig.SIZE_TILE_HEIGHT));
+        NonEntity.nonEntities.add(new Circle(posX, posY, typeOfTowerPicked.getRange()));
+        Dragboard dragboard = tower1.startDragAndDrop(TransferMode.MOVE);
+        ClipboardContent content = new ClipboardContent();
+        content.putImage(tower1.getImage());
+
+        dragboard.setContent(content);
+
+        event.consume();
+    }
+
+    private void setOnDragDroppedGameArea(DragEvent dragEvent) {
+        dragEvent.acceptTransferModes(TransferMode.MOVE);
+        Dragboard dragboard = dragEvent.getDragboard();
+        if (dragboard.hasImage()) {
+            if (getTypeOfTile(dragEvent.getX(), dragEvent.getY()) == TypeOfEntity.ROAD6) {
+                final double posX = GameConfig.SIZE_TILE_WIDTH * Math.round(dragEvent.getSceneX() / GameConfig.SIZE_TILE_WIDTH);
+                final double posY = GameConfig.SIZE_TILE_HEIGHT * Math.round(dragEvent.getSceneY() / GameConfig.SIZE_TILE_HEIGHT);
+                System.out.printf("%s - (%f %f)\n", typeOfTowerPicked, posX, posY);
+
+                switch (typeOfTowerPicked) {
+                    case NormalTower:
+                        gameField.addEntity(new NormalTower(posX, posY));
+                        break;
+                    case RocketTower:
+                        gameField.addEntity(new RocketTower(posX, posY));
+                        break;
+                    case BeamTower:
+                        gameField.addEntity(new BeamTower(posX, posY));
+                    default:
+                        break;
+                }
+
+                isPickedTower = false;
+            }
+            NonEntity.nonEntities.clear();
+        } else {
+            dragEvent.setDropCompleted(false);
+        }
+        dragEvent.consume();
     }
 
     private void initGetEvent() {
@@ -196,30 +238,30 @@ public class GameController extends AnimationTimer implements Initializable {
         });
 
         tower1.setOnDragDetected(event -> {
-            final double posX = GameConfig.SIZE_TILE_WIDTH * Math.round(event.getSceneX() / GameConfig.SIZE_TILE_WIDTH);
-            final double posY = GameConfig.SIZE_TILE_HEIGHT * Math.round(event.getSceneY() / GameConfig.SIZE_TILE_HEIGHT);
-            NonEntity.nonEntities.add(new Rect(posX, posY, GameConfig.SIZE_TILE_WIDTH, GameConfig.SIZE_TILE_HEIGHT));
-            NonEntity.nonEntities.add(new Circle(posX, posY, GameConfig.TOWER_RANGE));
-            Dragboard dragboard = tower1.startDragAndDrop(TransferMode.MOVE);
-            ClipboardContent content = new ClipboardContent();
-            content.putImage(tower1.getImage());
-
-            dragboard.setContent(content);
-
-            event.consume();
-
             isPickedTower = true;
-
+            typeOfTowerPicked = TypeOfTower.NormalTower;
+            setOnDragDetectedPickerBar(event, tower1, typeOfTowerPicked);
             System.out.println("Pick Tower 1");
         });
 
+        tower2.setOnDragDetected(mouseEvent -> {
+            isPickedTower = true;
+            typeOfTowerPicked = TypeOfTower.RocketTower;
+            setOnDragDetectedPickerBar(mouseEvent, tower2, typeOfTowerPicked);
+            System.out.println("Pick Tower 2");
+        });
+
+        tower3.setOnDragDetected(mouseEvent -> {
+            isPickedTower = true;
+            typeOfTowerPicked = TypeOfTower.BeamTower;
+            setOnDragDetectedPickerBar(mouseEvent, tower3, typeOfTowerPicked);
+            System.out.println("Pick Tower 2");
+        });
+
         gameArea.setOnDragOver(dragEvent -> {
-            //System.out.println(isPickedTower);
             dragEvent.acceptTransferModes(TransferMode.MOVE);
             final double posX = GameConfig.SIZE_TILE_WIDTH * Math.round(dragEvent.getSceneX() / GameConfig.SIZE_TILE_WIDTH);
             final double posY = GameConfig.SIZE_TILE_HEIGHT * Math.round(dragEvent.getSceneY() / GameConfig.SIZE_TILE_HEIGHT);
-            //graphicsContext.strokeRect(posX, posY, GameConfig.SIZE_TILE_WIDTH, GameConfig.SIZE_TILE_HEIGHT);
-            //System.out.println(dragEvent.getX() + " " + dragEvent.getY());
             NonEntity.nonEntities.forEach(nonEntity -> {
                 nonEntity.setPosX(posX);
                 nonEntity.setPosY(posY);
@@ -227,24 +269,8 @@ public class GameController extends AnimationTimer implements Initializable {
         });
 
         gameArea.setOnDragDropped(dragEvent -> {
-
-            dragEvent.acceptTransferModes(TransferMode.MOVE);
-            Dragboard dragboard = dragEvent.getDragboard();
-            if (dragboard.hasImage()) {
-                if (getTypeOfTile(dragEvent.getX(), dragEvent.getY()) == TypeOfEntity.ROAD6) {
-                    final double posX = GameConfig.SIZE_TILE_WIDTH * Math.round(dragEvent.getSceneX() / GameConfig.SIZE_TILE_WIDTH);
-                    final double posY = GameConfig.SIZE_TILE_HEIGHT * Math.round(dragEvent.getSceneY() / GameConfig.SIZE_TILE_HEIGHT);
-                    System.out.println( getTypeOfTile(dragEvent.getX(), dragEvent.getY()) + "" + posX + " " + posY);
-                    gameField.addEntity(new NormalTower(posX, posY));
-                    isPickedTower = false;
-                    System.out.println("Add new tower...");
-                }
-                NonEntity.nonEntities.clear();
-            } else {
-                dragEvent.setDropCompleted(false);
-            }
+            setOnDragDroppedGameArea(dragEvent);
             System.out.println("Dropped on " + dragEvent.getX() + " " + dragEvent.getY());
-            dragEvent.consume();
         });
     }
 }

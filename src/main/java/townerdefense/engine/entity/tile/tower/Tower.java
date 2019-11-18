@@ -43,7 +43,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     public void update(int deltaTime) {
         this.removeEnemyOutRange();
         this.findEnemyInRange();
-        if(! enemyInRangeQueue.isEmpty()) {
+        if (!enemyInRangeQueue.isEmpty()) {
             double deltaX = enemyInRangeQueue.peek().getCenterPosX() - this.getCenterPosX();
             double deltaY = enemyInRangeQueue.peek().getCenterPosY() - this.getCenterPosY();
             theta = Math.toDegrees(Math.PI - Math.atan2(deltaX, deltaY));
@@ -58,7 +58,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
                 entity.getCenterPosX(), entity.getCenterPosY()) <= this.range;
         GameField.entities.parallelStream()
                 .filter(entity -> entity instanceof Enemy)
-                .filter(enemy -> ! enemyInRangeQueue.contains(enemy))
+                .filter(enemy -> !enemyInRangeQueue.contains(enemy))
                 .filter(enemyInRange)
                 .forEach(enemy -> this.enemyInRangeQueue.add((Enemy) enemy));
     }

@@ -1,7 +1,5 @@
 package townerdefense.model.nonentity;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import townerdefense.engine.entity.DrawableEntity;
 
 import java.util.ArrayList;
@@ -15,10 +13,10 @@ public abstract class NonEntity implements DrawableEntity {
         nonEntities = new ArrayList<>();
     }
 
-    protected double posX;
-    protected double posY;
     protected final double width;
     protected final double height;
+    protected double posX;
+    protected double posY;
 
     public NonEntity(double posX, double posY, double width, double height) {
         this.posX = posX;

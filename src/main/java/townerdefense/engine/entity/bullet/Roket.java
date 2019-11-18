@@ -20,7 +20,7 @@ public class Roket extends Bullet {
     }
 
     public Roket(Enemy enemy, double posX, double posY, double damage) {
-        this(enemy, GameConfig.IMRoket, posX, posY,
+        this(enemy, GameConfig.IMRocket, posX, posY,
                 GameConfig.ROCKET_WIDTH, GameConfig.ROCKET_HEIGHT,
                 GameConfig.ROCKET_SPEED, damage);
     }

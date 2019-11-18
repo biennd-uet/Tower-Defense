@@ -4,14 +4,23 @@ import javafx.scene.image.Image;
 import townerdefense.engine.GameConfig;
 
 public enum TypeOfTower {
-    NORMAL_TOWER(GameConfig.IMTower1);
-    private Image image;
+    NormalTower(GameConfig.IMTower1, GameConfig.TOWER_RANGE),
+    RocketTower(GameConfig.IMRocketTower, GameConfig.ROCKET_TOWER_RANGE),
+    BeamTower(GameConfig.IMBeamTower, GameConfig.BEAM_TOWER_RANGE);
 
-    TypeOfTower(Image image) {
+    private Image image;
+    private double range;
+
+    TypeOfTower(Image image, double range) {
         this.image = image;
+        this.range = range;
     }
 
     public Image getImage() {
         return image;
+    }
+
+    public double getRange() {
+        return range;
     }
 }
