@@ -17,17 +17,21 @@ import javafx.scene.paint.Color;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.GameField;
 import townerdefense.engine.entity.TypeOfEntity;
+import townerdefense.engine.entity.enemy.BossEnemy;
 import townerdefense.engine.entity.enemy.NormalEnemy;
+import townerdefense.engine.entity.enemy.Plane;
+import townerdefense.engine.entity.enemy.TankEnemy;
 import townerdefense.engine.entity.other.Point;
 import townerdefense.engine.entity.tile.Spawner;
 import townerdefense.engine.entity.tile.Target;
 import townerdefense.engine.entity.tile.map.Map;
 import townerdefense.engine.entity.tile.map.WayPoint;
 import townerdefense.engine.entity.tile.tower.NormalTower;
+import townerdefense.engine.entity.tile.tower.RoketTower;
 import townerdefense.engine.entity.tile.tower.TypeOfTower;
+import townerdefense.model.nonentity.Circle;
 import townerdefense.model.nonentity.NonEntity;
 import townerdefense.model.nonentity.Rect;
-import townerdefense.model.nonentity.Circle;
 
 import java.net.URL;
 import java.util.List;
@@ -102,7 +106,9 @@ public class GameController extends AnimationTimer implements Initializable {
         this.gameField.addEntity(this.spawner);
         this.gameField.addEntity(new Target());
         this.gameField.addEntity(new NormalTower());
+        this.gameField.addEntity(new RoketTower());
         this.gameField.addEntity(new NormalEnemy());
+
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
@@ -110,15 +116,11 @@ public class GameController extends AnimationTimer implements Initializable {
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
+        this.spawner.addEnemy(new Plane());
+        this.spawner.addEnemy(new Plane());
+        this.spawner.addEnemy(new TankEnemy());
+        this.spawner.addEnemy(new TankEnemy());
+        this.spawner.addEnemy(new BossEnemy());
 
         initGetEvent();
 

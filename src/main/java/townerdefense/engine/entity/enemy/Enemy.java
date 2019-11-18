@@ -25,7 +25,7 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
     private double y = 0;
     private boolean dead = false;
 
-    private Direction direction;
+    private Direction direction = Direction.RIGHT;
 
     protected Enemy(Image image, double r, double posX, double posY, double width, double height, double health, double speed, double armor, double reward) {
         super(posX, posY, width, height);
@@ -88,12 +88,14 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
                 Math.abs(this.posY - this.getNextPoint().getY()) < epsilon) {
             currentPoint = this.getNextPoint();
             indexCurrentPoint++;
-            int x = (int) ((posX + 30) / GameConfig.SIZE_TILE_WIDTH);
-            int y = (int) ((posY + 30) / GameConfig.SIZE_TILE_HEIGHT);
+            posX = currentPoint.getX();
+            posY = currentPoint.getY() ;
+            int x = (int) ((posX) / GameConfig.SIZE_TILE_WIDTH);
+            int y = (int) ((posY) / GameConfig.SIZE_TILE_HEIGHT);
 
             if (deltaX < 0 && Map.map[y][x] == 2) {
                 r = r + 90;
-            } else if (deltaY < 0 && Map.map[y][x] == TypeOfEntity.ROAD3.value) {
+            } else if(deltaY < 0 && Map.map[y][x] == 3) {
                 r = r + 90;
             } else if (deltaX > 0 && Map.map[y][x] == TypeOfEntity.ROAD4.value) {
                 r = r - 90;
@@ -101,9 +103,9 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
                 r = r - 90;
             } else if (deltaY > 0 && Map.map[y][x] == TypeOfEntity.ROAD2.value) {
                 r = r - 90;
-            } else if (deltaX > 0 && Map.map[y][x] == TypeOfEntity.ROAD3.value) {
+            } else if(deltaX < 0 && Map.map[y][x] == 3) {
                 r = r - 90;
-            } else if (deltaY < 0 && Map.map[y][x] == TypeOfEntity.ROAD4.value) {
+            } else if(deltaY > 0 && Map.map[y][x] == 4) {
                 r = r + 90;
             } else if (deltaX > 0 && Map.map[y][x] == TypeOfEntity.ROAD5.value) {
                 r = r + 90;

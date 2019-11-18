@@ -68,13 +68,13 @@ public class GameConfig {
     public static final int SPAWNER_WIDTH = SIZE_UNIT;
     public static final int SPAWNER_HEIGHT = SIZE_UNIT;
     public static final int SPAWNER_DEFAULT_POSX = 0;
-    public static final int SPAWNER_DEFAULT_POSY = SIZE_TILE_HEIGHT;
+    public static final int SPAWNER_DEFAULT_POSY = 3*SIZE_TILE_HEIGHT;
     public static final double SPAWNER_SPEED_SPAWN = 1.0;
     //Target Config
     public static final int TARGET_WIDTH = SIZE_UNIT;
     public static final int TARGET_HEIGHT = SIZE_UNIT;
-    public static final int TARGET_DEFAULT_POSX = 9 * SIZE_TILE_WIDTH;
-    public static final int TARGET_DEFAULT_POSY = 9 * SIZE_TILE_HEIGHT;
+    public static final int TARGET_DEFAULT_POSX = 29 * SIZE_TILE_WIDTH;
+    public static final int TARGET_DEFAULT_POSY = 16 * SIZE_TILE_HEIGHT;
     //Tower Config
     public static final int TOWER_DEFAULT_POSX = 1 * SIZE_TILE_WIDTH;
     public static final int TOWER_DEFAULT_POSY = 4 * SIZE_TILE_HEIGHT;
@@ -107,19 +107,15 @@ public class GameConfig {
 
 
     //Image
-    public static Image IM0, IM1, IM2, IM3, IM4, IM5, IM6, IMEnemy,
-            IMTower, IMTower1, IMBlank, IMBullet, IMAnimationWp, IMExplosion,
-            IMBeamTower, IMBeam, IMRoketTower, IMRoket, IMBoss, IMTankEnemy, IMPlane;
+    public static Image IM_1,IM0, IM1, IM2, IM3, IM4, IM5, IM6,IM10, IMEnemy,
+            IMTower, IMTower1,IMBlank,IMBullet,IMAnimationWp,IMExplosion,
+            IMBeamTower,IMBeam,IMRoketTower,IMRoket,IMBoss,IMTankEnemy,IMPlane;
 
     static {
 
         try {
+
             IM0 = new Image(new FileInputStream("assets/0.png"));
-            IM1 = new Image(new FileInputStream("assets/1.png"));
-            IM2 = new Image(new FileInputStream("assets/2.png"));
-            IM3 = new Image(new FileInputStream("assets/3.png"));
-            IM4 = new Image(new FileInputStream("assets/4.png"));
-            IM5 = new Image(new FileInputStream("assets/5.png"));
             IM6 = new Image(new FileInputStream("assets/6.png"));
             IMEnemy = new Image(new FileInputStream("assets/enemy.png"));
             IMTower = new Image(new FileInputStream("assets/tower.png"));
