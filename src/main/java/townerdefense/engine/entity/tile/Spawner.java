@@ -62,24 +62,25 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
         lastTimeSpawn = System.nanoTime();
         return enemies.remove();
     }
-    public void Spaw1way(){
 
-        if(hasNewWayToSpawn()){
+    public void Spaw1way() {
+
+        if (hasNewWayToSpawn()) {
             //lastTimeWayspaw = System.nanoTime();
-            NNormalEnemy = (int)(NEnemy*0.5);
-            NTankEnemy = (int)(NEnemy*0.3);
-            NPlane = (int)(NEnemy*0.1);
-            NBossEnemy = (int)(NEnemy*0.1);
-            for(int i=0;i<NNormalEnemy;i++){
+            NNormalEnemy = (int) (NEnemy * 0.5);
+            NTankEnemy = (int) (NEnemy * 0.3);
+            NPlane = (int) (NEnemy * 0.1);
+            NBossEnemy = (int) (NEnemy * 0.1);
+            for (int i = 0; i < NNormalEnemy; i++) {
                 addEnemy(new NormalEnemy());
             }
-            for(int i=0;i<NTankEnemy;i++){
+            for (int i = 0; i < NTankEnemy; i++) {
                 addEnemy(new TankEnemy());
             }
-            for(int i=0;i<NPlane;i++){
+            for (int i = 0; i < NPlane; i++) {
                 addEnemy(new Plane());
             }
-            for(int i=0;i<NBossEnemy;i++){
+            for (int i = 0; i < NBossEnemy; i++) {
                 addEnemy(new BossEnemy());
             }
             NEnemy = NEnemy + 0.8;
@@ -87,16 +88,24 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
         }
 
     }
+
     @Override
     public boolean hasEntityToSpawn() {
         hasNewWayToSpawn();
         Spaw1way();
         return !enemies.isEmpty() && timeBetweenSpawnEnemy + lastTimeSpawn <= System.nanoTime();
     }
+
+    @Override
+    public boolean hasEntitiesToSpawn() {
+        return false;
+    }
+
     public boolean hasNewWayToSpawn() {
-        if(!enemies.isEmpty())lastTimeWayspaw = System.nanoTime();
+        if (!enemies.isEmpty()) lastTimeWayspaw = System.nanoTime();
         return enemies.isEmpty() && timeBetween2WayEnemy + lastTimeWayspaw <= System.nanoTime();
     }
+
     @Override
     public Collection<Bullet> spawnAll() {
         return null;

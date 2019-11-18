@@ -12,10 +12,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.GameField;
-import townerdefense.engine.entity.enemy.BossEnemy;
-import townerdefense.engine.entity.enemy.NormalEnemy;
-import townerdefense.engine.entity.enemy.Plane;
-import townerdefense.engine.entity.enemy.TankEnemy;
 import townerdefense.engine.entity.other.Point;
 import townerdefense.engine.entity.tile.Spawner;
 import townerdefense.engine.entity.tile.Target;
@@ -31,6 +27,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class GameController extends AnimationTimer implements Initializable {
+    public static List<Point> points;
     @FXML
     private BorderPane root;
     @FXML
@@ -41,9 +38,6 @@ public class GameController extends AnimationTimer implements Initializable {
     private HBox listTower;
     @FXML
     private Group gameArea;
-
-
-    public static List<Point> points;
     private GraphicsContext graphicsContext;
     private GameField gameField;
     private Map map;
@@ -51,7 +45,7 @@ public class GameController extends AnimationTimer implements Initializable {
     private Spawner spawner;
     private long lastTime;
     private long lag;
-    
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -83,7 +77,7 @@ public class GameController extends AnimationTimer implements Initializable {
         this.gameField.addEntity(new Target());
         this.gameField.addEntity(new NormalTower());
         this.gameField.addEntity(new RoketTower());
-       // this.gameField.addEntity(new MachineGunTower());
+        this.gameField.addEntity(new MachineGunTower());
 /*
         this.spawner.addEnemy(new NormalEnemy());
         this.spawner.addEnemy(new NormalEnemy());

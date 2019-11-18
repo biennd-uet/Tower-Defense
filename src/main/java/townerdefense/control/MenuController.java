@@ -31,12 +31,12 @@ public class MenuController implements Initializable {
     @FXML
     private Button exitButton;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public MenuController() {
 
     }
 
-    public MenuController() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
     }
 
