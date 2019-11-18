@@ -20,12 +20,12 @@ import java.util.function.Predicate;
 public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEntity {
     private final double timeBetweenTwoAttack;
     protected Queue<Enemy> enemyInRangeQueue;
+    protected double lastTimeAttack;
+    protected double theta;
     private double speed;
     private double range;
     private double damage;
     private Image image;
-    protected double lastTimeAttack;
-    protected double theta;
 
 
     public Tower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
@@ -43,7 +43,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     public void update(int deltaTime) {
         this.removeEnemyOutRange();
         this.findEnemyInRange();
-        if(! enemyInRangeQueue.isEmpty()) {
+        if (!enemyInRangeQueue.isEmpty()) {
             double deltaX = enemyInRangeQueue.peek().getCenterPosX() - this.getCenterPosX();
             double deltaY = enemyInRangeQueue.peek().getCenterPosY() - this.getCenterPosY();
             theta = Math.toDegrees(Math.PI - Math.atan2(deltaX, deltaY));
@@ -58,7 +58,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
                 entity.getCenterPosX(), entity.getCenterPosY()) <= this.range;
         GameField.entities.parallelStream()
                 .filter(entity -> entity instanceof Enemy)
-                .filter(enemy -> ! enemyInRangeQueue.contains(enemy))
+                .filter(enemy -> !enemyInRangeQueue.contains(enemy))
                 .filter(enemyInRange)
                 .forEach(enemy -> this.enemyInRangeQueue.add((Enemy) enemy));
     }
@@ -77,7 +77,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-        graphicsContext.drawImage(GameConfig.IMBlank,posX,posY,width,height);
+        graphicsContext.drawImage(GameConfig.IMBlank, posX, posY, width, height);
         graphicsContext.save();
         rotate(graphicsContext, theta, posX + width / 2, posY + height / 2);
         graphicsContext.drawImage(image, posX, posY, width, height);
@@ -87,6 +87,11 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
 
     @Override
     public boolean hasEntityToSpawn() {
-        return enemyInRangeQueue.size() > 0 && lastTimeAttack + timeBetweenTwoAttack <= System.nanoTime() ;
+        return enemyInRangeQueue.size() > 0 && lastTimeAttack + timeBetweenTwoAttack <= System.nanoTime();
+    }
+
+    @Override
+    public boolean hasEntitiesToSpawn() {
+        return false;
     }
 }

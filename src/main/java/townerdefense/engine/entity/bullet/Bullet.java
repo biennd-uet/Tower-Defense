@@ -19,12 +19,12 @@ public abstract class Bullet extends Entity implements UpdatableEntity, Destroya
     private double apha;
     private Image image;
 
-    public Bullet(Enemy enemy,Image image, double posX, double posY, double with, double height, double speed, double damage) {
+    public Bullet(Enemy enemy, Image image, double posX, double posY, double with, double height, double speed, double damage) {
         super(posX, posY, with, height);
         this.speed = speed;
         this.damage = damage;
         this.enemy = enemy;
-        this.image =image;
+        this.image = image;
     }
 
     public Bullet(Image image, double posX, double posY, double with, double height, double speed, double damage) {
@@ -33,14 +33,16 @@ public abstract class Bullet extends Entity implements UpdatableEntity, Destroya
         this.speed = speed;
         this.damage = damage;
     }
+
     public void rotate(GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
+
     @Override
     public void render(GraphicsContext graphicsContext) {
-     //   graphicsContext.setFill(Color.AQUA);
-     //   graphicsContext.fillOval(this.getCenterPosX(), this.getCenterPosY(), width, height);
+        //   graphicsContext.setFill(Color.AQUA);
+        //   graphicsContext.fillOval(this.getCenterPosX(), this.getCenterPosY(), width, height);
         graphicsContext.save();
         rotate(graphicsContext, apha, posX + width / 2, posY + height / 2);
         graphicsContext.drawImage(image, posX, posY, width, height);
@@ -51,15 +53,15 @@ public abstract class Bullet extends Entity implements UpdatableEntity, Destroya
     @Override
     public void update(int deltaTime) {
         double deltaDistance = this.speed * deltaTime / GameConfig.NPS;
-        if(!enemy.isDead()){
+        if (!enemy.isDead()) {
 
             double deltaX = enemy.getCenterPosX() - this.posX;
             double deltaY = enemy.getCenterPosY() - this.posY;
-             theta = Math.atan2(deltaY, deltaX);
-            apha = Math.toDegrees(Math.PI/2 + theta);
+            theta = Math.atan2(deltaY, deltaX);
+            apha = Math.toDegrees(Math.PI / 2 + theta);
             this.posX += deltaDistance * Math.cos(theta);
             this.posY += deltaDistance * Math.sin(theta);
-        }else {
+        } else {
             this.posX += deltaDistance * Math.cos(theta);
             this.posY += deltaDistance * Math.sin(theta);
         }
