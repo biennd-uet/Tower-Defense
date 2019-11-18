@@ -5,6 +5,7 @@ public class GameStage {
 
     public GameStage() {
         this.gameField = new GameField();
+        initStage();
     }
 
     //Todo: Load information of game

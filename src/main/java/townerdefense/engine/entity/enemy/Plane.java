@@ -14,28 +14,27 @@ public class Plane extends Enemy {
 
     private Plane(Image image, double r, double posX, double posY, double with, double height, double health, double speed, double armor, double reward) {
         super(image, r, posX, posY, with, height, health, speed, armor, reward);
-        this.r = Math.toDegrees(Math.PI / 2 - theta);
+        this.r = Math.toDegrees(theta);
     }
 
     public Plane() {
         this(GameConfig.IMPlane, 0, GameConfig.SPAWNER_DEFAULT_POSX, GameConfig.SPAWNER_DEFAULT_POSY,
-                GameConfig.NORMAL_ENEMY_WIDTH, GameConfig.NORMAL_ENEMY_HEIGHT,
+                GameConfig.SMALLER_ENEMY_WIDTH, GameConfig.SMALLER_ENEMY_HEIGHT,
                 GameConfig.SMALLER_ENEMY_HEALTH, GameConfig.SMALLER_ENEMY_SPEED,
                 GameConfig.SMALLER_ENEMY_ARMOR, GameConfig.SMALLER_ENEMY_REWARD);
     }
 
     public Plane(double posX, double posY) {
         this(GameConfig.IMPlane, 0, posX, posY,
-                GameConfig.NORMAL_ENEMY_WIDTH, GameConfig.NORMAL_ENEMY_HEIGHT,
+                GameConfig.SMALLER_ENEMY_WIDTH, GameConfig.SMALLER_ENEMY_HEIGHT,
                 GameConfig.SMALLER_ENEMY_HEALTH, GameConfig.SMALLER_ENEMY_SPEED,
                 GameConfig.SMALLER_ENEMY_ARMOR, GameConfig.SMALLER_ENEMY_REWARD);
     }
 
     @Override
     public void render(GraphicsContext graphicsContext) {
+
         super.render(graphicsContext);
-
-
         final double percentHealth = health / GameConfig.SMALLER_ENEMY_HEALTH;
         if (percentHealth <= 0.25) {
             graphicsContext.setFill(Color.RED);

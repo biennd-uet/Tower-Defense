@@ -70,7 +70,7 @@ public abstract class Bullet extends Entity implements UpdatableEntity, Destroya
 
     @Override
     public boolean isDestroy() {
-        return (this.getCenterPosX() < GameConfig.STAGE_WIDTH && this.getCenterPosX() < 0 && this.getCenterPosY() < GameConfig.STAGE_HEIGHT && this.getCenterPosY() > 0)
+        return this.getCenterPosX() > GameConfig.STAGE_WIDTH || this.getCenterPosX() < 0 || this.getCenterPosY() > GameConfig.STAGE_HEIGHT || this.getCenterPosY() < 0
                 || Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
                 enemy.getCenterPosX(), enemy.getCenterPosY()) <= GameConfig.SIZE_TILE_WIDTH;
     }

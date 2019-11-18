@@ -31,7 +31,7 @@ public class GameField {
         entities.add(entity);
     }
 
-    public void addAllEntity(Collection<Entity> entities) {
+    public void addAllEntity(Collection<? extends Entity> entities) {
         GameField.entities.addAll(entities);
     }
 
@@ -65,9 +65,12 @@ public class GameField {
         destroyEntity.clear();
         //Update spawnalbe entity
         GameField.entities.forEach(entity -> {
-            if (entity instanceof SpawnableEntity &&
-                    ((SpawnableEntity) entity).hasEntityToSpawn()) {
-                spawnedEntity.add(((SpawnableEntity) entity).spawn());
+            if (entity instanceof SpawnableEntity) {
+                if (((SpawnableEntity) entity).hasEntityToSpawn()) {
+                    spawnedEntity.add(((SpawnableEntity) entity).spawn());
+                } else if (((SpawnableEntity) entity).hasEntitiesToSpawn()) {
+                    spawnedEntity.addAll(((SpawnableEntity) entity).spawnAll());
+                }
             }
         });
         //Add them to game field

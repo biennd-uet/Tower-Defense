@@ -24,10 +24,7 @@ import townerdefense.engine.entity.tile.Spawner;
 import townerdefense.engine.entity.tile.Target;
 import townerdefense.engine.entity.tile.map.Map;
 import townerdefense.engine.entity.tile.map.WayPoint;
-import townerdefense.engine.entity.tile.tower.BeamTower;
-import townerdefense.engine.entity.tile.tower.NormalTower;
-import townerdefense.engine.entity.tile.tower.RocketTower;
-import townerdefense.engine.entity.tile.tower.TypeOfTower;
+import townerdefense.engine.entity.tile.tower.*;
 import townerdefense.model.nonentity.Circle;
 import townerdefense.model.nonentity.NonEntity;
 import townerdefense.model.nonentity.Rect;
@@ -79,41 +76,9 @@ public class GameController extends AnimationTimer implements Initializable {
 
         initSetting();
         initUserInterface();
-
-        //Todo: init Game field with GameStage and get return this
-        //GameStage gameStage = new GameStage();
-        //this.gameField = gameStage.getGameField()
-        //Todo: comment this code after finish before code
-
-        this.map = new Map();
-        this.wayPoint = new WayPoint();
-        this.spawner = new Spawner();
-        points = wayPoint.getPoints();
-
-
-        this.gameField = new GameField();
-
-        this.gameField.addAllEntity(map.getListTile());
-        this.gameField.addEntity(this.spawner);
-        this.gameField.addEntity(new Target());
-        this.gameField.addEntity(new NormalTower());
-        this.gameField.addEntity(new RocketTower());
-        this.gameField.addEntity(new NormalEnemy());
-
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new NormalEnemy());
-        this.spawner.addEnemy(new Plane());
-        this.spawner.addEnemy(new Plane());
-        this.spawner.addEnemy(new TankEnemy());
-        this.spawner.addEnemy(new TankEnemy());
-        this.spawner.addEnemy(new BossEnemy());
-
         initGetEvent();
+
+        initGameField();
 
         System.out.println("Start game ");
 
@@ -121,9 +86,11 @@ public class GameController extends AnimationTimer implements Initializable {
     }
 
     private void initUserInterface() {
+        System.out.println("Init User Interface");
         tower1.setImage(TypeOfTower.NormalTower.getImage());
         tower2.setImage(TypeOfTower.RocketTower.getImage());
         tower3.setImage(TypeOfTower.BeamTower.getImage());
+        tower4.setImage(TypeOfTower.MachineGunTower.getImage());
     }
 
     private void initSetting() {
@@ -137,7 +104,24 @@ public class GameController extends AnimationTimer implements Initializable {
     }
 
     private void initGameField() {
+//Todo: init Game field with GameStage and get return this
+        //GameStage gameStage = new GameStage();
+        //this.gameField = gameStage.getGameField()
+        //Todo: comment this code after finish before code
 
+        this.map = new Map();
+        this.wayPoint = new WayPoint();
+
+        points = wayPoint.getPoints();
+        this.gameField = new GameField();
+
+        this.gameField.addAllEntity(map.getListTile());
+        this.spawner = new Spawner();
+        this.gameField.addEntity(this.spawner);
+//        this.gameField.addEntity(new Target());
+//        this.gameField.addEntity(new NormalTower());
+//        this.gameField.addEntity(new RoketTower());
+//        this.gameField.addEntity(new MachineGunTower());
     }
 
     @Override
@@ -219,6 +203,10 @@ public class GameController extends AnimationTimer implements Initializable {
                         break;
                     case BeamTower:
                         gameField.addEntity(new BeamTower(posX, posY));
+                        break;
+                    case MachineGunTower:
+                        gameField.addEntity(new MachineGunTower(posX, posY));
+                        break;
                     default:
                         break;
                 }
@@ -233,6 +221,8 @@ public class GameController extends AnimationTimer implements Initializable {
     }
 
     private void initGetEvent() {
+
+        System.out.println("Init event..");
         listTower.setOnDragDetected(event -> {
             System.out.println("Drag detected");
         });
@@ -244,18 +234,25 @@ public class GameController extends AnimationTimer implements Initializable {
             System.out.println("Pick Tower 1");
         });
 
-        tower2.setOnDragDetected(mouseEvent -> {
+        tower2.setOnDragDetected(event -> {
             isPickedTower = true;
             typeOfTowerPicked = TypeOfTower.RocketTower;
-            setOnDragDetectedPickerBar(mouseEvent, tower2, typeOfTowerPicked);
+            setOnDragDetectedPickerBar(event, tower2, typeOfTowerPicked);
             System.out.println("Pick Tower 2");
         });
 
-        tower3.setOnDragDetected(mouseEvent -> {
+        tower3.setOnDragDetected(event -> {
             isPickedTower = true;
             typeOfTowerPicked = TypeOfTower.BeamTower;
-            setOnDragDetectedPickerBar(mouseEvent, tower3, typeOfTowerPicked);
-            System.out.println("Pick Tower 2");
+            setOnDragDetectedPickerBar(event, tower3, typeOfTowerPicked);
+            System.out.println("Pick Tower 3");
+        });
+
+        tower4.setOnDragDetected(event -> {
+            isPickedTower = true;
+            typeOfTowerPicked = TypeOfTower.MachineGunTower;
+            setOnDragDetectedPickerBar(event, tower4, typeOfTowerPicked);
+            System.out.println("Pick Tower 4");
         });
 
         gameArea.setOnDragOver(dragEvent -> {

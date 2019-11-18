@@ -3,31 +3,24 @@ package townerdefense.engine.entity.tile.tower;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import townerdefense.engine.GameConfig;
-import townerdefense.engine.entity.Entity;
 import townerdefense.engine.entity.bullet.Bullet;
 import townerdefense.engine.entity.bullet.Roket;
 
 import java.util.Collection;
 
-public class RocketTower extends Tower {
+public class RoketTower extends Tower {
     private double frame_number = 0;
     private double x = 0;
     private double y = 0;
     private boolean reverse = false;
 
-    public RocketTower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
+    public RoketTower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
         super(image, posX, posY, width, height, speed, range, damage);
     }
 
     //Default
-    public RocketTower() {
-        this(GameConfig.IMRocketTower, GameConfig.SIZE_UNIT * 6, GameConfig.SIZE_UNIT * 4,
-                GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
-                GameConfig.ROCKET_TOWER_SPEED, GameConfig.ROCKET_TOWER_RANGE, GameConfig.ROCKET_TOWER_DAMAGE);
-    }
-
-    public RocketTower(double posX, double posY) {
-        this(GameConfig.IMRocketTower, posX, posY,
+    public RoketTower() {
+        this(GameConfig.IMRocketTower, GameConfig.SIZE_UNIT * 6, GameConfig.SIZE_UNIT * 5,
                 GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
                 GameConfig.ROCKET_TOWER_SPEED, GameConfig.ROCKET_TOWER_RANGE, GameConfig.ROCKET_TOWER_DAMAGE);
     }
@@ -46,8 +39,7 @@ public class RocketTower extends Tower {
     }
 
     @Override
-    public Collection<? extends Entity> spawnAll() {
+    public Collection<Bullet> spawnAll() {
         return null;
     }
-
 }

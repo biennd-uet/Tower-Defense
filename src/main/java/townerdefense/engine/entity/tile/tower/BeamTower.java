@@ -11,6 +11,7 @@ import townerdefense.engine.entity.bullet.Laze;
 import townerdefense.engine.entity.enemy.Enemy;
 import townerdefense.engine.entity.enemy.Plane;
 
+import java.util.Collection;
 import java.util.function.Predicate;
 
 public class BeamTower extends Tower {
@@ -104,6 +105,11 @@ public class BeamTower extends Tower {
     public Bullet spawn() {
         lastTimeAttack = System.nanoTime();
         return new Laze(enemyInRangeQueue, posX, posY, GameConfig.TOWER_DAMAGE);
+    }
+
+    @Override
+    public Collection<? extends Entity> spawnAll() {
+        return null;
     }
 
 }

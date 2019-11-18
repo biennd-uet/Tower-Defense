@@ -16,7 +16,7 @@
         </Group>
     </center>
     <right>
-        <StackPane fx:id="infomation" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity"
+        <StackPane fx:id="information" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity"
                    minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="120.0"
                    BorderPane.alignment="CENTER"/>
     </right>

@@ -14,14 +14,14 @@ public class BossEnemy extends Enemy {
 
     public BossEnemy() {
         this(GameConfig.IMBoss, 0, GameConfig.SPAWNER_DEFAULT_POSX, GameConfig.SPAWNER_DEFAULT_POSY,
-                GameConfig.NORMAL_ENEMY_WIDTH, GameConfig.NORMAL_ENEMY_HEIGHT,
+                GameConfig.BOSS_ENEMY_WIDTH, GameConfig.BOSS_ENEMY_HEIGHT,
                 GameConfig.BOSS_ENEMY_HEALTH, GameConfig.BOSS_ENEMY_SPEED,
                 GameConfig.BOSS_ENEMY_ARMOR, GameConfig.BOSS_ENEMY_REWARD);
     }
 
     public BossEnemy(double posX, double posY) {
         this(GameConfig.IMBoss, 0, posX, posY,
-                GameConfig.NORMAL_ENEMY_WIDTH, GameConfig.NORMAL_ENEMY_HEIGHT,
+                GameConfig.BOSS_ENEMY_WIDTH, GameConfig.BOSS_ENEMY_HEIGHT,
                 GameConfig.BOSS_ENEMY_HEALTH, GameConfig.BOSS_ENEMY_SPEED,
                 GameConfig.BOSS_ENEMY_ARMOR, GameConfig.BOSS_ENEMY_REWARD);
     }
@@ -29,7 +29,6 @@ public class BossEnemy extends Enemy {
     @Override
     public void render(GraphicsContext graphicsContext) {
         super.render(graphicsContext);
-
         final double percentHealth = health / GameConfig.BOSS_ENEMY_HEALTH;
         if (percentHealth <= 0.25) {
             graphicsContext.setFill(Color.RED);
