@@ -48,13 +48,13 @@ public class GameField {
 
         //Update state
         GameField.entities.forEach(entity -> {
-            if(entity instanceof UpdatableEntity) {
+            if (entity instanceof UpdatableEntity) {
                 ((UpdatableEntity) entity).update(deltaTime);
             }
         });
         //Update destroyable entity
         GameField.entities.forEach(entity -> {
-            if(entity instanceof DestroyableEntity && ((DestroyableEntity) entity).isDestroy()) {
+            if (entity instanceof DestroyableEntity && ((DestroyableEntity) entity).isDestroy()) {
                 destroyEntity.add(entity);
             }
         });
@@ -64,12 +64,12 @@ public class GameField {
         destroyEntity.clear();
         //Update spawnalbe entity
         GameField.entities.forEach(entity -> {
-            if(entity instanceof SpawnableEntity &&
-                    ((SpawnableEntity) entity).hasEntityToSpawn()) {
-                spawnedEntity.add(((SpawnableEntity) entity).spawn());
-
-                //spawnedEntity.addAll(((SpawnableEntity) entity).spawnAll());
-                
+            if (entity instanceof SpawnableEntity) {
+                if (((SpawnableEntity) entity).hasEntityToSpawn()) {
+                    spawnedEntity.add(((SpawnableEntity) entity).spawn());
+                } else if (((SpawnableEntity) entity).hasEntitiesToSpawn()) {
+                    spawnedEntity.addAll(((SpawnableEntity) entity).spawnAll());
+                }
             }
         });
         //Add them to game field

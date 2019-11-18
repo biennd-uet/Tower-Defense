@@ -13,16 +13,18 @@ public class NormalBullet extends Bullet {
     private double apha;
     private Image image;
 
-    public NormalBullet(Enemy enemy,Image image, double posX, double posY, double with, double height, double speed, double damage) {
-       super(enemy,image, posX, posY,
-               with, height,
-               speed, damage);
+    public NormalBullet(Enemy enemy, Image image, double posX, double posY, double with, double height, double speed, double damage) {
+        super(enemy, image, posX, posY,
+                with, height,
+                speed, damage);
     }
-    public NormalBullet(Enemy enemy, double posX, double posY, double damage){
-        this(enemy,GameConfig.IMBullet, posX, posY,
+
+    public NormalBullet(Enemy enemy, double posX, double posY, double damage) {
+        this(enemy, GameConfig.IMBullet, posX, posY,
                 GameConfig.BULLET_WIDTH, GameConfig.BULLET_HEIGHT,
                 GameConfig.BULLET_SPEED, damage);
     }
+
     @Override
     public void render(GraphicsContext graphicsContext) {
         super.render(graphicsContext);
@@ -30,19 +32,19 @@ public class NormalBullet extends Bullet {
 
     @Override
     public void update(int deltaTime) {
-       super.update(deltaTime);
+        super.update(deltaTime);
     }
 
     @Override
     public boolean isDestroy() {
        /* return enemy.isDestroy() || Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
                 enemy.getCenterPosX(), this.getCenterPosY()) <= GameConfig.SIZE_UNIT;*/
-       return super.isDestroy();
+        return super.isDestroy();
     }
 
     @Override
     public void onDestroy() {
-      //  enemy.onAttacked(this.damage);
+        //  enemy.onAttacked(this.damage);
         super.onDestroy();
     }
 }

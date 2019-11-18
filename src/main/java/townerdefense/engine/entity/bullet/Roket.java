@@ -13,16 +13,18 @@ public class Roket extends Bullet {
     private double apha;
     private Image image;
 
-    public Roket(Enemy enemy,Image image, double posX, double posY, double with, double height, double speed, double damage) {
-        super(enemy,image, posX, posY,
+    public Roket(Enemy enemy, Image image, double posX, double posY, double with, double height, double speed, double damage) {
+        super(enemy, image, posX, posY,
                 with, height,
                 speed, damage);
     }
-    public Roket(Enemy enemy, double posX, double posY, double damage){
-        this(enemy,GameConfig.IMRoket, posX, posY,
+
+    public Roket(Enemy enemy, double posX, double posY, double damage) {
+        this(enemy, GameConfig.IMRoket, posX, posY,
                 GameConfig.ROCKET_WIDTH, GameConfig.ROCKET_HEIGHT,
                 GameConfig.ROCKET_SPEED, damage);
     }
+
     @Override
     public void render(GraphicsContext graphicsContext) {
         super.render(graphicsContext);
