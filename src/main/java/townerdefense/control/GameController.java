@@ -29,6 +29,7 @@ import townerdefense.model.nonentity.Circle;
 import townerdefense.model.nonentity.NonEntity;
 import townerdefense.model.nonentity.Rect;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -109,7 +110,11 @@ public class GameController extends AnimationTimer implements Initializable {
         //this.gameField = gameStage.getGameField()
         //Todo: comment this code after finish before code
 
-        this.map = new Map();
+        try {
+            this.map = new Map();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         this.wayPoint = new WayPoint();
 
         points = wayPoint.getPoints();

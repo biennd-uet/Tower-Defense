@@ -24,7 +24,7 @@ public class MachineGunTower extends Tower {
     public MachineGunTower() {
         this(GameConfig.IMMachineGunTower, 4 * GameConfig.SIZE_TILE_WIDTH, 5 * GameConfig.SIZE_TILE_HEIGHT,
                 GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
-                GameConfig.TOWER_SPEED, GameConfig.TOWER_RANGE, GameConfig.TOWER_DAMAGE);
+                GameConfig.MACHINEGUN_TOWER_SPEED, GameConfig.MACHINEGUN_TOWER_RANGE, GameConfig.MACHINEGUN_TOWER_DAMAGE);
     }
 
     public MachineGunTower(double posX, double posY) {

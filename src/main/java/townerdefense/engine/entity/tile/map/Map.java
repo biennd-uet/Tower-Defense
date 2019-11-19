@@ -5,6 +5,7 @@ import townerdefense.engine.entity.Entity;
 import townerdefense.engine.entity.TypeOfEntity;
 import townerdefense.engine.entity.tile.Road;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,8 +15,9 @@ public class Map {
     public static int[][] map;
     List<Entity> tileList;
 
-    public Map() {
+    public Map() throws IOException, ClassNotFoundException {
         //this.map = new int[GameConfig.NUMBER_TILE_IN_HORIZONTAL][GameConfig.NUMBER_TILE_IN_VERTICAL];
+
         //TODO: load map from something...
         this(new int[][]{
                 {6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6},
@@ -39,9 +41,16 @@ public class Map {
                 {6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6},
                 {6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6}
         });
+
+
     }
 
-    public Map(int[][] map) {
+    public Map(int[][] map) throws IOException {
+        FileOutputStream fos = new FileOutputStream("map.txt");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(map);
+        fos.close();
+        oos.close();
         if (map == null
                 || map.length != GameConfig.NUMBER_TILE_IN_VERTICAL
                 || map[0].length != GameConfig.NUMBER_TILE_IN_HORIZONTAL) {

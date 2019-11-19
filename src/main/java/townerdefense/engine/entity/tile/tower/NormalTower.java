@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.bullet.Bullet;
 import townerdefense.engine.entity.bullet.NormalBullet;
+import townerdefense.engine.entity.other.MediaManager;
 
 import java.util.Collection;
 
