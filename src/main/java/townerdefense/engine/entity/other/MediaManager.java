@@ -10,7 +10,7 @@ public class MediaManager {
     public static final Media GUN_SHOT_FX = new Media(MediaManager.class.getResource("asset/ak47.mp3").toString());
     public static final Media FOOTSTEP_FX = new Media(MediaManager.class.getResource("/zapsplat_foley_footsteps_dirt_road_walking_23331.mp3").toString());
 
-    public void playMusic(String url) {
+    public static void playMusic(String url) {
         Media sound = null;
         try {
             sound = new Media(new File(url).toURI().toString());

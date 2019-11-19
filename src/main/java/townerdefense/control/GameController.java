@@ -21,6 +21,7 @@ import townerdefense.engine.entity.tile.tower.MachineGunTower;
 import townerdefense.engine.entity.tile.tower.NormalTower;
 import townerdefense.engine.entity.tile.tower.RoketTower;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -65,7 +66,11 @@ public class GameController extends AnimationTimer implements Initializable {
         //this.gameField = gameStage.getGameField()
         //Todo: comment this code after finish before code
 
-        this.map = new Map();
+        try {
+            this.map = new Map();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         this.wayPoint = new WayPoint();
 
         points = wayPoint.getPoints();
