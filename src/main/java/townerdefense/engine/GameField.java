@@ -27,6 +27,7 @@ public class GameField {
     }
 
     public void addEntity(Entity entity) {
+        System.out.println("Add Entity");
         entities.add(entity);
     }
 

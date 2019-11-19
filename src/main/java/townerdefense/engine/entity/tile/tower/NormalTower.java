@@ -26,6 +26,16 @@ public class NormalTower extends Tower {
                 GameConfig.TOWER_SPEED, GameConfig.TOWER_RANGE, GameConfig.TOWER_DAMAGE);
     }
 
+    public NormalTower(int posX, int posY) {
+        this(GameConfig.IMTower1, posX, posY, GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
+                GameConfig.TOWER_SPEED, GameConfig.TOWER_RANGE, GameConfig.TOWER_DAMAGE);
+    }
+
+    public NormalTower(double posX, double posY) {
+        this(GameConfig.IMTower1, posX, posY, GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
+                GameConfig.TOWER_SPEED, GameConfig.TOWER_RANGE, GameConfig.TOWER_DAMAGE);
+    }
+
     @Override
     public void render(GraphicsContext graphicsContext) {
         super.render(graphicsContext);

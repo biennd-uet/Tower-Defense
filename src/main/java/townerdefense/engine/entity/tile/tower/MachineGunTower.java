@@ -27,6 +27,12 @@ public class MachineGunTower extends Tower {
                 GameConfig.MACHINEGUN_TOWER_SPEED, GameConfig.MACHINEGUN_TOWER_RANGE, GameConfig.MACHINEGUN_TOWER_DAMAGE);
     }
 
+    public MachineGunTower(double posX, double posY) {
+        this(GameConfig.IMMachineGunTower, posX, posY,
+                GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
+                GameConfig.MACHINE_GUN_TOWER_SPEED, GameConfig.MACHINE_GUN_TOWER_RANGE, GameConfig.MACHINE_GUN_TOWER_DAMAGE);
+    }
+
     @Override
     public void render(GraphicsContext graphicsContext) {
         super.render(graphicsContext);
