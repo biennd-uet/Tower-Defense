@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="townerdefense.control.GameController">
+    <center>
+        <Group fx:id="gameArea" BorderPane.alignment="TOP_LEFT">
+            <children>
+                <Canvas fx:id="canvas" height="720.0" width="1200.0" />
+            <HBox id="informationBar" fx:id="information" alignment="TOP_CENTER" prefHeight="43.0" prefWidth="1200.0" stylesheets="@../css/Information.css">
+               <children>
+                  <HBox>
+                     <children>
+                        <ImageView fx:id="imageHealth" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+                           <image>
+                              <Image url="@../image/heart.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="health" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Health">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <ImageView fx:id="imageGold" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+                           <image>
+                              <Image url="@../image/coins.png" />
+                           </image></ImageView>
+                        <Text fx:id="gold" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Gold" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <ImageView fx:id="imageTurn" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+                           <image>
+                              <Image url="@../image/skull-cap.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="turn" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Turn" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <ImageView fx:id="imageStage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="image" />
+                        <Text fx:id="stage" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Stage" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            </children>
+        </Group>
+    </center>
+    <bottom>
+        <HBox fx:id="listTower" alignment="BASELINE_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="1200.0" BorderPane.alignment="BOTTOM_LEFT">
+            <children>
+                <ImageView fx:id="tower1" fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="tower2" fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="tower3" fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="tower4" fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

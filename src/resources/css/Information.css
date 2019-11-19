@@ -1,0 +1,13 @@
+.text {
+    -fx-font-size: 30px;
+    -fx-padding: 5px 0px 0px 0px;
+}
+
+.image {
+    -fx-border-image-width: 20px;
+    -fx-translate-y: 5px;
+}
+
+#informationBar {
+    -fx-spacing: 20px;
+}
