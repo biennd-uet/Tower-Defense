@@ -79,9 +79,9 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.drawImage(GameConfig.IMBlank, posX, posY, width, height);
         graphicsContext.save();
-        rotate(graphicsContext, theta, posX + width / 2, posY + height / 2);
+        rotate(graphicsContext, theta, this.getCenterPosX(), this.getCenterPosY());
         graphicsContext.drawImage(image, posX, posY, width, height);
-
+        //graphicsContext.strokeOval(this.getCenterPosX()  - this.range / 2, this.getCenterPosY() - this.range / 2, this.range, this.range);
         graphicsContext.restore();
     }
 

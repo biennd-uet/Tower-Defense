@@ -33,13 +33,12 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
         lastTimeWayspaw = 0;
         timeBetweenSpawnEnemy = GameConfig.NPS / GameConfig.SPAWNER_SPEED_SPAWN;
         timeBetween2WayEnemy = GameConfig.NPS / 0.1;
-
     }
 
     public Spawner() {
         this(GameConfig.SPAWNER_DEFAULT_POSX, GameConfig.SPAWNER_DEFAULT_POSY,
                 GameConfig.SPAWNER_WIDTH, GameConfig.SPAWNER_HEIGHT);
-        Spaw1way();
+        SpawnOneWay();
     }
 
     @Override
@@ -63,7 +62,7 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
         return enemies.remove();
     }
 
-    public void Spaw1way() {
+    public void SpawnOneWay() {
 
         if (hasNewWayToSpawn()) {
             //lastTimeWayspaw = System.nanoTime();
@@ -92,7 +91,7 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
     @Override
     public boolean hasEntityToSpawn() {
         hasNewWayToSpawn();
-        Spaw1way();
+        SpawnOneWay();
         return !enemies.isEmpty() && timeBetweenSpawnEnemy + lastTimeSpawn <= System.nanoTime();
     }
 

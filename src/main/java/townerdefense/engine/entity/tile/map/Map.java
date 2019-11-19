@@ -1,13 +1,14 @@
 package townerdefense.engine.entity.tile.map;
 
 import townerdefense.engine.GameConfig;
-import townerdefense.engine.TypeOfEntity;
 import townerdefense.engine.entity.Entity;
+import townerdefense.engine.entity.TypeOfEntity;
 import townerdefense.engine.entity.tile.Road;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 public class Map {
     public static int[][] map;
@@ -56,19 +57,17 @@ public class Map {
                 final int posY = i * GameConfig.SIZE_TILE_HEIGHT;
                 final int width = GameConfig.SIZE_TILE_WIDTH;
                 final int height = GameConfig.SIZE_TILE_HEIGHT;
-                switch (map[i][j]) {
-
-                    case TypeOfEntity.ROAD6:
+                switch (Objects.requireNonNull(TypeOfEntity.getTypeOfEntityByType(map[i][j]))) {
+                    case ROAD6:
                         this.tileList.add(new Road(GameConfig.IM6, posX, posY, width, height));
                         break;
-                    case TypeOfEntity.ROAD0:
-                    case 2:
-                    case 3:
-                    case 4:
-                    case 5:
+                    case ROAD0:
+                    case ROAD2:
+                    case ROAD3:
+                    case ROAD4:
+                    case ROAD5:
                         this.tileList.add(new Road(GameConfig.IM0, posX, posY, width, height));
                         break;
-
                     default:
                         break;
                 }

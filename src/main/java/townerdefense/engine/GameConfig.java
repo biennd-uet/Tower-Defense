@@ -23,6 +23,8 @@ public class GameConfig {
     public static final int SCREEN_HEIGHT = 860;
     //1200 - 1080 = 120
     //860 - 720 = 140
+    //Size of pick tower pick (Square)
+    public static final int SIZE_SQUARE_IN_BAR = 140;
     //Size of Stage
     public static final int STAGE_WIDTH = NUMBER_TILE_IN_HORIZONTAL * SIZE_TILE_WIDTH;
     public static final int STAGE_HEIGHT = NUMBER_TILE_IN_VERTICAL * SIZE_TILE_HEIGHT;
@@ -82,18 +84,21 @@ public class GameConfig {
     public static final int TOWER_DEFAULT_POSY = 5 * SIZE_TILE_HEIGHT;
     public static final int TOWER_WIDTH = SIZE_TILE_WIDTH;
     public static final int TOWER_HEIGHT = SIZE_TILE_HEIGHT;
-    //public static final double TOWER_SPEED_BULLET = 1500;
     public static final double TOWER_SPEED = 2.5; //Attack per Second
     public static final int TOWER_DAMAGE = 20;
-    public static final int TOWER_RANGE = 700;
+    public static final int TOWER_RANGE = 300;
 
     public static final double BEAM_TOWER_SPEED = 1.3; //Attack per Second
     public static final int BEAM_TOWER_DAMAGE = 30;
+    public static final int BEAM_TOWER_RANGE = 200;
 
     public static final double ROCKET_TOWER_SPEED = 1.7; //Attack per Second
     public static final int ROCKET_TOWER_DAMAGE = 50;
     public static final int ROCKET_TOWER_RANGE = 700;
 
+    public static final double MACHINE_GUN_TOWER_SPEED = 1.7; //Attack per Second
+    public static final int MACHINE_GUN_TOWER_DAMAGE = 50;
+    public static final int MACHINE_GUN_TOWER_RANGE = 200;
 
     //bullet config
     public static final int BULLET_WIDTH = 8;
@@ -108,10 +113,12 @@ public class GameConfig {
     public static final int ROCKET_SPEED = 400;
 
 
+
+
     //Image
     public static Image IM_1, IM0, IM1, IM2, IM3, IM4, IM5, IM6, IM10, IMEnemy,
             IMTower, IMTower1, IMBlank, IMBullet, IMAnimationWp, IMExplosion,
-            IMBeamTower, IMBeam, IMRoketTower, IMRoket, IMBoss, IMTankEnemy, IMPlane, IMMachineGunTower;
+            IMBeamTower, IMBeam, IMRocketTower, IMRocket, IMBoss, IMTankEnemy, IMPlane, IMMachineGunTower;
 
     static {
 
@@ -128,8 +135,8 @@ public class GameConfig {
             IMExplosion = new Image(new FileInputStream("assets/explosion.png"));
             IMBeamTower = cropImage(IMTower, 0, 1, 4, 4);
             IMBeam = new Image(new FileInputStream("assets/beam.png"));
-            IMRoketTower = cropImage(IMTower, 3, 3, 4, 4);
-            IMRoket = new Image(new FileInputStream("assets/rocket.png"));
+            IMRocketTower = cropImage(IMTower, 3, 3, 4, 4);
+            IMRocket = new Image(new FileInputStream("assets/rocket.png"));
             IMBoss = new Image(new FileInputStream("assets/FinalBoss.png"));
             IMTankEnemy = new Image(new FileInputStream("assets/TankEnemy.png"));
             IMPlane = new Image(new FileInputStream("assets/plane.png"));
