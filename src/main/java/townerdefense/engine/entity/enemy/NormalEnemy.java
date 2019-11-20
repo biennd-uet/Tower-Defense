@@ -3,6 +3,7 @@ package townerdefense.engine.entity.enemy;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import townerdefense.control.GameController;
 import townerdefense.engine.GameConfig;
 
 
@@ -40,5 +41,10 @@ public class NormalEnemy extends Enemy {
 
         graphicsContext.fillRect(this.getPosX(), this.getPosY() + 2,
                 width * percentHealth, 2);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
