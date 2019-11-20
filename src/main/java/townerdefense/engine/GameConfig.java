@@ -87,6 +87,7 @@ public class GameConfig {
     public static final double TOWER_SPEED = 2.5; //Attack per Second
     public static final int TOWER_DAMAGE = 20;
     public static final int TOWER_RANGE = 300;
+    public static final int TOWER_PRICE = 50;
 
     public static final double MACHINEGUN_TOWER_SPEED = 1.3; //Attack per Second
     public static final int MACHINEGUN_TOWER_DAMAGE = 15;
@@ -95,10 +96,12 @@ public class GameConfig {
     public static final double ROCKET_TOWER_SPEED = 1.7; //Attack per Second
     public static final int ROCKET_TOWER_DAMAGE = 50;
     public static final int ROCKET_TOWER_RANGE = 700;
+    public static final int ROCKET_TOWER_PRICE = 50;
 
     public static final double MACHINE_GUN_TOWER_SPEED = 1.7; //Attack per Second
     public static final int MACHINE_GUN_TOWER_DAMAGE = 50;
     public static final int MACHINE_GUN_TOWER_RANGE = 200;
+    public static final int MACHINE_GUN_TOWER_PRICE = 50;
 
     //bullet config
     public static final int BULLET_WIDTH = 8;
@@ -111,8 +114,6 @@ public class GameConfig {
     public static final int ROCKET_WIDTH = 20;
     public static final int ROCKET_HEIGHT = 45;
     public static final int ROCKET_SPEED = 400;
-
-
 
 
     //Image
@@ -141,6 +142,7 @@ public class GameConfig {
             IMTankEnemy = new Image(new FileInputStream("assets/TankEnemy.png"));
             IMPlane = new Image(new FileInputStream("assets/plane.png"));
             IMMachineGunTower = cropImage(IMTower, 3, 0, 4, 4);
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

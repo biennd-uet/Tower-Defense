@@ -10,21 +10,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.GameField;
 import townerdefense.engine.entity.TypeOfEntity;
-import townerdefense.engine.entity.enemy.BossEnemy;
-import townerdefense.engine.entity.enemy.NormalEnemy;
-import townerdefense.engine.entity.enemy.Plane;
-import townerdefense.engine.entity.enemy.TankEnemy;
 import townerdefense.engine.entity.other.Point;
 import townerdefense.engine.entity.tile.Spawner;
-import townerdefense.engine.entity.tile.Target;
 import townerdefense.engine.entity.tile.map.Map;
 import townerdefense.engine.entity.tile.map.WayPoint;
 import townerdefense.engine.entity.tile.tower.*;
+import townerdefense.model.UserManager;
 import townerdefense.model.nonentity.Circle;
 import townerdefense.model.nonentity.NonEntity;
 import townerdefense.model.nonentity.Rect;
@@ -44,7 +40,23 @@ public class GameController extends AnimationTimer implements Initializable {
     @FXML
     private Canvas canvas;
     @FXML
-    private StackPane information;
+    private HBox information;
+    @FXML
+    private ImageView imageHealth;
+    @FXML
+    private Text health;
+    @FXML
+    private ImageView imageGold;
+    @FXML
+    private Text gold;
+    @FXML
+    private ImageView imageTurn;
+    @FXML
+    private Text turn;
+    @FXML
+    private ImageView imageStage;
+    @FXML
+    private Text stage;
     @FXML
     private HBox listTower;
     @FXML
@@ -56,7 +68,6 @@ public class GameController extends AnimationTimer implements Initializable {
     @FXML
     private ImageView tower4;
 
-
     private GraphicsContext graphicsContext;
     private GameField gameField;
     private Map map;
@@ -64,6 +75,7 @@ public class GameController extends AnimationTimer implements Initializable {
     private Spawner spawner;
     private long lastTime;
     private long lag;
+    public static UserManager user;
 
     private boolean isPickedTower;
     private TypeOfTower typeOfTowerPicked;
@@ -76,7 +88,11 @@ public class GameController extends AnimationTimer implements Initializable {
         System.out.println("Init game...");
 
         initSetting();
+
+        initUser();
+
         initUserInterface();
+
         initGetEvent();
 
         initGameField();
@@ -92,6 +108,10 @@ public class GameController extends AnimationTimer implements Initializable {
         tower2.setImage(TypeOfTower.RocketTower.getImage());
         tower3.setImage(TypeOfTower.BeamTower.getImage());
         tower4.setImage(TypeOfTower.MachineGunTower.getImage());
+
+        health.setText(String.valueOf(user.getHealth()));
+        gold.setText(String.valueOf(user.getGold()));
+        stage.setText(String.valueOf(user.getStage()));
     }
 
     private void initSetting() {
@@ -129,6 +149,10 @@ public class GameController extends AnimationTimer implements Initializable {
 //        this.gameField.addEntity(new MachineGunTower());
     }
 
+    private void initUser() {
+        user = new UserManager(100, 100, 1, 2);
+    }
+
     @Override
     public void handle(long now) {
         final double elapsed = now - lastTime;
@@ -164,9 +188,9 @@ public class GameController extends AnimationTimer implements Initializable {
                 .parallelStream()
                 .collect(Collectors.toList())
                 .forEach(entity -> entity.render(this.graphicsContext));
-        //Todo render event
 
         NonEntity.nonEntities.forEach(nonEntity -> nonEntity.render(graphicsContext));
+        gold.setText(String.valueOf(user.getGold()));
     }
 
     private TypeOfEntity getTypeOfTile(double posX, double posY) {
@@ -177,6 +201,10 @@ public class GameController extends AnimationTimer implements Initializable {
     }
 
     private void setOnDragDetectedPickerBar(MouseEvent event, ImageView tower1, TypeOfTower typeOfTowerPicked) {
+        if (!user.canBuyTower(typeOfTowerPicked.getPrice())) {
+            event.consume();
+            return ;
+        }
         final double posX = GameConfig.SIZE_TILE_WIDTH * Math.round(event.getSceneX() / GameConfig.SIZE_TILE_WIDTH);
         final double posY = GameConfig.SIZE_TILE_HEIGHT * Math.round(event.getSceneY() / GameConfig.SIZE_TILE_HEIGHT);
         NonEntity.nonEntities.add(new Rect(posX, posY, GameConfig.SIZE_TILE_WIDTH, GameConfig.SIZE_TILE_HEIGHT));
@@ -215,6 +243,9 @@ public class GameController extends AnimationTimer implements Initializable {
                     default:
                         break;
                 }
+
+                user.buyTower(typeOfTowerPicked.getPrice());
+                gold.setText(String.valueOf(user.getGold()));
 
                 isPickedTower = false;
             }

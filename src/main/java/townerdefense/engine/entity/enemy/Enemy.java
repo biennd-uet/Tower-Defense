@@ -193,6 +193,6 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public void onDestroy() {
-
+        GameController.user.getReward(50);
     }
 }
