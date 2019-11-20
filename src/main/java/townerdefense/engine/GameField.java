@@ -51,6 +51,7 @@ public class GameField {
         GameField.entities.forEach(entity -> {
             if (entity instanceof UpdatableEntity) {
                 ((UpdatableEntity) entity).update(deltaTime);
+                //System.out.println(deltaTime);
             }
         });
         //Update destroyable entity
@@ -66,10 +67,11 @@ public class GameField {
         //Update spawnalbe entity
         GameField.entities.forEach(entity -> {
             if (entity instanceof SpawnableEntity) {
-                if (((SpawnableEntity) entity).hasEntityToSpawn()) {
-                    spawnedEntity.add(((SpawnableEntity) entity).spawn());
-                } else if (((SpawnableEntity) entity).hasEntitiesToSpawn()) {
-                    spawnedEntity.addAll(((SpawnableEntity) entity).spawnAll());
+
+                if (((SpawnableEntity) entity).hasEntityToSpawn(deltaTime)) {
+                    spawnedEntity.add(((SpawnableEntity) entity).spawn(deltaTime));
+                } else if (((SpawnableEntity) entity).hasEntitiesToSpawn(deltaTime)) {
+                    spawnedEntity.addAll(((SpawnableEntity) entity).spawnAll(deltaTime));
                 }
             }
         });

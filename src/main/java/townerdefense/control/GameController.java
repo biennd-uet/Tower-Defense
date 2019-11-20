@@ -145,7 +145,7 @@ public class GameController extends AnimationTimer implements Initializable {
         this.gameField.addEntity(this.spawner);
 //        this.gameField.addEntity(new Target());
 //        this.gameField.addEntity(new NormalTower());
-//        this.gameField.addEntity(new RoketTower());
+//
 //        this.gameField.addEntity(new MachineGunTower());
     }
 
@@ -156,6 +156,7 @@ public class GameController extends AnimationTimer implements Initializable {
     @Override
     public void handle(long now) {
         final double elapsed = now - lastTime;
+        //System.out.println(now);
         lastTime = now;
         lag += elapsed;
 
