@@ -42,16 +42,16 @@ public class NormalTower extends Tower {
     }
 
     @Override
-    public Bullet spawn() {
+    public Bullet spawn(int deltaTime) {
 
-        lastTimeAttack = System.nanoTime();
+
         double pX = this.getCenterPosX() - GameConfig.BULLET_WIDTH / 2;
         double pY = this.getCenterPosY() - GameConfig.BULLET_HEIGHT / 2;
         return new NormalBullet(enemyInRangeQueue.peek(), pX, pY, GameConfig.TOWER_DAMAGE);
     }
 
     @Override
-    public Collection<Bullet> spawnAll() {
+    public Collection<Bullet> spawnAll(int deltaTime) {
         return null;
     }
 }

@@ -3,11 +3,11 @@ package townerdefense.engine.entity;
 import java.util.Collection;
 
 public interface SpawnableEntity {
-    boolean hasEntityToSpawn();
+    boolean hasEntityToSpawn(int deltaTime);
 
-    boolean hasEntitiesToSpawn();
+    boolean hasEntitiesToSpawn(int deltaTime);
 
-    Entity spawn();
+    Entity spawn(int deltaTime);
 
-    Collection<? extends Entity> spawnAll();
+    Collection<? extends Entity> spawnAll(int deltaTime);
 }

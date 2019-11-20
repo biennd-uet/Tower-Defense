@@ -38,15 +38,16 @@ public class RocketTower extends Tower {
     }
 
     @Override
-    public Bullet spawn() {
-        lastTimeAttack = System.nanoTime();
+    public Bullet spawn(int deltaTime) {
+
+
         double pX = this.getCenterPosX() - GameConfig.ROCKET_WIDTH / 2;
         double pY = this.getCenterPosY() - GameConfig.ROCKET_HEIGHT / 2;
         return new Roket(enemyInRangeQueue.peek(), pX, pY, GameConfig.ROCKET_TOWER_DAMAGE);
     }
 
     @Override
-    public Collection<? extends Entity> spawnAll() {
+    public Collection<? extends Entity> spawnAll(int deltaTime) {
         return null;
     }
 

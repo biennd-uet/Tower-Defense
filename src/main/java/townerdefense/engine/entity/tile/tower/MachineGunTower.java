@@ -24,7 +24,7 @@ public class MachineGunTower extends Tower {
     public MachineGunTower() {
         this(GameConfig.IMMachineGunTower, 4 * GameConfig.SIZE_TILE_WIDTH, 5 * GameConfig.SIZE_TILE_HEIGHT,
                 GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
-                GameConfig.MACHINEGUN_TOWER_SPEED, GameConfig.MACHINEGUN_TOWER_RANGE, GameConfig.MACHINEGUN_TOWER_DAMAGE);
+                GameConfig.MACHINE_GUN_TOWER_SPEED, GameConfig.MACHINE_GUN_TOWER_RANGE, GameConfig.MACHINE_GUN_TOWER_DAMAGE);
     }
 
     public MachineGunTower(double posX, double posY) {
@@ -39,8 +39,8 @@ public class MachineGunTower extends Tower {
     }
 
     @Override
-    public Collection<Bullet> spawnAll() {
-        lastTimeAttack = System.nanoTime();
+    public Collection<Bullet> spawnAll(int deltaTime) {
+
         double pX1 = this.getCenterPosX();
         double pY1 = this.getCenterPosY();
         double pX2 = this.getCenterPosX() - GameConfig.BULLET_WIDTH / 2;
@@ -55,17 +55,17 @@ public class MachineGunTower extends Tower {
     }
 
     @Override
-    public Entity spawn() {
+    public Entity spawn(int deltaTime) {
         return new NormalBullet(enemyInRangeQueue.peek(), this.posX, this.posY, GameConfig.TOWER_DAMAGE);
     }
 
     @Override
-    public boolean hasEntityToSpawn() {
+    public boolean hasEntityToSpawn(int deltaTime) {
         return false;
     }
 
     @Override
-    public boolean hasEntitiesToSpawn() {
-        return super.hasEntityToSpawn();
+    public boolean hasEntitiesToSpawn(int deltaTime) {
+        return super.hasEntityToSpawn(deltaTime);
     }
 }

@@ -102,13 +102,13 @@ public class BeamTower extends Tower {
     }
 
     @Override
-    public Bullet spawn() {
+    public Bullet spawn(int deltaTime) {
         lastTimeAttack = System.nanoTime();
         return new Laze(enemyInRangeQueue, posX, posY, GameConfig.TOWER_DAMAGE);
     }
 
     @Override
-    public Collection<? extends Entity> spawnAll() {
+    public Collection<? extends Entity> spawnAll(int deltaTime) {
         return null;
     }
 

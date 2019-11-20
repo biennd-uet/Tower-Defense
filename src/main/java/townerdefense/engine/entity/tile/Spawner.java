@@ -39,6 +39,7 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
         this(GameConfig.SPAWNER_DEFAULT_POSX, GameConfig.SPAWNER_DEFAULT_POSY,
                 GameConfig.SPAWNER_WIDTH, GameConfig.SPAWNER_HEIGHT);
         SpawnOneWay();
+
     }
 
     @Override
@@ -49,7 +50,11 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
 
     @Override
     public void update(int deltaTime) {
-
+        lastTimeSpawn = lastTimeSpawn + deltaTime;
+        lastTimeWayspaw = lastTimeWayspaw + deltaTime;
+        if(hasNewWayToSpawn()){
+            SpawnOneWay();
+        }
     }
 
     public void addEnemy(Enemy enemy) {
@@ -57,15 +62,14 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
     }
 
     @Override
-    public Enemy spawn() {
-        lastTimeSpawn = System.nanoTime();
+    public Enemy spawn(int deltaTime) {
+
         return enemies.remove();
     }
 
     public void SpawnOneWay() {
 
-        if (hasNewWayToSpawn()) {
-            //lastTimeWayspaw = System.nanoTime();
+
             NNormalEnemy = (int) (NEnemy * 0.5);
             NTankEnemy = (int) (NEnemy * 0.3);
             NPlane = (int) (NEnemy * 0.1);
@@ -84,29 +88,39 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
             }
             NEnemy = NEnemy + 2;
             System.out.println(enemies.size());
-        }
+
+    }
+
+
+    @Override
+    public boolean hasEntityToSpawn(int deltaTime) {
+        if(lastTimeSpawn >= timeBetweenSpawnEnemy){
+            lastTimeSpawn = 0;
+            return !enemies.isEmpty();
+        }else return false;
 
     }
 
     @Override
-    public boolean hasEntityToSpawn() {
-        hasNewWayToSpawn();
-        SpawnOneWay();
-        return !enemies.isEmpty() && timeBetweenSpawnEnemy + lastTimeSpawn <= System.nanoTime();
-    }
-
-    @Override
-    public boolean hasEntitiesToSpawn() {
+    public boolean hasEntitiesToSpawn(int deltaTime) {
         return false;
     }
 
     public boolean hasNewWayToSpawn() {
-        if (!enemies.isEmpty()) lastTimeWayspaw = System.nanoTime();
-        return enemies.isEmpty() && timeBetween2WayEnemy + lastTimeWayspaw <= System.nanoTime();
+        if (!enemies.isEmpty()) lastTimeWayspaw = 0;
+        if(lastTimeWayspaw >= timeBetween2WayEnemy ){
+            lastTimeWayspaw = 0;
+            return enemies.isEmpty();
+        }
+        else return false;
     }
 
     @Override
-    public Collection<Bullet> spawnAll() {
+    public Collection<Bullet> spawnAll(int deltaTime) {
         return null;
+    }
+
+    public double getNEnemy() {
+        return NEnemy;
     }
 }

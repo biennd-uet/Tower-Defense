@@ -41,6 +41,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
 
     @Override
     public void update(int deltaTime) {
+        lastTimeAttack = lastTimeAttack + deltaTime;
         this.removeEnemyOutRange();
         this.findEnemyInRange();
         if (!enemyInRangeQueue.isEmpty()) {
@@ -86,12 +87,19 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     }
 
     @Override
-    public boolean hasEntityToSpawn() {
-        return enemyInRangeQueue.size() > 0 && lastTimeAttack + timeBetweenTwoAttack <= System.nanoTime();
+    public boolean hasEntityToSpawn(int deltaTime) {
+        //System.out.println(lastTimeAttack);
+        if(lastTimeAttack >= timeBetweenTwoAttack){
+            lastTimeAttack = 0;
+            return enemyInRangeQueue.size() > 0;
+        }else return false;
+
+
+
     }
 
     @Override
-    public boolean hasEntitiesToSpawn() {
+    public boolean hasEntitiesToSpawn(int deltaTime) {
         return false;
     }
 }

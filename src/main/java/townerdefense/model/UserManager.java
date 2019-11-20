@@ -30,6 +30,7 @@ public class UserManager {
     }
 
     public int getStage() {
+
         return stage;
     }
 
