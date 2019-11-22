@@ -2,6 +2,7 @@ package townerdefense.engine.entity.tile;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import townerdefense.control.GameController;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.SpawnableEntity;
 import townerdefense.engine.entity.UpdatableEntity;
@@ -23,7 +24,7 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
     private int NTankEnemy;
     private int NPlane;
     private int NBossEnemy;
-    private int dem;
+    private int NStage = 0;
 
 
     public Spawner(double posX, double posY, double with, double height) {
@@ -51,9 +52,15 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
     @Override
     public void update(int deltaTime) {
         lastTimeSpawn = lastTimeSpawn + deltaTime;
-        lastTimeWayspaw = lastTimeWayspaw + deltaTime;
-        if(hasNewWayToSpawn()){
-            SpawnOneWay();
+
+        if(enemies.isEmpty()){
+            lastTimeWayspaw = lastTimeWayspaw + deltaTime;
+            if(lastTimeWayspaw >= timeBetween2WayEnemy ){
+                lastTimeWayspaw = 0;
+                SpawnOneWay();
+
+
+            }
         }
     }
 
@@ -87,6 +94,7 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
                 addEnemy(new BossEnemy());
             }
             NEnemy = NEnemy + 2;
+            NStage ++;
             System.out.println(enemies.size());
 
     }
@@ -106,21 +114,13 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
         return false;
     }
 
-    public boolean hasNewWayToSpawn() {
-        if (!enemies.isEmpty()) lastTimeWayspaw = 0;
-        if(lastTimeWayspaw >= timeBetween2WayEnemy ){
-            lastTimeWayspaw = 0;
-            return enemies.isEmpty();
-        }
-        else return false;
-    }
 
     @Override
     public Collection<Bullet> spawnAll(int deltaTime) {
         return null;
     }
 
-    public double getNEnemy() {
-        return NEnemy;
+    public int getNStage() {
+        return NStage;
     }
 }
