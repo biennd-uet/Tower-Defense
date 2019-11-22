@@ -143,14 +143,11 @@ public class GameController extends AnimationTimer implements Initializable {
         this.gameField.addAllEntity(map.getListTile());
         this.spawner = new Spawner();
         this.gameField.addEntity(this.spawner);
-//        this.gameField.addEntity(new Target());
-//        this.gameField.addEntity(new NormalTower());
-//
-//        this.gameField.addEntity(new MachineGunTower());
+
     }
 
     private void initUser() {
-        user = new UserManager(100, 100, 1, 2);
+        user = new UserManager(100, 100, 0, 1);
     }
 
     @Override
@@ -168,7 +165,8 @@ public class GameController extends AnimationTimer implements Initializable {
             this.gameField.updateEnemy(GameConfig.NPF);
             lag -= GameConfig.NPF;
         }
-
+        user.nextTurn(this.spawner.getNStage());
+        stage.setText(String.valueOf(user.getStage()));
         this.render();
 
         this.graphicsContext.setFill(Color.GOLD);
