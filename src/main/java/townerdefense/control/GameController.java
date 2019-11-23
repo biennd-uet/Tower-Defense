@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
@@ -26,6 +27,7 @@ import townerdefense.model.nonentity.NonEntity;
 import townerdefense.model.nonentity.Rect;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -33,6 +35,7 @@ import java.util.stream.Collectors;
 
 public class GameController extends AnimationTimer implements Initializable {
     public static List<Point> points;
+    private boolean isPlaying;
     @FXML
     private BorderPane root;
     @FXML
@@ -60,13 +63,15 @@ public class GameController extends AnimationTimer implements Initializable {
     @FXML
     private HBox listTower;
     @FXML
-    private ImageView tower1;
+    private ImageView normalTower;
     @FXML
-    private ImageView tower2;
+    private ImageView rocketTower;
     @FXML
-    private ImageView tower3;
+    private ImageView beamTower;
     @FXML
-    private ImageView tower4;
+    private ImageView machinegunTower;
+    @FXML
+    private Button pauseButton;
 
     private GraphicsContext graphicsContext;
     private GameField gameField;
@@ -77,10 +82,7 @@ public class GameController extends AnimationTimer implements Initializable {
     private long lag;
     public static UserManager user;
 
-    private boolean isPickedTower;
     private TypeOfTower typeOfTowerPicked;
-    private boolean inPickPosition;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -93,7 +95,7 @@ public class GameController extends AnimationTimer implements Initializable {
 
         initUserInterface();
 
-        initGetEvent();
+        initSetOnEvent();
 
         initGameField();
 
@@ -104,35 +106,39 @@ public class GameController extends AnimationTimer implements Initializable {
 
     private void initUserInterface() {
         System.out.println("Init User Interface");
-        tower1.setImage(TypeOfTower.NormalTower.getImage());
-        tower2.setImage(TypeOfTower.RocketTower.getImage());
-        tower3.setImage(TypeOfTower.BeamTower.getImage());
-        tower4.setImage(TypeOfTower.MachineGunTower.getImage());
+        normalTower.setImage(TypeOfTower.NormalTower.getImage());
+        rocketTower.setImage(TypeOfTower.RocketTower.getImage());
+        beamTower.setImage(TypeOfTower.BeamTower.getImage());
+        machinegunTower.setImage(TypeOfTower.MachineGunTower.getImage());
 
         health.setText(String.valueOf(user.getHealth()));
         gold.setText(String.valueOf(user.getGold()));
         stage.setText(String.valueOf(user.getStage()));
+
+        if (!isPlaying) {
+            pauseButton.setText("Play");
+        }
     }
 
     private void initSetting() {
+        isPlaying = true;
         canvas.setWidth(GameConfig.STAGE_WIDTH);
         canvas.setHeight(GameConfig.STAGE_HEIGHT);
 
         this.graphicsContext = canvas.getGraphicsContext2D();
-        this.isPickedTower = false;
 
         System.out.println("Setting game...");
     }
 
     private void initGameField() {
-//Todo: init Game field with GameStage and get return this
+        //Todo: init Game field with GameStage and get return this
         //GameStage gameStage = new GameStage();
         //this.gameField = gameStage.getGameField()
         //Todo: comment this code after finish before code
 
         try {
             this.map = new Map();
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
         this.wayPoint = new WayPoint();
@@ -158,8 +164,6 @@ public class GameController extends AnimationTimer implements Initializable {
         lag += elapsed;
 
         //Todo Handle event
-
-        isPickedTower = false;
 
         while (lag >= GameConfig.NPF) {
             this.gameField.updateEnemy(GameConfig.NPF);
@@ -246,7 +250,6 @@ public class GameController extends AnimationTimer implements Initializable {
                 user.buyTower(typeOfTowerPicked.getPrice());
                 gold.setText(String.valueOf(user.getGold()));
 
-                isPickedTower = false;
             }
             NonEntity.nonEntities.clear();
         } else {
@@ -255,38 +258,45 @@ public class GameController extends AnimationTimer implements Initializable {
         dragEvent.consume();
     }
 
-    private void initGetEvent() {
+    private void initSetOnEvent() {
 
         System.out.println("Init event..");
         listTower.setOnDragDetected(event -> {
             System.out.println("Drag detected");
         });
 
-        tower1.setOnDragDetected(event -> {
-            isPickedTower = true;
+        pauseButton.setOnMousePressed(event -> {
+            if (isPlaying) {
+                this.stop();
+                pauseButton.setText("Play");
+            } else {
+                this.start();
+                pauseButton.setText("Pause");
+            }
+            isPlaying = !isPlaying;
+        });
+
+        normalTower.setOnDragDetected(event -> {
             typeOfTowerPicked = TypeOfTower.NormalTower;
-            setOnDragDetectedPickerBar(event, tower1, typeOfTowerPicked);
+            setOnDragDetectedPickerBar(event, normalTower, typeOfTowerPicked);
             System.out.println("Pick Tower 1");
         });
 
-        tower2.setOnDragDetected(event -> {
-            isPickedTower = true;
+        rocketTower.setOnDragDetected(event -> {
             typeOfTowerPicked = TypeOfTower.RocketTower;
-            setOnDragDetectedPickerBar(event, tower2, typeOfTowerPicked);
+            setOnDragDetectedPickerBar(event, rocketTower, typeOfTowerPicked);
             System.out.println("Pick Tower 2");
         });
 
-        tower3.setOnDragDetected(event -> {
-            isPickedTower = true;
+        beamTower.setOnDragDetected(event -> {
             typeOfTowerPicked = TypeOfTower.BeamTower;
-            setOnDragDetectedPickerBar(event, tower3, typeOfTowerPicked);
+            setOnDragDetectedPickerBar(event, beamTower, typeOfTowerPicked);
             System.out.println("Pick Tower 3");
         });
 
-        tower4.setOnDragDetected(event -> {
-            isPickedTower = true;
+        machinegunTower.setOnDragDetected(event -> {
             typeOfTowerPicked = TypeOfTower.MachineGunTower;
-            setOnDragDetectedPickerBar(event, tower4, typeOfTowerPicked);
+            setOnDragDetectedPickerBar(event, machinegunTower, typeOfTowerPicked);
             System.out.println("Pick Tower 4");
         });
 

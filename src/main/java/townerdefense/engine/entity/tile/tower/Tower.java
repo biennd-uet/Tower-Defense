@@ -19,9 +19,9 @@ import java.util.function.Predicate;
 
 public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEntity {
     private final double timeBetweenTwoAttack;
-    protected Queue<Enemy> enemyInRangeQueue;
-    protected double lastTimeAttack;
-    protected double theta;
+    Queue<Enemy> enemyInRangeQueue;
+    double lastTimeAttack;
+    double theta;
     private double speed;
     private double range;
     private double damage;
@@ -51,9 +51,6 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
         }
     }
 
-    //aim and attack
-
-
     private void findEnemyInRange() {
         Predicate<Entity> enemyInRange = entity -> Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
                 entity.getCenterPosX(), entity.getCenterPosY()) <= this.range;
@@ -71,7 +68,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
         this.enemyInRangeQueue.removeIf(enemyOutRange);
     }
 
-    public void rotate(GraphicsContext gc, double angle, double px, double py) {
+    private void rotate(GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
@@ -82,20 +79,18 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
         graphicsContext.save();
         rotate(graphicsContext, theta, this.getCenterPosX(), this.getCenterPosY());
         graphicsContext.drawImage(image, posX, posY, width, height);
-        //graphicsContext.strokeOval(this.getCenterPosX()  - this.range / 2, this.getCenterPosY() - this.range / 2, this.range, this.range);
         graphicsContext.restore();
     }
 
     @Override
     public boolean hasEntityToSpawn(int deltaTime) {
         //System.out.println(lastTimeAttack);
-        if(lastTimeAttack >= timeBetweenTwoAttack){
+        if (lastTimeAttack >= timeBetweenTwoAttack) {
             lastTimeAttack = 0;
             return enemyInRangeQueue.size() > 0;
-        }else return false;
-
-
-
+        } else {
+            return false;
+        }
     }
 
     @Override

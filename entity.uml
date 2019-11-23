@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>townerdefense.engine.entity</OriginalElement>
+  <nodes>
+    <node x="170.0" y="0.0">townerdefense.engine.entity.Entity</node>
+    <node x="0.0" y="78.0">townerdefense.engine.entity.enemy</node>
+    <node x="300.0" y="78.0">townerdefense.engine.entity.bullet</node>
+    <node x="154.0" y="78.0">townerdefense.engine.entity.tile</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="townerdefense.engine.entity.enemy" target="townerdefense.engine.entity.Entity">
+      <point x="0.0" y="-14.0" />
+      <point x="67.0" y="53.0" />
+      <point x="185.66666666666666" y="53.0" />
+      <point x="-31.333333333333343" y="14.0" />
+    </edge>
+    <edge source="townerdefense.engine.entity.bullet" target="townerdefense.engine.entity.Entity">
+      <point x="0.0" y="-14.0" />
+      <point x="371.0" y="53.0" />
+      <point x="248.33333333333331" y="53.0" />
+      <point x="31.333333333333314" y="14.0" />
+    </edge>
+    <edge source="townerdefense.engine.entity.tile" target="townerdefense.engine.entity.Entity">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="601.5" y="138.5" />
+  <SelectedNodes>
+    <node>townerdefense.engine.entity.Entity</node>
+    <node>townerdefense.engine.entity.enemy</node>
+    <node>townerdefense.engine.entity.bullet</node>
+    <node>townerdefense.engine.entity.tile</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -17,12 +17,12 @@ public class GameConfig {
     public static final int SIZE_TILE_HEIGHT = SIZE_UNIT;
     //Number of tile in
     public static final int NUMBER_TILE_IN_HORIZONTAL = 30;
-    public static final int NUMBER_TILE_IN_VERTICAL = 20;
+    public static final int NUMBER_TILE_IN_VERTICAL = 22;
     //Size of Screen
     public static final int SCREEN_WIDTH = 1200;
-    public static final int SCREEN_HEIGHT = 860;
+    public static final int SCREEN_HEIGHT = 792;
     //1200 - 1080 = 120
-    //860 - 720 = 140
+    //720 - 72 = 648
     //Size of pick tower pick (Square)
     public static final int SIZE_SQUARE_IN_BAR = 140;
     //Size of Stage
@@ -94,7 +94,7 @@ public class GameConfig {
     public static final int BEAM_TOWER_RANGE = 500;
     public static final int BEAM_TOWER_PRICE = 50;
 
-    public static final double ROCKET_TOWER_SPEED = 1.7; //Attack per Second
+    public static final double ROCKET_TOWER_SPEED = 0.50; //Attack per Second
     public static final int ROCKET_TOWER_DAMAGE = 50;
     public static final int ROCKET_TOWER_RANGE = 700;
     public static final int ROCKET_TOWER_PRICE = 50;
