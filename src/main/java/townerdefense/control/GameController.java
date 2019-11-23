@@ -25,6 +25,7 @@ import townerdefense.model.nonentity.Circle;
 import townerdefense.model.nonentity.NonEntity;
 import townerdefense.model.nonentity.Rect;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -129,7 +130,11 @@ public class GameController extends AnimationTimer implements Initializable {
         //this.gameField = gameStage.getGameField()
         //Todo: comment this code after finish before code
 
-        this.map = new Map();
+        try {
+            this.map = new Map();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         this.wayPoint = new WayPoint();
 
         points = wayPoint.getPoints();
@@ -138,19 +143,17 @@ public class GameController extends AnimationTimer implements Initializable {
         this.gameField.addAllEntity(map.getListTile());
         this.spawner = new Spawner();
         this.gameField.addEntity(this.spawner);
-//        this.gameField.addEntity(new Target());
-//        this.gameField.addEntity(new NormalTower());
-//        this.gameField.addEntity(new RoketTower());
-//        this.gameField.addEntity(new MachineGunTower());
+
     }
 
     private void initUser() {
-        user = new UserManager(100, 100, 1, 2);
+        user = new UserManager(100, 100, 0, 1);
     }
 
     @Override
     public void handle(long now) {
         final double elapsed = now - lastTime;
+        //System.out.println(now);
         lastTime = now;
         lag += elapsed;
 
@@ -162,7 +165,8 @@ public class GameController extends AnimationTimer implements Initializable {
             this.gameField.updateEnemy(GameConfig.NPF);
             lag -= GameConfig.NPF;
         }
-
+        user.nextTurn(this.spawner.getNStage());
+        stage.setText(String.valueOf(user.getStage()));
         this.render();
 
         this.graphicsContext.setFill(Color.GOLD);

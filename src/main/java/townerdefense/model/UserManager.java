@@ -30,6 +30,7 @@ public class UserManager {
     }
 
     public int getStage() {
+
         return stage;
     }
 
@@ -47,6 +48,10 @@ public class UserManager {
             throw new IllegalArgumentException("Don't have enough gold!");
         }
         this.gold -= price;
+    }
+    public void nextTurn(int turn){
+        hasUpdate = true;
+        this.stage = turn;
     }
 
     public boolean hasUpdate() {

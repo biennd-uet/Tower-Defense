@@ -2,6 +2,7 @@ package townerdefense.engine.entity.tile;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import townerdefense.control.GameController;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.SpawnableEntity;
 import townerdefense.engine.entity.UpdatableEntity;
@@ -23,7 +24,7 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
     private int NTankEnemy;
     private int NPlane;
     private int NBossEnemy;
-    private int dem;
+    private int NStage = 0;
 
 
     public Spawner(double posX, double posY, double with, double height) {
@@ -39,6 +40,7 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
         this(GameConfig.SPAWNER_DEFAULT_POSX, GameConfig.SPAWNER_DEFAULT_POSY,
                 GameConfig.SPAWNER_WIDTH, GameConfig.SPAWNER_HEIGHT);
         SpawnOneWay();
+
     }
 
     @Override
@@ -49,7 +51,17 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
 
     @Override
     public void update(int deltaTime) {
+        lastTimeSpawn = lastTimeSpawn + deltaTime;
 
+        if(enemies.isEmpty()){
+            lastTimeWayspaw = lastTimeWayspaw + deltaTime;
+            if(lastTimeWayspaw >= timeBetween2WayEnemy ){
+                lastTimeWayspaw = 0;
+                SpawnOneWay();
+
+
+            }
+        }
     }
 
     public void addEnemy(Enemy enemy) {
@@ -57,15 +69,14 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
     }
 
     @Override
-    public Enemy spawn() {
-        lastTimeSpawn = System.nanoTime();
+    public Enemy spawn(int deltaTime) {
+
         return enemies.remove();
     }
 
     public void SpawnOneWay() {
 
-        if (hasNewWayToSpawn()) {
-            //lastTimeWayspaw = System.nanoTime();
+
             NNormalEnemy = (int) (NEnemy * 0.5);
             NTankEnemy = (int) (NEnemy * 0.3);
             NPlane = (int) (NEnemy * 0.1);
@@ -82,31 +93,34 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
             for (int i = 0; i < NBossEnemy; i++) {
                 addEnemy(new BossEnemy());
             }
-            NEnemy = NEnemy + 0.8;
+            NEnemy = NEnemy + 2;
+            NStage ++;
             System.out.println(enemies.size());
-        }
+
+    }
+
+
+    @Override
+    public boolean hasEntityToSpawn(int deltaTime) {
+        if(lastTimeSpawn >= timeBetweenSpawnEnemy){
+            lastTimeSpawn = 0;
+            return !enemies.isEmpty();
+        }else return false;
 
     }
 
     @Override
-    public boolean hasEntityToSpawn() {
-        hasNewWayToSpawn();
-        SpawnOneWay();
-        return !enemies.isEmpty() && timeBetweenSpawnEnemy + lastTimeSpawn <= System.nanoTime();
-    }
-
-    @Override
-    public boolean hasEntitiesToSpawn() {
+    public boolean hasEntitiesToSpawn(int deltaTime) {
         return false;
     }
 
-    public boolean hasNewWayToSpawn() {
-        if (!enemies.isEmpty()) lastTimeWayspaw = System.nanoTime();
-        return enemies.isEmpty() && timeBetween2WayEnemy + lastTimeWayspaw <= System.nanoTime();
-    }
 
     @Override
-    public Collection<Bullet> spawnAll() {
+    public Collection<Bullet> spawnAll(int deltaTime) {
         return null;
+    }
+
+    public int getNStage() {
+        return NStage;
     }
 }

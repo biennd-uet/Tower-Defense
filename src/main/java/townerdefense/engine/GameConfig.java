@@ -50,7 +50,7 @@ public class GameConfig {
     public static final long SMALLER_ENEMY_HEIGHT = SIZE_UNIT * 3;
     public static final long SMALLER_ENEMY_HEALTH = 50;
     public static final long SMALLER_ENEMY_ARMOR = 10;
-    public static final double SMALLER_ENEMY_SPEED = 200;
+    public static final double SMALLER_ENEMY_SPEED = 150;
     public static final long SMALLER_ENEMY_REWARD = 2;
 
 
@@ -90,8 +90,8 @@ public class GameConfig {
     public static final int TOWER_PRICE = 50;
 
     public static final double BEAM_TOWER_SPEED = 1.3; //Attack per Second
-    public static final int BEAM_TOWER_DAMAGE = 30;
-    public static final int BEAM_TOWER_RANGE = 200;
+    public static final int BEAM_TOWER_DAMAGE = 15;
+    public static final int BEAM_TOWER_RANGE = 500;
     public static final int BEAM_TOWER_PRICE = 50;
 
     public static final double ROCKET_TOWER_SPEED = 1.7; //Attack per Second
