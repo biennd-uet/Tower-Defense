@@ -5,8 +5,8 @@ import townerdefense.engine.GameConfig;
 
 public enum TypeOfTower {
     NormalTower(GameConfig.IMTower1, GameConfig.TOWER_RANGE, GameConfig.TOWER_PRICE),
-    RocketTower(GameConfig.IMRocketTower, GameConfig.ROCKET_TOWER_RANGE, GameConfig.BEAM_TOWER_PRICE),
-    BeamTower(GameConfig.IMBeamTower, GameConfig.BEAM_TOWER_RANGE, GameConfig.ROCKET_TOWER_PRICE),
+    RocketTower(GameConfig.IMRocketTower, GameConfig.ROCKET_TOWER_RANGE, GameConfig.ROCKET_TOWER_PRICE),
+    BeamTower(GameConfig.IMBeamTower, GameConfig.BEAM_TOWER_RANGE, GameConfig.BEAM_TOWER_PRICE),
     MachineGunTower(GameConfig.IMMachineGunTower, GameConfig.MACHINE_GUN_TOWER_RANGE, GameConfig.MACHINE_GUN_TOWER_PRICE);
 
     private Image image;

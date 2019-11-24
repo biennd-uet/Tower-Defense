@@ -1,0 +1,10 @@
+HBox {
+    -fx-alignment: Center left;
+}
+
+VBox {
+    -fx-alignment: Center;
+}
+
+Text {
+}

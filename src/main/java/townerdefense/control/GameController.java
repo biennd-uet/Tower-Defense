@@ -65,11 +65,19 @@ public class GameController extends AnimationTimer implements Initializable {
     @FXML
     private ImageView normalTower;
     @FXML
+    private Text normalTowerPrice;
+    @FXML
+    private ImageView machinegunTower;
+    @FXML
+    private Text machinegunTowerPrice;
+    @FXML
     private ImageView rocketTower;
+    @FXML
+    private Text rocketTowerPrice;
     @FXML
     private ImageView beamTower;
     @FXML
-    private ImageView machinegunTower;
+    private Text beamTowerPrice;
     @FXML
     private Button pauseButton;
 
@@ -110,6 +118,11 @@ public class GameController extends AnimationTimer implements Initializable {
         rocketTower.setImage(TypeOfTower.RocketTower.getImage());
         beamTower.setImage(TypeOfTower.BeamTower.getImage());
         machinegunTower.setImage(TypeOfTower.MachineGunTower.getImage());
+
+        normalTowerPrice.setText(String.format("$ %d", TypeOfTower.NormalTower.getPrice()));
+        rocketTowerPrice.setText(String.format("$ %d", TypeOfTower.RocketTower.getPrice()));
+        beamTowerPrice.setText(String.format("$ %d", TypeOfTower.BeamTower.getPrice()));
+        machinegunTowerPrice.setText(String.format("$ %d", TypeOfTower.MachineGunTower.getPrice()));
 
         health.setText(String.valueOf(user.getHealth()));
         gold.setText(String.valueOf(user.getGold()));

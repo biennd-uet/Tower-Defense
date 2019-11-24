@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
@@ -8,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -16,9 +18,9 @@
         <Group fx:id="gameArea" BorderPane.alignment="TOP_LEFT">
             <children>
                 <Canvas fx:id="canvas" height="720.0" width="1200.0" />
-            <HBox id="informationBar" fx:id="information" alignment="TOP_CENTER" prefHeight="43.0" prefWidth="1200.0" stylesheets="@../css/Information.css">
+            <HBox id="informationBar" fx:id="information" alignment="CENTER" prefHeight="43.0" prefWidth="1200.0" stylesheets="@../css/Information.css">
                <children>
-                  <HBox>
+                  <HBox spacing="5.0">
                      <children>
                         <ImageView fx:id="imageHealth" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
                            <image>
@@ -29,56 +31,92 @@
                            <font>
                               <Font size="30.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
                         </Text>
                      </children>
                   </HBox>
-                  <HBox>
+                  <HBox spacing="5.0">
                      <children>
                         <ImageView fx:id="imageGold" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
                            <image>
                               <Image url="@../image/coins.png" />
                            </image></ImageView>
-                        <Text fx:id="gold" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Gold" />
+                        <Text fx:id="gold" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Gold">
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin></Text>
                      </children>
                   </HBox>
-                  <HBox>
+                  <HBox spacing="5.0">
                      <children>
                         <ImageView fx:id="imageTurn" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
                            <image>
                               <Image url="@../image/skull-cap.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="turn" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Turn" />
+                        <Text fx:id="turn" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Turn">
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin></Text>
                      </children>
                   </HBox>
-                  <HBox>
+                  <HBox spacing="5.0">
                      <children>
                         <ImageView fx:id="imageStage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="image" />
-                        <Text fx:id="stage" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Stage" />
+                        <Text fx:id="stage" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Stage">
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin></Text>
                      </children>
                   </HBox>
                </children>
             </HBox>
-              <HBox fx:id="listTower" alignment="CENTER" layoutY="720.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="1200.0">
+              <HBox fx:id="listTower" alignment="CENTER" layoutY="720.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="1200.0" stylesheets="@../css/Store.css">
                   <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER_LEFT">
                      <children>
                             <ImageView fx:id="normalTower" fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" styleClass="selectedTower" />
+                        <VBox>
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tower" />
+                              <Text fx:id="normalTowerPrice" fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" />
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox>
                      <children>
                             <ImageView fx:id="machinegunTower" fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" styleClass="selectedTower" />
+                        <VBox>
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="MachineGun" />
+                              <Text fx:id="machinegunTowerPrice" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" />
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox>
                      <children>
                             <ImageView fx:id="rocketTower" fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" styleClass="selectedTower" />
+                        <VBox>
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Rocket" />
+                              <Text fx:id="rocketTowerPrice" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" />
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox>
                      <children>
                             <ImageView fx:id="beamTower" fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" styleClass="selectedTower" />
+                        <VBox>
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Beam" />
+                              <Text fx:id="beamTowerPrice" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" />
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                   <Button fx:id="pauseButton" mnemonicParsing="false" text="Pause" />
