@@ -54,11 +54,4 @@ public class UserManager {
         this.stage = turn;
     }
 
-    public boolean hasUpdate() {
-        return this.hasUpdate;
-    }
-
-    public void doUpdate() {
-
-    }
 }

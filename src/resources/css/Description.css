@@ -1,0 +1,11 @@
+VBox {
+    -fx-alignment: center top;
+}
+
+GridPane {
+    -fx-column-halignment: center;
+}
+
+#informationText {
+    -fx-alignment: center;
+}

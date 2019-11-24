@@ -6,51 +6,25 @@ import townerdefense.engine.entity.TypeOfEntity;
 import townerdefense.engine.entity.tile.Road;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.lang.reflect.Array;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class Map {
     public static int[][] map;
-    List<Entity> tileList;
+    private final static String urlToMapFolder = "/map/";
+    private List<Entity> tileList;
 
-    public Map() throws IOException, ClassNotFoundException {
+    public Map() throws IOException, URISyntaxException {
         //this.map = new int[GameConfig.NUMBER_TILE_IN_HORIZONTAL][GameConfig.NUMBER_TILE_IN_VERTICAL];
 
         //TODO: load map from something...
-        this(new int[][]{
-                {6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6},
-                {6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 6, 6, 6, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 6, 6, 6},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6},
-                {6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6},
-                {6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6},
-                {6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6},
-                {6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6},
-                {6, 6, 0, 4, 0, 0, 0, 0, 0, 3, 0, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6},
-                {6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6},
-                {6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6},
-                {6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6},
-                {6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6},
-                {6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 6, 6, 6},
-                {6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0},
-                {6, 6, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 6, 6, 6, 6, 6, 6, 6, 0, 5, 0, 0, 0, 0},
-                {6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0},
-                {6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6},
-                {6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6}
-        });
-
-
+        this(loadMapFromFile(Map.class.getResource("/map/Stage1.txt")));
     }
 
-    public Map(int[][] map) throws IOException {
-        FileOutputStream fos = new FileOutputStream("map.txt");
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(map);
-        fos.close();
-        oos.close();
+    private Map(int[][] map) {
         if (map == null
                 || map.length != GameConfig.NUMBER_TILE_IN_VERTICAL
                 || map[0].length != GameConfig.NUMBER_TILE_IN_HORIZONTAL) {
@@ -82,6 +56,29 @@ public class Map {
                 }
             }
         }
+    }
+
+    private static int[][] loadMapFromFile(URL url) throws URISyntaxException, IOException {
+        File inputMap = new File(url.toURI());
+        FileReader fileReader = new FileReader(inputMap);
+
+        BufferedReader reader = new BufferedReader(fileReader);
+
+        int[] data =  Stream.of(reader.readLine().split("\\s+")).mapToInt(Integer::parseInt).toArray();
+        int column = data[0];
+        int row = data[1];
+
+        int[][] map = new int[row][column];
+        for (int i = 0; i < row; i++) {
+            data = Stream.of(reader.readLine().split("\\s+")).mapToInt(Integer::parseInt).toArray();
+            map[i] = data;
+        }
+
+        reader.close();
+
+        System.out.println("Load map finished...");
+
+        return map;
     }
 
     public Collection<Entity> getListTile() {

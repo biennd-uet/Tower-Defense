@@ -19,7 +19,7 @@ public abstract class Bullet extends Entity implements UpdatableEntity, Destroya
     private double apha;
     private Image image;
 
-    public Bullet(Enemy enemy, Image image, double posX, double posY, double with, double height, double speed, double damage) {
+    Bullet(Enemy enemy, Image image, double posX, double posY, double with, double height, double speed, double damage) {
         super(posX, posY, with, height);
         this.speed = speed;
         this.damage = damage;
@@ -27,14 +27,14 @@ public abstract class Bullet extends Entity implements UpdatableEntity, Destroya
         this.image = image;
     }
 
-    public Bullet(Image image, double posX, double posY, double with, double height, double speed, double damage) {
+    Bullet(Image image, double posX, double posY, double with, double height, double speed, double damage) {
         super(posX, posY, with, height);
         this.image = image;
         this.speed = speed;
         this.damage = damage;
     }
 
-    public void rotate(GraphicsContext gc, double angle, double px, double py) {
+    void rotate(GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
