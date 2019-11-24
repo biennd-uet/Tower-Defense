@@ -24,7 +24,6 @@ public class Circle extends NonEntity {
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-        graphicsContext.setFill(Color.AQUA);
         graphicsContext.strokeOval(posX, posY, radius * 2, radius * 2);
     }
 }

@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="792.0" prefWidth="1366.0" stylesheets="@../css/Game.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="townerdefense.control.GameController">
     <center>
@@ -122,6 +123,16 @@
                         </VBox>
                      </children>
                   </HBox>
+                  <VBox>
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sell" />
+                        <ImageView fx:id="sellImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/icons8-us-dollar-50.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
                   </children>
               </HBox>
             </children>
@@ -152,15 +163,15 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Range:" GridPane.rowIndex="4" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" GridPane.rowIndex="5" />
                   <Text id="informationText" strokeType="OUTSIDE" strokeWidth="0.0" text="Information" GridPane.columnSpan="2" />
-                  <Text fx:id="towerName" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Text fx:id="towerPrice" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Text fx:id="towerDamage" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Text fx:id="towerRange" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Text fx:id="towerDiscription" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Text fx:id="towerName" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Text fx:id="towerPrice" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Text fx:id="towerDamage" strokeType="OUTSIDE" strokeWidth="0.0" text="Damage" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Text fx:id="towerRange" strokeType="OUTSIDE" strokeWidth="0.0" text="Range" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextFlow fx:id="towerDiscription" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
-            <Button fx:id="pauseButton" mnemonicParsing="false" text="Pause" />
-            <Button mnemonicParsing="false" text="Back to Main Menu" />
+            <Button fx:id="pauseButton" mnemonicParsing="false" onAction="#setOnHandlePause" text="Pause" />
+            <Button fx:id="backToMenuButton" mnemonicParsing="false" onAction="#setOnHandleBackToMenu" text="Back to Main Menu" />
          </children>
       </VBox>
    </right>

@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 
 public class Map {
     public static int[][] map;
+    private final static String urlToMapFolder = "/map/";
     private List<Entity> tileList;
 
     public Map() throws IOException, URISyntaxException {
