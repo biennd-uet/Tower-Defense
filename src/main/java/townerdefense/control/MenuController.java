@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import townerdefense.engine.GameConfig;
 
@@ -31,13 +32,9 @@ public class MenuController implements Initializable {
     @FXML
     private Button exitButton;
 
-    public MenuController() {
-
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        Font.loadFont(this.getClass().getResource("/fonts/Freedom-nZ4J.otf").toExternalForm(), 12);
     }
 
     @FXML
@@ -92,4 +89,19 @@ public class MenuController implements Initializable {
         System.out.println("Go to Setting!");
     }
 
+    @FXML
+    public void handleNewGameButton(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        System.out.println("Play continue...");
+
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/GameView.fxml")));
+
+        Scene scene = new Scene(root, GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
+
+        stage.setScene(scene);
+
+        stage.show();
+
+        System.out.println("Load Scene...");
+    }
 }

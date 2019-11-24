@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="980" prefWidth="980"
-            stylesheets="@../css/MainMenu.css" xmlns="http://javafx.com/javafx/8"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" cache="true" prefHeight="980" prefWidth="980"
+            stylesheets="@../css/MainMenu.css" xmlns="http://javafx.com/javafx/11.0.1"
             fx:controller="townerdefense.control.MenuController">
     <children>
         <VBox alignment="CENTER" layoutX="306.0" layoutY="128.0" prefHeight="709.0" prefWidth="348.0">
@@ -20,7 +20,7 @@
                     </VBox.margin>
                 </Button>
                 <Button fx:id="newGameButton" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false"
-                        prefHeight="72.0" prefWidth="195.0" text="Play new game">
+                        onAction="#handleNewGameButton" prefHeight="72.0" prefWidth="195.0" text="Play new game">
                     <VBox.margin>
                         <Insets/>
                     </VBox.margin>

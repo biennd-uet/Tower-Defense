@@ -1,6 +1,11 @@
+@font-face {
+    font-family: 'Truly Madly Dpad';
+    src: url("../fonts/TrulyMadlyDpad.otf");
+}
+
 .button {
-    -fx-hgap: 10px;
-    -fx-vgap: 10px;
+    -fx-font-family: "Truly Madly Dpad";
+    -fx-font-size: 20;
 }
 
 .button:hover {

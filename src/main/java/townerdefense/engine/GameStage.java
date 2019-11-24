@@ -1,19 +1,33 @@
 package townerdefense.engine;
 
-public class GameStage {
+import javafx.fxml.Initializable;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class GameStage implements Initializable {
+
     private GameField gameField;
 
-    public GameStage() {
-        this.gameField = new GameField();
-        initStage();
-    }
-
-    //Todo: Load information of game
-    public void initStage() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
     }
 
     public GameField getGameField() {
         return gameField;
+    }
+
+    enum Stage {
+        STAGE1("Stage1");
+        private String name;
+
+        Stage(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 }

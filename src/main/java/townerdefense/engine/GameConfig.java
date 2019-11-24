@@ -17,12 +17,12 @@ public class GameConfig {
     public static final int SIZE_TILE_HEIGHT = SIZE_UNIT;
     //Number of tile in
     public static final int NUMBER_TILE_IN_HORIZONTAL = 30;
-    public static final int NUMBER_TILE_IN_VERTICAL = 20;
+    public static final int NUMBER_TILE_IN_VERTICAL = 22;
     //Size of Screen
-    public static final int SCREEN_WIDTH = 1200;
-    public static final int SCREEN_HEIGHT = 860;
+    public static final int SCREEN_WIDTH = 1366;
+    public static final int SCREEN_HEIGHT = 792;
     //1200 - 1080 = 120
-    //860 - 720 = 140
+    //720 - 72 = 648
     //Size of pick tower pick (Square)
     public static final int SIZE_SQUARE_IN_BAR = 140;
     //Size of Stage
@@ -50,7 +50,7 @@ public class GameConfig {
     public static final long SMALLER_ENEMY_HEIGHT = SIZE_UNIT * 3;
     public static final long SMALLER_ENEMY_HEALTH = 50;
     public static final long SMALLER_ENEMY_ARMOR = 10;
-    public static final double SMALLER_ENEMY_SPEED = 200;
+    public static final double SMALLER_ENEMY_SPEED = 150;
     public static final long SMALLER_ENEMY_REWARD = 2;
 
 
@@ -80,29 +80,29 @@ public class GameConfig {
     public static final int TARGET_DEFAULT_POSX = 29 * SIZE_TILE_WIDTH;
     public static final int TARGET_DEFAULT_POSY = 16 * SIZE_TILE_HEIGHT;
     //Tower Config
-    public static final int TOWER_DEFAULT_POSX = 1 * SIZE_TILE_WIDTH;
+    public static final int TOWER_DEFAULT_POSX = SIZE_TILE_WIDTH;
     public static final int TOWER_DEFAULT_POSY = 5 * SIZE_TILE_HEIGHT;
     public static final int TOWER_WIDTH = SIZE_TILE_WIDTH;
     public static final int TOWER_HEIGHT = SIZE_TILE_HEIGHT;
     public static final double TOWER_SPEED = 2.5; //Attack per Second
     public static final int TOWER_DAMAGE = 20;
     public static final int TOWER_RANGE = 300;
-    public static final int TOWER_PRICE = 50;
+    public static final int TOWER_PRICE = 25;
 
     public static final double BEAM_TOWER_SPEED = 1.3; //Attack per Second
-    public static final int BEAM_TOWER_DAMAGE = 30;
-    public static final int BEAM_TOWER_RANGE = 200;
+    public static final int BEAM_TOWER_DAMAGE = 15;
+    public static final int BEAM_TOWER_RANGE = 500;
     public static final int BEAM_TOWER_PRICE = 50;
 
-    public static final double ROCKET_TOWER_SPEED = 1.7; //Attack per Second
-    public static final int ROCKET_TOWER_DAMAGE = 50;
+    public static final double ROCKET_TOWER_SPEED = 0.50; //Attack per Second
+    public static final int ROCKET_TOWER_DAMAGE = 200;
     public static final int ROCKET_TOWER_RANGE = 700;
-    public static final int ROCKET_TOWER_PRICE = 50;
+    public static final int ROCKET_TOWER_PRICE = 100;
 
-    public static final double MACHINE_GUN_TOWER_SPEED = 1.7; //Attack per Second
+    public static final double MACHINE_GUN_TOWER_SPEED = 1.5; //Attack per Second
     public static final int MACHINE_GUN_TOWER_DAMAGE = 50;
     public static final int MACHINE_GUN_TOWER_RANGE = 200;
-    public static final int MACHINE_GUN_TOWER_PRICE = 50;
+    public static final int MACHINE_GUN_TOWER_PRICE = 75;
 
     //bullet config
     public static final int BULLET_WIDTH = 8;

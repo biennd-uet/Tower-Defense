@@ -18,7 +18,7 @@ public abstract class NonEntity implements DrawableEntity {
     protected double posX;
     protected double posY;
 
-    public NonEntity(double posX, double posY, double width, double height) {
+    NonEntity(double posX, double posY, double width, double height) {
         this.posX = posX;
         this.posY = posY;
         this.width = width;

@@ -1,7 +1,6 @@
 package townerdefense.model.nonentity;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 public class Rect extends NonEntity {
 
@@ -11,7 +10,6 @@ public class Rect extends NonEntity {
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-        graphicsContext.setStroke(Color.RED);
         graphicsContext.strokeRect(posX, posY, this.width, this.height);
     }
 }

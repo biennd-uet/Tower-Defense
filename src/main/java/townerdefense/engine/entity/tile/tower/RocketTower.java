@@ -15,15 +15,8 @@ public class RocketTower extends Tower {
     private double y = 0;
     private boolean reverse = false;
 
-    public RocketTower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
+    private RocketTower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
         super(image, posX, posY, width, height, speed, range, damage);
-    }
-
-    //Default
-    public RocketTower() {
-        this(GameConfig.IMRocketTower, GameConfig.SIZE_UNIT * 6, GameConfig.SIZE_UNIT * 4,
-                GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
-                GameConfig.ROCKET_TOWER_SPEED, GameConfig.ROCKET_TOWER_RANGE, GameConfig.ROCKET_TOWER_DAMAGE);
     }
 
     public RocketTower(double posX, double posY) {
@@ -38,15 +31,14 @@ public class RocketTower extends Tower {
     }
 
     @Override
-    public Bullet spawn() {
-        lastTimeAttack = System.nanoTime();
-        double pX = this.getCenterPosX() - GameConfig.ROCKET_WIDTH / 2;
-        double pY = this.getCenterPosY() - GameConfig.ROCKET_HEIGHT / 2;
+    public Bullet spawn(int deltaTime) {
+        double pX = this.getCenterPosX() - GameConfig.ROCKET_WIDTH / 2.0;
+        double pY = this.getCenterPosY() - GameConfig.ROCKET_HEIGHT / 2.0;
         return new Roket(enemyInRangeQueue.peek(), pX, pY, GameConfig.ROCKET_TOWER_DAMAGE);
     }
 
     @Override
-    public Collection<? extends Entity> spawnAll() {
+    public Collection<? extends Entity> spawnAll(int deltaTime) {
         return null;
     }
 

@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Truly Madly Dpad';
+    src: url("../fonts/TrulyMadlyDpad.otf");
+}
+
+* {
+    -fx-font-family: "Truly Madly Dpad";
+    -fx-font-size: 20;
+}

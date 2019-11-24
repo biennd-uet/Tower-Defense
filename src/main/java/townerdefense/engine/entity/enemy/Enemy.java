@@ -48,6 +48,7 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public void update(int deltaTime) {
+        // System.out.println(System.nanoTime());
         if (health > 0) {
             calcDirection();
             final double deltaDistance = speed * deltaTime / GameConfig.NPS;

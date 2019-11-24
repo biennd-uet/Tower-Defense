@@ -23,10 +23,10 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
     private int NTankEnemy;
     private int NPlane;
     private int NBossEnemy;
-    private int dem;
+    private int NStage = 0;
 
 
-    public Spawner(double posX, double posY, double with, double height) {
+    private Spawner(double posX, double posY, double with, double height) {
         super(posX, posY, with, height);
         this.enemies = new ArrayDeque<>();
         lastTimeSpawn = 0;
@@ -49,64 +49,69 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
 
     @Override
     public void update(int deltaTime) {
+        lastTimeSpawn = lastTimeSpawn + deltaTime;
 
+        if (enemies.isEmpty()) {
+            lastTimeWayspaw = lastTimeWayspaw + deltaTime;
+            if (lastTimeWayspaw >= timeBetween2WayEnemy) {
+                lastTimeWayspaw = 0;
+                SpawnOneWay();
+            }
+        }
     }
 
-    public void addEnemy(Enemy enemy) {
+    private void addEnemy(Enemy enemy) {
         enemies.add(enemy);
     }
 
     @Override
-    public Enemy spawn() {
-        lastTimeSpawn = System.nanoTime();
+    public Enemy spawn(int deltaTime) {
         return enemies.remove();
     }
 
-    public void SpawnOneWay() {
-
-        if (hasNewWayToSpawn()) {
-            //lastTimeWayspaw = System.nanoTime();
-            NNormalEnemy = (int) (NEnemy * 0.5);
-            NTankEnemy = (int) (NEnemy * 0.3);
-            NPlane = (int) (NEnemy * 0.1);
-            NBossEnemy = (int) (NEnemy * 0.1);
-            for (int i = 0; i < NNormalEnemy; i++) {
-                addEnemy(new NormalEnemy());
-            }
-            for (int i = 0; i < NTankEnemy; i++) {
-                addEnemy(new TankEnemy());
-            }
-            for (int i = 0; i < NPlane; i++) {
-                addEnemy(new Plane());
-            }
-            for (int i = 0; i < NBossEnemy; i++) {
-                addEnemy(new BossEnemy());
-            }
-            NEnemy = NEnemy + 0.8;
-            System.out.println(enemies.size());
+    private void SpawnOneWay() {
+        NNormalEnemy = (int) (NEnemy * 0.5);
+        NTankEnemy = (int) (NEnemy * 0.3);
+        NPlane = (int) (NEnemy * 0.1);
+        NBossEnemy = (int) (NEnemy * 0.1);
+        for (int i = 0; i < NNormalEnemy; i++) {
+            addEnemy(new NormalEnemy());
         }
-
+        for (int i = 0; i < NTankEnemy; i++) {
+            addEnemy(new TankEnemy());
+        }
+        for (int i = 0; i < NPlane; i++) {
+            addEnemy(new Plane());
+        }
+        for (int i = 0; i < NBossEnemy; i++) {
+            addEnemy(new BossEnemy());
+        }
+        NEnemy = NEnemy + 2;
+        NStage++;
+        System.out.println(enemies.size());
     }
 
     @Override
-    public boolean hasEntityToSpawn() {
-        hasNewWayToSpawn();
-        SpawnOneWay();
-        return !enemies.isEmpty() && timeBetweenSpawnEnemy + lastTimeSpawn <= System.nanoTime();
+    public boolean hasEntityToSpawn(int deltaTime) {
+        if (lastTimeSpawn >= timeBetweenSpawnEnemy) {
+            lastTimeSpawn = 0;
+            return !enemies.isEmpty();
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public boolean hasEntitiesToSpawn() {
+    public boolean hasEntitiesToSpawn(int deltaTime) {
         return false;
     }
 
-    public boolean hasNewWayToSpawn() {
-        if (!enemies.isEmpty()) lastTimeWayspaw = System.nanoTime();
-        return enemies.isEmpty() && timeBetween2WayEnemy + lastTimeWayspaw <= System.nanoTime();
+    @Override
+    public Collection<Bullet> spawnAll(int deltaTime) {
+        return null;
     }
 
-    @Override
-    public Collection<Bullet> spawnAll() {
-        return null;
+    public int getNStage() {
+        return NStage;
     }
 }

@@ -20,11 +20,10 @@ public class BeamTower extends Tower {
     private double y = 0;
     private boolean reverse = false;
 
-    public BeamTower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
+    private BeamTower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
         super(image, posX, posY, width, height, speed, range, damage);
     }
 
-    //Default
     public BeamTower() {
         this(GameConfig.IMBeamTower, GameConfig.SIZE_UNIT * 9, GameConfig.SIZE_UNIT * 4,
                 GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
@@ -83,32 +82,28 @@ public class BeamTower extends Tower {
 
     @Override
     public void update(int deltaTime) {
-        //super.update(deltaTime);
-        // this.findEnemyInRange();
-
-        //   System.out.println(enemyInRangeQueue.size());
         if (!enemyInRangeQueue.isEmpty()) {
-            if (LEFT(enemyInRangeQueue.peek())) {
+            Enemy enemy = enemyInRangeQueue.peek();
+            if (LEFT(enemy)) {
                 theta = -90;
-            } else if (RIGHT(enemyInRangeQueue.peek())) {
+            } else if (RIGHT(enemy)) {
                 theta = 90;
-            } else if (DOWN(enemyInRangeQueue.peek())) {
+            } else if (DOWN(enemy)) {
                 theta = 180;
             } else {
                 theta = 0;
             }
         }
-        // this.removeEnemyOutRange();
     }
 
     @Override
-    public Bullet spawn() {
+    public Bullet spawn(int deltaTime) {
         lastTimeAttack = System.nanoTime();
         return new Laze(enemyInRangeQueue, posX, posY, GameConfig.TOWER_DAMAGE);
     }
 
     @Override
-    public Collection<? extends Entity> spawnAll() {
+    public Collection<? extends Entity> spawnAll(int deltaTime) {
         return null;
     }
 

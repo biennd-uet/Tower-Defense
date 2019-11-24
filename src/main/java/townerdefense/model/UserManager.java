@@ -1,7 +1,5 @@
 package townerdefense.model;
 
-import javafx.beans.value.ObservableValue;
-
 public class UserManager {
     private int gold;
     private int health;
@@ -30,6 +28,7 @@ public class UserManager {
     }
 
     public int getStage() {
+
         return stage;
     }
 
@@ -49,11 +48,9 @@ public class UserManager {
         this.gold -= price;
     }
 
-    public boolean hasUpdate() {
-        return this.hasUpdate;
+    public void nextTurn(int turn) {
+        hasUpdate = true;
+        this.stage = turn;
     }
 
-    public void doUpdate() {
-
-    }
 }

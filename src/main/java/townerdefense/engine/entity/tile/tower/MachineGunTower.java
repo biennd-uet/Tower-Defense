@@ -16,15 +16,8 @@ public class MachineGunTower extends Tower {
     private double y = 0;
     private boolean reverse = false;
 
-    public MachineGunTower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
+    private MachineGunTower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
         super(image, posX, posY, width, height, speed, range, damage);
-    }
-
-    //Default
-    public MachineGunTower() {
-        this(GameConfig.IMMachineGunTower, 4 * GameConfig.SIZE_TILE_WIDTH, 5 * GameConfig.SIZE_TILE_HEIGHT,
-                GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
-                GameConfig.TOWER_SPEED, GameConfig.TOWER_RANGE, GameConfig.TOWER_DAMAGE);
     }
 
     public MachineGunTower(double posX, double posY) {
@@ -39,14 +32,14 @@ public class MachineGunTower extends Tower {
     }
 
     @Override
-    public Collection<Bullet> spawnAll() {
-        lastTimeAttack = System.nanoTime();
+    public Collection<Bullet> spawnAll(int deltaTime) {
+
         double pX1 = this.getCenterPosX();
         double pY1 = this.getCenterPosY();
-        double pX2 = this.getCenterPosX() - GameConfig.BULLET_WIDTH / 2;
-        double pY2 = this.getCenterPosY() - GameConfig.BULLET_HEIGHT / 2;
-        double pX3 = this.getCenterPosX() - 2 * GameConfig.BULLET_WIDTH / 2;
-        double pY3 = this.getCenterPosY() - 2 * GameConfig.BULLET_HEIGHT / 2;
+        double pX2 = this.getCenterPosX() - GameConfig.BULLET_WIDTH / 2.0;
+        double pY2 = this.getCenterPosY() - GameConfig.BULLET_HEIGHT / 2.0;
+        double pX3 = this.getCenterPosX() - GameConfig.BULLET_WIDTH;
+        double pY3 = this.getCenterPosY() - GameConfig.BULLET_HEIGHT;
         Collection<Bullet> bullets = new ArrayList<>();
         bullets.add(new NormalBullet(enemyInRangeQueue.peek(), pX1, pY1, GameConfig.TOWER_DAMAGE));
         bullets.add(new NormalBullet(enemyInRangeQueue.peek(), pX2, pY2, GameConfig.TOWER_DAMAGE));
@@ -55,17 +48,17 @@ public class MachineGunTower extends Tower {
     }
 
     @Override
-    public Entity spawn() {
+    public Entity spawn(int deltaTime) {
         return new NormalBullet(enemyInRangeQueue.peek(), this.posX, this.posY, GameConfig.TOWER_DAMAGE);
     }
 
     @Override
-    public boolean hasEntityToSpawn() {
+    public boolean hasEntityToSpawn(int deltaTime) {
         return false;
     }
 
     @Override
-    public boolean hasEntitiesToSpawn() {
-        return super.hasEntityToSpawn();
+    public boolean hasEntitiesToSpawn(int deltaTime) {
+        return super.hasEntityToSpawn(deltaTime);
     }
 }
