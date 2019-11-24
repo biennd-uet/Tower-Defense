@@ -19,7 +19,7 @@ public class GameConfig {
     public static final int NUMBER_TILE_IN_HORIZONTAL = 30;
     public static final int NUMBER_TILE_IN_VERTICAL = 22;
     //Size of Screen
-    public static final int SCREEN_WIDTH = 1200;
+    public static final int SCREEN_WIDTH = 1366;
     public static final int SCREEN_HEIGHT = 792;
     //1200 - 1080 = 120
     //720 - 72 = 648

@@ -8,17 +8,20 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" stylesheets="@../css/Game.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="townerdefense.control.GameController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="792.0" prefWidth="1366.0" stylesheets="@../css/Game.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="townerdefense.control.GameController">
     <center>
-        <Group fx:id="gameArea" BorderPane.alignment="TOP_LEFT">
+        <Group fx:id="gameArea">
             <children>
-                <Canvas fx:id="canvas" height="720.0" width="1200.0" />
-            <HBox id="informationBar" fx:id="information" alignment="CENTER" prefHeight="43.0" prefWidth="1200.0" stylesheets="@../css/Information.css">
+                <Canvas fx:id="canvas" height="720.0" width="1080.0" />
+            <HBox id="informationBar" fx:id="information" alignment="CENTER" cache="true" layoutX="281.0" stylesheets="@../css/Information.css">
                <children>
                   <HBox spacing="5.0">
                      <children>
@@ -73,7 +76,7 @@
                   </HBox>
                </children>
             </HBox>
-              <HBox fx:id="listTower" alignment="CENTER" layoutY="720.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="1200.0" stylesheets="@../css/Store.css">
+              <HBox fx:id="listTower" alignment="CENTER" cache="true" layoutX="274.0" layoutY="720.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/Store.css">
                   <children>
                   <HBox alignment="CENTER_LEFT">
                      <children>
@@ -119,7 +122,6 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <Button fx:id="pauseButton" mnemonicParsing="false" text="Pause" />
                   </children>
               </HBox>
             </children>
@@ -128,4 +130,38 @@
          </cursor>
         </Group>
     </center>
+   <right>
+      <VBox alignment="TOP_CENTER" prefHeight="792.0" prefWidth="286.0" spacing="20.0" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <GridPane alignment="CENTER" hgap="5.0" vgap="3.0">
+              <columnConstraints><ColumnConstraints halignment="CENTER" maxWidth="127.0" minWidth="98.0" prefWidth="98.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="188.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " GridPane.rowIndex="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price:" GridPane.rowIndex="2" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Damage:" GridPane.rowIndex="3" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Range:" GridPane.rowIndex="4" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" GridPane.rowIndex="5" />
+                  <Text id="informationText" strokeType="OUTSIDE" strokeWidth="0.0" text="Information" GridPane.columnSpan="2" />
+                  <Text fx:id="towerName" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Text fx:id="towerPrice" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Text fx:id="towerDamage" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Text fx:id="towerRange" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Text fx:id="towerDiscription" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+               </children>
+            </GridPane>
+            <Button fx:id="pauseButton" mnemonicParsing="false" text="Pause" />
+            <Button mnemonicParsing="false" text="Back to Main Menu" />
+         </children>
+      </VBox>
+   </right>
 </BorderPane>

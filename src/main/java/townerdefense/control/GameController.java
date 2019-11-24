@@ -79,7 +79,18 @@ public class GameController extends AnimationTimer implements Initializable {
     @FXML
     private Text beamTowerPrice;
     @FXML
+    private Text towerName;
+    @FXML
+    private Text towerPrice;
+    @FXML
+    private Text towerDamage;
+    @FXML
+    private Text towerRange;
+    @FXML
+    private Text towerDiscription;
+    @FXML
     private Button pauseButton;
+
 
     private GraphicsContext graphicsContext;
     private GameField gameField;
@@ -271,6 +282,11 @@ public class GameController extends AnimationTimer implements Initializable {
         dragEvent.consume();
     }
 
+    private void setOnMousePressed(TypeOfTower typeOfTower) {
+        updateDescription(typeOfTower);
+    }
+
+
     private void initSetOnEvent() {
 
         System.out.println("Init event..");
@@ -295,10 +311,18 @@ public class GameController extends AnimationTimer implements Initializable {
             System.out.println("Pick Tower 1");
         });
 
+        normalTower.setOnMousePressed(event -> {
+            updateDescription(TypeOfTower.NormalTower);
+        });
+
         rocketTower.setOnDragDetected(event -> {
             typeOfTowerPicked = TypeOfTower.RocketTower;
             setOnDragDetectedPickerBar(event, rocketTower, typeOfTowerPicked);
             System.out.println("Pick Tower 2");
+        });
+
+        rocketTower.setOnMousePressed(event -> {
+            updateDescription(TypeOfTower.RocketTower);
         });
 
         beamTower.setOnDragDetected(event -> {
@@ -307,10 +331,18 @@ public class GameController extends AnimationTimer implements Initializable {
             System.out.println("Pick Tower 3");
         });
 
+        beamTower.setOnMousePressed(event -> {
+            updateDescription(TypeOfTower.BeamTower);
+        });
+
         machinegunTower.setOnDragDetected(event -> {
             typeOfTowerPicked = TypeOfTower.MachineGunTower;
             setOnDragDetectedPickerBar(event, machinegunTower, typeOfTowerPicked);
             System.out.println("Pick Tower 4");
+        });
+
+        machinegunTower.setOnMousePressed(event -> {
+            updateDescription(TypeOfTower.MachineGunTower);
         });
 
         gameArea.setOnDragOver(dragEvent -> {
@@ -327,5 +359,13 @@ public class GameController extends AnimationTimer implements Initializable {
             setOnDragDroppedGameArea(dragEvent);
             System.out.println("Dropped on " + dragEvent.getX() + " " + dragEvent.getY());
         });
+    }
+
+    private void updateDescription(TypeOfTower typeOfTower) {
+        towerName.setText(typeOfTower.name());
+        towerDamage.setText(String.format("%d dame / per attack.", typeOfTower.getDamage()));
+        towerRange.setText(String.format("%d unit.", (int) typeOfTower.getRange()));
+        towerPrice.setText(String.format("$ %d", typeOfTower.getPrice()));
+        towerDiscription.setText("Some thing about tower");
     }
 }
