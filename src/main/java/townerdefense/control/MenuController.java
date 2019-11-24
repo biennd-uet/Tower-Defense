@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import townerdefense.engine.GameConfig;
 
@@ -37,7 +38,7 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        Font.loadFont(this.getClass().getResource("/fonts/Freedom-nZ4J.otf").toExternalForm(), 12);
     }
 
     @FXML

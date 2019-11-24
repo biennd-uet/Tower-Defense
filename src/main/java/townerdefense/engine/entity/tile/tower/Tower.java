@@ -14,6 +14,8 @@ import townerdefense.engine.entity.other.Point;
 import townerdefense.engine.entity.tile.Tile;
 
 import java.util.ArrayDeque;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.function.Predicate;
 
@@ -34,7 +36,14 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
         this.speed = speed;
         this.range = range;
         this.damage = damage;
-        enemyInRangeQueue = new ArrayDeque<>();
+        enemyInRangeQueue = new PriorityQueue<>(new Comparator<Enemy>() {
+            @Override
+            public int compare(Enemy o1, Enemy o2) {
+                double distanceO1ToTower = Point.getDistance(o1.getCenterPosX(), o1.getCenterPosY(), getCenterPosX(), getCenterPosY());
+                double distanceO2ToTower = Point.getDistance(o2.getCenterPosX(), o2.getCenterPosY(), getCenterPosX(), getCenterPosY());
+                return Double.compare(distanceO1ToTower, distanceO2ToTower);
+            }
+        });
         this.lastTimeAttack = 0;
         timeBetweenTwoAttack = GameConfig.NPS / this.speed;
     }
@@ -46,6 +55,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
         this.findEnemyInRange();
         if (!enemyInRangeQueue.isEmpty()) {
             double deltaX = enemyInRangeQueue.peek().getCenterPosX() - this.getCenterPosX();
+            assert enemyInRangeQueue.peek() != null;
             double deltaY = enemyInRangeQueue.peek().getCenterPosY() - this.getCenterPosY();
             theta = Math.toDegrees(Math.PI - Math.atan2(deltaX, deltaY));
         }
@@ -53,7 +63,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
 
     private void findEnemyInRange() {
         Predicate<Entity> enemyInRange = entity -> Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
-                entity.getCenterPosX(), entity.getCenterPosY()) <= this.range;
+                entity.getCenterPosX(), entity.getCenterPosY()) < this.range;
         GameField.entities.parallelStream()
                 .filter(entity -> entity instanceof Enemy)
                 .filter(enemy -> !enemyInRangeQueue.contains(enemy))

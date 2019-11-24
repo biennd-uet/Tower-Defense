@@ -228,7 +228,7 @@ public class GameController extends AnimationTimer implements Initializable {
             if (getTypeOfTile(dragEvent.getX(), dragEvent.getY()) == TypeOfEntity.ROAD6) {
                 final double posX = GameConfig.SIZE_TILE_WIDTH * Math.round(dragEvent.getSceneX() / GameConfig.SIZE_TILE_WIDTH);
                 final double posY = GameConfig.SIZE_TILE_HEIGHT * Math.round(dragEvent.getSceneY() / GameConfig.SIZE_TILE_HEIGHT);
-                System.out.printf("%s - (%f %f)\n", typeOfTowerPicked, posX, posY);
+                //System.out.printf("%s - (%f %f)\n", typeOfTowerPicked, posX, posY);
 
                 switch (typeOfTowerPicked) {
                     case NormalTower:

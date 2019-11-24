@@ -14,17 +14,17 @@ public class Circle extends NonEntity {
 
     @Override
     public void setPosX(double posX) {
-        this.posX = posX + (GameConfig.SIZE_TILE_WIDTH - this.radius) / 2;
+        this.posX = posX + GameConfig.SIZE_TILE_WIDTH / 2.0 - this.radius ;
     }
 
     @Override
     public void setPosY(double posY) {
-        this.posY = posY + (GameConfig.SIZE_TILE_HEIGHT - this.radius) / 2;
+        this.posY = posY + GameConfig.SIZE_TILE_HEIGHT/ 2.0 - this.radius;
     }
 
     @Override
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.setFill(Color.AQUA);
-        graphicsContext.strokeOval(posX, posY, radius, radius);
+        graphicsContext.strokeOval(posX, posY, radius * 2, radius * 2);
     }
 }
