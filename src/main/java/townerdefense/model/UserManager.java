@@ -3,13 +3,22 @@ package townerdefense.model;
 import javafx.beans.value.ObservableValue;
 
 public class UserManager {
+    private static UserManager userManager;
+
     private int gold;
     private int health;
     private int stage;
     private int turn;
     private boolean hasUpdate;
 
-    public UserManager(int gold, int health, int stage, int turn) {
+    public static UserManager getInstance() {
+        if (userManager == null) {
+            userManager = new UserManager(100, 100, 1, 0);
+        }
+        return userManager;
+    }
+
+    private UserManager(int gold, int health, int stage, int turn) {
         this.gold = gold;
         this.health = health;
         this.stage = stage;

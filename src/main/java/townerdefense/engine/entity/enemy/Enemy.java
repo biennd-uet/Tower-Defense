@@ -8,6 +8,8 @@ import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.*;
 import townerdefense.engine.entity.other.Point;
 import townerdefense.engine.entity.tile.map.Map;
+import townerdefense.model.GameManager;
+import townerdefense.model.UserManager;
 
 public abstract class Enemy extends Entity implements UpdatableEntity, MovableEntity, AttackedableEntity, DestroyableEntity {
     protected double health;
@@ -35,13 +37,13 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
         this.image = image;
         this.r = r;
         this.indexCurrentPoint = 0;
-        this.currentPoint = GameController.points.get(0);
+        this.currentPoint = GameManager.points.get(0);
         this.calcDirection();
     }
 
     public Point getNextPoint() {
-        if (this.indexCurrentPoint < GameController.points.size() - 1) {
-            return GameController.points.get(indexCurrentPoint + 1);
+        if (this.indexCurrentPoint < GameManager.points.size() - 1) {
+            return GameManager.points.get(indexCurrentPoint + 1);
         }
         return null;
     }
@@ -194,6 +196,6 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public void onDestroy() {
-        GameController.user.getReward(50);
+        UserManager.getInstance().getReward(50);
     }
 }
