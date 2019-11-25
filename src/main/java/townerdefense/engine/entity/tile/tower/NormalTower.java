@@ -15,15 +15,8 @@ public class NormalTower extends Tower {
     private double y = 0;
     private boolean reverse = false;
 
-    public NormalTower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
+    private NormalTower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
         super(image, posX, posY, width, height, speed, range, damage);
-    }
-
-    //Default
-    public NormalTower() {
-        this(GameConfig.IMTower1, GameConfig.TOWER_DEFAULT_POSX, GameConfig.TOWER_DEFAULT_POSY,
-                GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
-                GameConfig.TOWER_SPEED, GameConfig.TOWER_RANGE, GameConfig.TOWER_DAMAGE);
     }
 
     public NormalTower(int posX, int posY) {
@@ -45,8 +38,8 @@ public class NormalTower extends Tower {
     public Bullet spawn(int deltaTime) {
 
 
-        double pX = this.getCenterPosX() - GameConfig.BULLET_WIDTH / 2;
-        double pY = this.getCenterPosY() - GameConfig.BULLET_HEIGHT / 2;
+        double pX = this.getCenterPosX() - GameConfig.BULLET_WIDTH / 2.0;
+        double pY = this.getCenterPosY() - GameConfig.BULLET_HEIGHT / 2.0;
         return new NormalBullet(enemyInRangeQueue.peek(), pX, pY, GameConfig.TOWER_DAMAGE);
     }
 

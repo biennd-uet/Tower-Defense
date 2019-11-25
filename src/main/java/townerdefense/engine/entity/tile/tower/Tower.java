@@ -14,14 +14,16 @@ import townerdefense.engine.entity.other.Point;
 import townerdefense.engine.entity.tile.Tile;
 
 import java.util.ArrayDeque;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.function.Predicate;
 
 public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEntity {
     private final double timeBetweenTwoAttack;
-    protected Queue<Enemy> enemyInRangeQueue;
-    protected double lastTimeAttack;
-    protected double theta;
+    Queue<Enemy> enemyInRangeQueue;
+    double lastTimeAttack;
+    double theta;
     private double speed;
     private double range;
     private double damage;
@@ -34,7 +36,14 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
         this.speed = speed;
         this.range = range;
         this.damage = damage;
-        enemyInRangeQueue = new ArrayDeque<>();
+        enemyInRangeQueue = new PriorityQueue<>(new Comparator<Enemy>() {
+            @Override
+            public int compare(Enemy o1, Enemy o2) {
+                double distanceO1ToTower = Point.getDistance(o1.getCenterPosX(), o1.getCenterPosY(), getCenterPosX(), getCenterPosY());
+                double distanceO2ToTower = Point.getDistance(o2.getCenterPosX(), o2.getCenterPosY(), getCenterPosX(), getCenterPosY());
+                return Double.compare(distanceO1ToTower, distanceO2ToTower);
+            }
+        });
         this.lastTimeAttack = 0;
         timeBetweenTwoAttack = GameConfig.NPS / this.speed;
     }
@@ -46,17 +55,15 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
         this.findEnemyInRange();
         if (!enemyInRangeQueue.isEmpty()) {
             double deltaX = enemyInRangeQueue.peek().getCenterPosX() - this.getCenterPosX();
+            assert enemyInRangeQueue.peek() != null;
             double deltaY = enemyInRangeQueue.peek().getCenterPosY() - this.getCenterPosY();
             theta = Math.toDegrees(Math.PI - Math.atan2(deltaX, deltaY));
         }
     }
 
-    //aim and attack
-
-
     private void findEnemyInRange() {
         Predicate<Entity> enemyInRange = entity -> Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
-                entity.getCenterPosX(), entity.getCenterPosY()) <= this.range;
+                entity.getCenterPosX(), entity.getCenterPosY()) < this.range;
         GameField.entities.parallelStream()
                 .filter(entity -> entity instanceof Enemy)
                 .filter(enemy -> !enemyInRangeQueue.contains(enemy))
@@ -71,7 +78,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
         this.enemyInRangeQueue.removeIf(enemyOutRange);
     }
 
-    public void rotate(GraphicsContext gc, double angle, double px, double py) {
+    private void rotate(GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
@@ -82,20 +89,18 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
         graphicsContext.save();
         rotate(graphicsContext, theta, this.getCenterPosX(), this.getCenterPosY());
         graphicsContext.drawImage(image, posX, posY, width, height);
-        //graphicsContext.strokeOval(this.getCenterPosX()  - this.range / 2, this.getCenterPosY() - this.range / 2, this.range, this.range);
         graphicsContext.restore();
     }
 
     @Override
     public boolean hasEntityToSpawn(int deltaTime) {
         //System.out.println(lastTimeAttack);
-        if(lastTimeAttack >= timeBetweenTwoAttack){
+        if (lastTimeAttack >= timeBetweenTwoAttack) {
             lastTimeAttack = 0;
             return enemyInRangeQueue.size() > 0;
-        }else return false;
-
-
-
+        } else {
+            return false;
+        }
     }
 
     @Override

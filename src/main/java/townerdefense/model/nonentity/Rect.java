@@ -11,7 +11,6 @@ public class Rect extends NonEntity {
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-        graphicsContext.setStroke(Color.RED);
         graphicsContext.strokeRect(posX, posY, this.width, this.height);
     }
 }

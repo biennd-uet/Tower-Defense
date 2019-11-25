@@ -1,6 +1,5 @@
 .text {
     -fx-font-size: 30px;
-    -fx-padding: 5px 0px 0px 0px;
 }
 
 .image {
@@ -10,4 +9,18 @@
 
 #informationBar {
     -fx-spacing: 20px;
+}
+
+.selectedTower {
+
+}
+
+HBox {
+    -fx-spacing: 10px;
+    -fx-padding: 5px 0px 0px 0px;
+}
+
+Text {
+    -fx-padding: 10px 10px 10px 10px;
+    -fx-translate-y: 0px;
 }
