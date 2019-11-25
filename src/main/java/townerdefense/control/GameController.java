@@ -263,6 +263,11 @@ public class GameController extends AnimationTimer implements Initializable {
 
             System.out.println("Dropped on " + dragEvent.getX() + " " + dragEvent.getY());
         });
+
+        gameArea.setOnDragExited(event -> {
+            isSelling = false;
+            NonEntity.nonEntities.clear();
+        });
     }
 
     private void initGameField() {
@@ -423,26 +428,29 @@ public class GameController extends AnimationTimer implements Initializable {
     }
 
     private void pickTowerToSell(DragEvent dragEvent, double posX, double posY) {
-        dragEvent.acceptTransferModes(TransferMode.MOVE);
         if (!hasTowerInTile(posX, posY)) {
+            dragEvent.acceptTransferModes(TransferMode.NONE);
             this.graphicsContext.setStroke(Color.RED);
         } else {
+            dragEvent.acceptTransferModes(TransferMode.MOVE);
             this.graphicsContext.setStroke(Color.YELLOW);
         }
     }
 
     private void sellTower(DragEvent dragEvent) {
-        dragEvent.acceptTransferModes(TransferMode.MOVE);
         final double posX = GameConfig.SIZE_TILE_WIDTH * Math.round(dragEvent.getSceneX() / GameConfig.SIZE_TILE_WIDTH);
         final double posY = GameConfig.SIZE_TILE_HEIGHT * Math.round(dragEvent.getSceneY() / GameConfig.SIZE_TILE_HEIGHT);
         if (hasTowerInTile(posX, posY)) {
+            dragEvent.acceptTransferModes(TransferMode.MOVE);
             user.getReward(TypeOfTower.getTypeOfTowerByClass(getTowerFromTile(posX, posY)).getPrice() / 2);
             removeTowerFromTile(posX, posY);
+            isSelling = false;
+        } else {
+            dragEvent.acceptTransferModes(TransferMode.NONE);
+            dragEvent.setDropCompleted(true);
+            System.out.println("Cancel Selling");
         }
-        NonEntity.nonEntities.clear();
         dragEvent.consume();
-        isSelling = false;
-        System.out.println("Cancel Selling");
     }
 
     //Event and information
