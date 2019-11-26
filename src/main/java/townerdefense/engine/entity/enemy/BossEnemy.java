@@ -7,15 +7,15 @@ import townerdefense.engine.entity.tile.map.Map;
 
 
 public class BossEnemy extends Enemy {
-    private BossEnemy(double r, double posX, double posY, double with, double height, double health, double speed, double armor, double reward, Map map) {
-        super(r, posX, posY, with, height, health, speed, GameConfig.BOSS_ENEMY_ARMOR, map);
+    private BossEnemy(double r, double posX, double posY, double with, double height, double health, double speed, int armor, int reward, Map map) {
+        super(r, posX, posY, with, height, health, speed, armor, map, reward);
     }
 
     public BossEnemy(double posX, double posY, Map map) {
         this(0, posX, posY,
                 GameConfig.BOSS_ENEMY_WIDTH, GameConfig.BOSS_ENEMY_HEIGHT,
                 GameConfig.BOSS_ENEMY_HEALTH, GameConfig.BOSS_ENEMY_SPEED,
-                GameConfig.BOSS_ENEMY_ARMOR, GameConfig.BOSS_ENEMY_REWARD,
+                (int) GameConfig.BOSS_ENEMY_ARMOR, (int) GameConfig.BOSS_ENEMY_REWARD,
                 map);
     }
 

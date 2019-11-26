@@ -7,15 +7,15 @@ import townerdefense.engine.entity.tile.map.Map;
 
 public class TankEnemy extends Enemy {
 
-    private TankEnemy(double r, double posX, double posY, double with, double height, double health, double speed, double armor, double reward, Map map) {
-        super(r, posX, posY, with, height, health, speed, GameConfig.TANKER_ENEMY_ARMOR, map);
+    private TankEnemy(double r, double posX, double posY, double with, double height, double health, double speed, double armor, int reward, Map map) {
+        super(r, posX, posY, with, height, health, speed, GameConfig.TANKER_ENEMY_ARMOR, map, reward);
     }
 
     public TankEnemy(double posX, double posY, Map map) {
         this(0, posX, posY,
                 GameConfig.TANKER_ENEMY_WIDTH, GameConfig.TANKER_ENEMY_HEIGHT,
                 GameConfig.TANKER_ENEMY_HEALTH, GameConfig.TANKER_ENEMY_SPEED,
-                GameConfig.TANKER_ENEMY_ARMOR, GameConfig.TANKER_ENEMY_REWARD,
+                GameConfig.TANKER_ENEMY_ARMOR, (int) GameConfig.TANKER_ENEMY_REWARD,
                 map);
     }
 

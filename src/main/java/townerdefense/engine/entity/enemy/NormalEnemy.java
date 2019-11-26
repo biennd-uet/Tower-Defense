@@ -8,8 +8,8 @@ import townerdefense.engine.entity.tile.map.Map;
 
 public class NormalEnemy extends Enemy {
 
-    private NormalEnemy(double r, double posX, double posY, double with, double height, double health, double speed, double armor, double reward, Map map) {
-        super(r, posX, posY, with, height, health, speed, GameConfig.BOSS_ENEMY_ARMOR, map);
+    private NormalEnemy(double r, double posX, double posY, double with, double height, double health, double speed, int armor, int reward, Map map) {
+        super(r, posX, posY, with, height, health, speed, armor, map, reward);
     }
 
     public NormalEnemy(double posX, double posY, Map map) {
@@ -25,7 +25,9 @@ public class NormalEnemy extends Enemy {
         rotate(graphicsContext, r, posX + width / 2, posY + height / 2);
         graphicsContext.drawImage(GameConfig.IMEnemy, this.getCenterPosX() - width / 2, this.getCenterPosY() - height / 2, width, height);
         graphicsContext.restore();
+
         super.render(graphicsContext);
+
         final double percentHealth = health / GameConfig.NORMAL_ENEMY_HEALTH_MAX;
         if (percentHealth <= 0.25) {
             graphicsContext.setFill(Color.RED);

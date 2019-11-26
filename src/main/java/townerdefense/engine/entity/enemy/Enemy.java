@@ -19,13 +19,15 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
     private double frame_number = 0;
     private boolean dead = false;
     private Direction direction = Direction.RIGHT;
+    private final int reward;
 
-    protected Enemy(double r, double posX, double posY, double width, double height, double health, double speed, long armor, Map map) {
+    protected Enemy(double r, double posX, double posY, double width, double height, double health, double speed, long armor, Map map, int reward) {
         super(posX, posY, width, height);
         this.health = health;
         this.speed = speed;
         this.r = r;
         this.armor = armor;
+        this.reward = reward;
         this.indexCurrentPoint = 0;
         this.map = map;
         this.currentPoint = map.getWayPoint().getPoints().get(0);
@@ -40,7 +42,6 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public void update(int deltaTime) {
-        // System.out.println(System.nanoTime());
         if (health > 0) {
             calcDirection();
             final double deltaDistance = speed * deltaTime / GameConfig.NPS;
@@ -65,7 +66,6 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
 
     private void calcDirection() {
-
         Point nextPoint = this.getNextPoint();
         if (nextPoint == null) {
             return;
@@ -120,10 +120,6 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
         }
     }
 
-    public boolean isDead() {
-        return dead;
-    }
-
     protected void rotate(GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
@@ -176,6 +172,6 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public void onDestroy() {
-        UserManager.getInstance().getReward(50);
+        UserManager.getInstance().getReward(this.reward);
     }
 }
