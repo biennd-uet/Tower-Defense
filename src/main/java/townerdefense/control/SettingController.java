@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
 import townerdefense.engine.GameConfig;
-import townerdefense.model.Setting;
+import townerdefense.model.SettingManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,14 +25,14 @@ public class SettingController implements Initializable {
     private CheckBox soundCheckbox;
     @FXML
     private CheckBox musicCheckBox;
-    private Setting setting;
+    private SettingManager settingManager;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Init Setting");
-        this.setting = Setting.getInstance();
-        soundCheckbox.setSelected(setting.hasSound());
-        musicCheckBox.setSelected(setting.hasMusic());
+        System.out.println("Init SettingManager");
+        this.settingManager = SettingManager.getInstance();
+        soundCheckbox.setSelected(settingManager.hasSound());
+        musicCheckBox.setSelected(settingManager.hasMusic());
     }
 
     @FXML
@@ -51,18 +51,18 @@ public class SettingController implements Initializable {
     @FXML
     public void switchStateSound(ActionEvent event) {
         if (soundCheckbox.isSelected()) {
-            setting.turnOnSound();
+            settingManager.turnOnSound();
         } else {
-            setting.turnOffSound();
+            settingManager.turnOffSound();
         }
     }
 
     @FXML
     public void switchSateMusic(ActionEvent event) {
         if (musicCheckBox.isSelected()) {
-            setting.turnOnMusic();
+            settingManager.turnOnMusic();
         } else {
-            setting.turnOffMusic();
+            settingManager.turnOffMusic();
         }
     }
 }

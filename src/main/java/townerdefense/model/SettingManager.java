@@ -1,22 +1,22 @@
 package townerdefense.model;
 
 
-public class Setting {
+public class SettingManager {
     //Singleton Pattern
-    private static Setting setting;
+    private static SettingManager settingManager;
     private boolean hasMusic;
     private boolean hasSound;
 
-    private Setting() {
+    private SettingManager() {
         hasSound = true;
         hasMusic = true;
     }
 
-    public static Setting getInstance() {
-        if (setting == null) {
-            setting = new Setting();
+    public static SettingManager getInstance() {
+        if (settingManager == null) {
+            settingManager = new SettingManager();
         }
-        return setting;
+        return settingManager;
     }
 
     public boolean hasSound() {

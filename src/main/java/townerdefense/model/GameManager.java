@@ -18,7 +18,7 @@ import java.util.List;
 public class GameManager implements Serializable {
 
     public static List<Point> points;
-    public static UserManager user;
+    private static UserManager user;
 
     private GameField gameField;
     private Map map;
@@ -46,7 +46,7 @@ public class GameManager implements Serializable {
 
     private void initSetting() {
         isPlaying = true;
-        System.out.println("Setting game...");
+        System.out.println("SettingManager game...");
     }
 
     private void initUser() {
