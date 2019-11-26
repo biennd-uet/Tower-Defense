@@ -20,32 +20,24 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import townerdefense.engine.GameConfig;
-import townerdefense.engine.GameField;
 import townerdefense.engine.entity.TypeOfEntity;
-import townerdefense.engine.entity.other.Point;
-import townerdefense.engine.entity.tile.Spawner;
-import townerdefense.engine.entity.tile.map.Map;
-import townerdefense.engine.entity.tile.map.WayPoint;
 import townerdefense.engine.entity.tile.tower.*;
+import townerdefense.model.GameManager;
 import townerdefense.model.UserManager;
 import townerdefense.model.nonentity.Circle;
 import townerdefense.model.nonentity.NonEntity;
 import townerdefense.model.nonentity.Rect;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class GameController extends AnimationTimer implements Initializable {
-    public static List<Point> points;
-    public static UserManager user;
+    private static GameManager lastGame;
     @FXML
     private BorderPane root;
     @FXML
@@ -104,53 +96,30 @@ public class GameController extends AnimationTimer implements Initializable {
     private Button pauseButton;
     @FXML
     private Button backToMenuButton;
-    private boolean isPlaying;
+    @FXML
+    private Button saveGameButton;
     private GraphicsContext graphicsContext;
-    private GameField gameField;
-    private Map map;
-    private WayPoint wayPoint;
-    private Spawner spawner;
     private long lastTime;
     private long lag;
-    private java.util.Map<Pair<Double, Double>, Tower> towerMap;
-    private boolean isSelling;
-
     private TypeOfTower typeOfTowerPicked;
+    private GameManager gameManager;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         System.out.println("Init game...");
 
-        initSetting();
-
-        initUser();
+        this.graphicsContext = canvas.getGraphicsContext2D();
+        canvas.setWidth(GameConfig.STAGE_WIDTH);
+        canvas.setHeight(GameConfig.STAGE_HEIGHT);
 
         initUserInterface();
 
         initSetOnEvent();
 
-        initMap();
-
-        initGameField();
-
         System.out.println("Start game ");
 
         this.start();
-    }
-
-    private void initSetting() {
-        isPlaying = true;
-        canvas.setWidth(GameConfig.STAGE_WIDTH);
-        canvas.setHeight(GameConfig.STAGE_HEIGHT);
-
-        this.graphicsContext = canvas.getGraphicsContext2D();
-
-        System.out.println("Setting game...");
-    }
-
-    private void initUser() {
-        user = new UserManager(100, 100, 0, 1);
     }
 
     private void initUserInterface() {
@@ -165,13 +134,10 @@ public class GameController extends AnimationTimer implements Initializable {
         beamTowerPrice.setText(String.format("$ %d", TypeOfTower.BeamTower.getPrice()));
         machinegunTowerPrice.setText(String.format("$ %d", TypeOfTower.MachineGunTower.getPrice()));
 
-        health.setText(String.valueOf(user.getHealth()));
-        gold.setText(String.valueOf(user.getGold()));
-        stage.setText(String.valueOf(user.getStage()));
+        health.setText(String.valueOf(0));
+        gold.setText(String.valueOf(0));
+        stage.setText(String.valueOf(0));
 
-        if (!isPlaying) {
-            pauseButton.setText("Play");
-        }
     }
 
     private void initSetOnEvent() {
@@ -222,8 +188,6 @@ public class GameController extends AnimationTimer implements Initializable {
         });
 
         sellImage.setOnDragDetected(event -> {
-            isSelling = true;
-
             final double posX = GameConfig.SIZE_TILE_WIDTH * Math.round(event.getSceneX() / GameConfig.SIZE_TILE_WIDTH);
             final double posY = GameConfig.SIZE_TILE_HEIGHT * Math.round(event.getSceneY() / GameConfig.SIZE_TILE_HEIGHT);
             NonEntity.nonEntities.add(new Rect(posX, posY, GameConfig.SIZE_TILE_WIDTH, GameConfig.SIZE_TILE_HEIGHT));
@@ -243,7 +207,7 @@ public class GameController extends AnimationTimer implements Initializable {
                 nonEntity.setPosX(posX);
                 nonEntity.setPosY(posY);
             });
-            if (isSelling) {
+            if (gameManager.isSelling()) {
                 pickTowerToSell(dragEvent, posX, posY);
             } else {
                 selectTilePutTower(dragEvent, posX, posY);
@@ -252,7 +216,7 @@ public class GameController extends AnimationTimer implements Initializable {
 
         gameArea.setOnDragDropped(dragEvent -> {
             if (dragEvent.getDragboard().hasImage()) {
-                if (isSelling) {
+                if (gameManager.isSelling()) {
                     sellTower(dragEvent);
                 } else {
                     putTower(dragEvent);
@@ -261,30 +225,15 @@ public class GameController extends AnimationTimer implements Initializable {
 
             System.out.println("Dropped on " + dragEvent.getX() + " " + dragEvent.getY());
         });
-    }
 
-    private void initGameField() {
-        //Todo: init Game field with GameStage and get return this
-        //GameStage gameStage = new GameStage();
-        //this.gameField = gameStage.getGameField()
-        //Todo: comment this code after finish before code
-        this.gameField = new GameField();
+        gameArea.setOnDragExited(event -> {
+            gameManager.setSelling(false);
+            NonEntity.nonEntities.clear();
+        });
 
-        this.gameField.addAllEntity(map.getListTile());
-        this.spawner = new Spawner();
-        this.gameField.addEntity(this.spawner);
-        this.towerMap = new HashMap<>();
-    }
-
-    private void initMap() {
-        try {
-            this.map = new Map();
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-        }
-        this.wayPoint = new WayPoint();
-
-        points = wayPoint.getPoints();
+        saveGameButton.setOnMousePressed(event -> {
+            this.saveGame();
+        });
     }
 
     @Override
@@ -294,7 +243,7 @@ public class GameController extends AnimationTimer implements Initializable {
         lag += elapsed;
 
         while (lag >= GameConfig.NPF) {
-            this.gameField.updateEnemy(GameConfig.NPF);
+            this.gameManager.getGameField().updateEnemy(GameConfig.NPF);
             lag -= GameConfig.NPF;
         }
 
@@ -312,69 +261,47 @@ public class GameController extends AnimationTimer implements Initializable {
     }
 
     public void render() {
-        GameField.entities
+        gameManager.getGameField().getListEntries()
                 .parallelStream()
                 .collect(Collectors.toList())
                 .forEach(entity -> entity.render(this.graphicsContext));
 
         NonEntity.nonEntities.forEach(nonEntity -> nonEntity.render(graphicsContext));
-        gold.setText(String.valueOf(user.getGold()));
-        user.nextTurn(this.spawner.getNStage());
-        stage.setText(String.valueOf(user.getStage()));
+        gold.setText(String.valueOf(UserManager.getInstance().getGold()));
+        UserManager.getInstance().nextTurn(gameManager.getSpawner().getNStage());
+        stage.setText(String.valueOf(UserManager.getInstance().getStage()));
     }
 
     private TypeOfEntity getTypeOfTile(double posX, double posY) {
         int positionTileInX = (int) Math.round(posX / GameConfig.SIZE_TILE_WIDTH);
         int positionTileInY = (int) Math.round(posY / GameConfig.SIZE_TILE_HEIGHT);
 
-        return TypeOfEntity.getTypeOfEntityByType(Map.map[positionTileInY][positionTileInX]);
-    }
-
-    //Tile and Tower
-
-    private boolean hasTowerInTile(double posX, double posY) {
-        return this.towerMap.containsKey(new Pair<>(posX, posY));
+        return TypeOfEntity.getTypeOfEntityByType(gameManager.getMap().getMap()[positionTileInY][positionTileInX]);
     }
 
     private void putTowerToTile(double posX, double posY, TypeOfTower typeOfTower) {
         Tower tower = null;
         switch (typeOfTowerPicked) {
             case NormalTower:
-                tower = new NormalTower(posX, posY);
+                tower = new NormalTower(posX, posY, gameManager.getGameField().getListEntries());
                 break;
             case RocketTower:
-                tower = new RocketTower(posX, posY);
+                tower = new RocketTower(posX, posY, gameManager.getGameField().getListEntries());
                 break;
             case BeamTower:
-                tower = new BeamTower(posX, posY);
+                tower = new BeamTower(posX, posY, gameManager.getGameField().getListEntries());
                 break;
             case MachineGunTower:
-                tower = new MachineGunTower(posX, posY);
+                tower = new MachineGunTower(posX, posY, gameManager.getGameField().getListEntries());
                 break;
             default:
                 break;
         }
-        gameField.addEntity(tower);
-        this.towerMap.put(new Pair<>(posX, posY), tower);
+        gameManager.putTower(posX, posY, tower);
     }
-
-    private void removeTowerFromTile(double posX, double posY) {
-        if (!this.towerMap.containsKey(new Pair<>(posX, posY))) {
-            throw new IllegalArgumentException("Has not tower here!");
-        }
-
-        gameField.removeEntity(this.towerMap.get(new Pair<>(posX, posY)));
-        this.towerMap.remove(new Pair<>(posX, posY));
-    }
-
-    private Tower getTowerFromTile(double posX, double posY) {
-        return this.towerMap.get(new Pair<>(posX, posY));
-    }
-
-    //Event and Tower
 
     private void pickTower(MouseEvent event, ImageView tower1, TypeOfTower typeOfTowerPicked) {
-        if (!user.canBuyTower(typeOfTowerPicked.getPrice())) {
+        if (!UserManager.getInstance().canBuyTower(typeOfTowerPicked.getPrice())) {
             event.consume();
             return;
         }
@@ -393,16 +320,16 @@ public class GameController extends AnimationTimer implements Initializable {
 
     private void putTower(DragEvent dragEvent) {
         if (dragEvent.getDragboard().hasImage()) {
-            if (getTypeOfTile(dragEvent.getX(), dragEvent.getY()) == TypeOfEntity.ROAD6) {
+            if (getTypeOfTile(dragEvent.getX(), dragEvent.getY()) == TypeOfEntity.MOUNTAIN) {
                 final double posX = GameConfig.SIZE_TILE_WIDTH * Math.round(dragEvent.getSceneX() / GameConfig.SIZE_TILE_WIDTH);
                 final double posY = GameConfig.SIZE_TILE_HEIGHT * Math.round(dragEvent.getSceneY() / GameConfig.SIZE_TILE_HEIGHT);
-                if (hasTowerInTile(posX, posY)) {
+                if (gameManager.hasTowerInTile(posX, posY)) {
                     dragEvent.acceptTransferModes(TransferMode.NONE);
                 } else {
                     dragEvent.acceptTransferModes(TransferMode.MOVE);
-                    user.buyTower(typeOfTowerPicked.getPrice());
+                    UserManager.getInstance().buyTower(typeOfTowerPicked.getPrice());
                     putTowerToTile(posX, posY, typeOfTowerPicked);
-                    gold.setText(String.valueOf(user.getGold()));
+                    gold.setText(String.valueOf(UserManager.getInstance().getGold()));
                 }
             }
             NonEntity.nonEntities.clear();
@@ -411,7 +338,7 @@ public class GameController extends AnimationTimer implements Initializable {
     }
 
     private void selectTilePutTower(DragEvent dragEvent, double posX, double posY) {
-        if (hasTowerInTile(posX, posY)) {
+        if (gameManager.hasTowerInTile(posX, posY)) {
             dragEvent.acceptTransferModes(TransferMode.NONE);
             this.graphicsContext.setStroke(Color.RED);
         } else {
@@ -421,29 +348,30 @@ public class GameController extends AnimationTimer implements Initializable {
     }
 
     private void pickTowerToSell(DragEvent dragEvent, double posX, double posY) {
-        dragEvent.acceptTransferModes(TransferMode.MOVE);
-        if (!hasTowerInTile(posX, posY)) {
+        if (!gameManager.hasTowerInTile(posX, posY)) {
+            dragEvent.acceptTransferModes(TransferMode.NONE);
             this.graphicsContext.setStroke(Color.RED);
         } else {
+            dragEvent.acceptTransferModes(TransferMode.MOVE);
             this.graphicsContext.setStroke(Color.YELLOW);
         }
     }
 
     private void sellTower(DragEvent dragEvent) {
-        dragEvent.acceptTransferModes(TransferMode.MOVE);
         final double posX = GameConfig.SIZE_TILE_WIDTH * Math.round(dragEvent.getSceneX() / GameConfig.SIZE_TILE_WIDTH);
         final double posY = GameConfig.SIZE_TILE_HEIGHT * Math.round(dragEvent.getSceneY() / GameConfig.SIZE_TILE_HEIGHT);
-        if (hasTowerInTile(posX, posY)) {
-            user.getReward(TypeOfTower.getTypeOfTowerByClass(getTowerFromTile(posX, posY)).getPrice() / 2);
-            removeTowerFromTile(posX, posY);
+        if (!gameManager.hasTowerInTile(posX, posY)) {
+            dragEvent.acceptTransferModes(TransferMode.MOVE);
+            UserManager.getInstance().getReward(TypeOfTower.getTypeOfTowerByClass(gameManager.getTowerFromTile(posX, posY)).getPrice() / 2);
+            gameManager.removeTowerFromTile(posX, posY);
+            gameManager.setSelling(false);
+        } else {
+            dragEvent.acceptTransferModes(TransferMode.NONE);
+            dragEvent.setDropCompleted(true);
+            System.out.println("Cancel Selling");
         }
-        NonEntity.nonEntities.clear();
         dragEvent.consume();
-        isSelling = false;
-        System.out.println("Cancel Selling");
     }
-
-    //Event and information
 
     private void updateDescription(TypeOfTower typeOfTower) {
         towerName.setText(typeOfTower.name());
@@ -453,8 +381,6 @@ public class GameController extends AnimationTimer implements Initializable {
         towerDiscription.getChildren().clear();
         towerDiscription.getChildren().add(new Text("Some thing about tower"));
     }
-
-    //Button and State of Game
 
     private void doPauseGame() {
         this.stop();
@@ -466,20 +392,57 @@ public class GameController extends AnimationTimer implements Initializable {
         pauseButton.setText("Pause");
     }
 
+    void startNewGame() {
+        gameManager = new GameManager();
+    }
+
+    private void saveGame() {
+        try {
+            File file = new File(getClass().getResource("/bin/lastGame.dat").toURI());
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            ObjectOutputStream os = new ObjectOutputStream(fileOutputStream);
+
+            os.writeObject(this.gameManager);
+
+            os.close();
+
+        } catch (URISyntaxException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void loadLastPlay() {
+        try {
+            File file = new File(getClass().getResource("/bin/lastGame.dat").toURI());
+            FileInputStream fileInputStream = new FileInputStream(file);
+            ObjectInputStream is = new ObjectInputStream(fileInputStream);
+
+            this.gameManager = (GameManager) is.readObject();
+
+            is.close();
+
+        } catch (URISyntaxException | IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            startNewGame();
+        }
+    }
+
     @FXML
     public void setOnHandlePause(ActionEvent event) {
-        if (isPlaying) {
+        if (gameManager.isPlaying()) {
             doPauseGame();
         } else {
             doPlayGame();
         }
-        isPlaying = !isPlaying;
+        gameManager.setPlaying(!gameManager.isPlaying());
     }
 
     @FXML
     public void setOnHandleBackToMenu(ActionEvent event) throws IOException {
 
         doPauseGame();
+
+        saveGame();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 

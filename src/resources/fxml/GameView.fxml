@@ -8,7 +8,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="792.0" prefWidth="1366.0" stylesheets="@../css/Game.css"
             xmlns="http://javafx.com/javafx/11.0.1" fx:controller="townerdefense.control.GameController">
     <center>
@@ -195,6 +196,7 @@
                     </children>
                 </GridPane>
                 <Button fx:id="pauseButton" mnemonicParsing="false" onAction="#setOnHandlePause" text="Pause"/>
+                <Button fx:id="saveGameButton" mnemonicParsing="false" text="Save game"/>
                 <Button fx:id="backToMenuButton" mnemonicParsing="false" onAction="#setOnHandleBackToMenu"
                         text="Back to Main Menu"/>
             </children>

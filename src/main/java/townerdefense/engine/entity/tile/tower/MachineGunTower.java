@@ -1,7 +1,6 @@
 package townerdefense.engine.entity.tile.tower;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.Entity;
 import townerdefense.engine.entity.bullet.Bullet;
@@ -11,24 +10,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class MachineGunTower extends Tower {
-    private double frame_number = 0;
-    private double x = 0;
-    private double y = 0;
-    private boolean reverse = false;
 
-    private MachineGunTower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
-        super(image, posX, posY, width, height, speed, range, damage);
+    private MachineGunTower(double posX, double posY, double width, double height, double speed, double range, Collection<Entity> entities) {
+        super(posX, posY, width, height, speed, range, entities);
     }
 
-    public MachineGunTower(double posX, double posY) {
-        this(GameConfig.IMMachineGunTower, posX, posY,
+    public MachineGunTower(double posX, double posY, Collection<Entity> entities) {
+        this(posX, posY,
                 GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
-                GameConfig.MACHINE_GUN_TOWER_SPEED, GameConfig.MACHINE_GUN_TOWER_RANGE, GameConfig.MACHINE_GUN_TOWER_DAMAGE);
+                GameConfig.MACHINE_GUN_TOWER_SPEED, GameConfig.MACHINE_GUN_TOWER_RANGE, entities);
     }
 
     @Override
     public void render(GraphicsContext graphicsContext) {
         super.render(graphicsContext);
+        graphicsContext.save();
+        rotate(graphicsContext, theta, this.getCenterPosX(), this.getCenterPosY());
+        graphicsContext.drawImage(GameConfig.IMMachineGunTower, posX, posY, width, height);
+        graphicsContext.restore();
     }
 
     @Override
@@ -41,9 +40,9 @@ public class MachineGunTower extends Tower {
         double pX3 = this.getCenterPosX() - GameConfig.BULLET_WIDTH;
         double pY3 = this.getCenterPosY() - GameConfig.BULLET_HEIGHT;
         Collection<Bullet> bullets = new ArrayList<>();
-        bullets.add(new NormalBullet(enemyInRangeQueue.peek(), pX1, pY1, GameConfig.TOWER_DAMAGE));
-        bullets.add(new NormalBullet(enemyInRangeQueue.peek(), pX2, pY2, GameConfig.TOWER_DAMAGE));
-        bullets.add(new NormalBullet(enemyInRangeQueue.peek(), pX3, pY3, GameConfig.TOWER_DAMAGE));
+        bullets.add(new NormalBullet(enemyInRangeQueue.peek(), pX1, pY1, GameConfig.MACHINE_GUN_TOWER_DAMAGE));
+        bullets.add(new NormalBullet(enemyInRangeQueue.peek(), pX2, pY2, GameConfig.MACHINE_GUN_TOWER_DAMAGE));
+        bullets.add(new NormalBullet(enemyInRangeQueue.peek(), pX3, pY3, GameConfig.MACHINE_GUN_TOWER_DAMAGE));
         return bullets;
     }
 

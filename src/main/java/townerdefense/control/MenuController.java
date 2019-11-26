@@ -4,21 +4,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import townerdefense.engine.GameConfig;
+import townerdefense.model.MenuManager;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MenuController implements Initializable {
+    private static Stage stage;
     @FXML
     private AnchorPane root;
     @FXML
@@ -31,22 +30,34 @@ public class MenuController implements Initializable {
     private Button settingButton;
     @FXML
     private Button exitButton;
+    private FXMLLoader fxmlLoader;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Font.loadFont(this.getClass().getResource("/fonts/Freedom-nZ4J.otf").toExternalForm(), 12);
+        fxmlLoader = new FXMLLoader();
     }
 
     @FXML
     protected void handleContinueButtonAction(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        System.out.println("Play continue...");
+        loadNewScene(MenuManager.gameUrl);
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/GameView.fxml")));
+        GameController gameController = fxmlLoader.getController();
 
-        Scene scene = new Scene(root, GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
+        gameController.loadLastPlay();
 
-        stage.setScene(scene);
+        stage.show();
+
+        System.out.println("Load Scene...");
+    }
+
+    @FXML
+    public void handleNewGameButton(ActionEvent event) throws IOException {
+        loadNewScene(MenuManager.gameUrl);
+
+        GameController gameController = fxmlLoader.getController();
+
+        gameController.startNewGame();
 
         stage.show();
 
@@ -55,53 +66,32 @@ public class MenuController implements Initializable {
 
     @FXML
     public void handleAboutButtonAction(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/AboutView.fxml")));
-
-        Scene scene = new Scene(root, GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
-
-        stage.setScene(scene);
+        loadNewScene(MenuManager.aboutUrl);
 
         stage.show();
-
-        System.out.println("Go to About!");
     }
 
     @FXML
     public void handleExitButtonAction(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
 
     @FXML
     public void handleSettingButtonAction(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/SettingView.fxml")));
-
-        Scene scene = new Scene(root, GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
-
-        stage.setScene(scene);
+        loadNewScene(MenuManager.settingUrl);
 
         stage.show();
 
-        System.out.println("Go to Setting!");
+        System.out.println("Go to SettingManager!");
     }
 
-    @FXML
-    public void handleNewGameButton(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        System.out.println("Play continue...");
+    public void setStage(Stage stage) {
+        MenuController.stage = stage;
+    }
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/GameView.fxml")));
-
-        Scene scene = new Scene(root, GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
-
-        stage.setScene(scene);
-
-        stage.show();
-
-        System.out.println("Load Scene...");
+    private void loadNewScene(URL url) throws IOException {
+        fxmlLoader = new FXMLLoader(url);
+        stage.setScene(new Scene(fxmlLoader.load(), GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT));
     }
 }
