@@ -86,7 +86,7 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
         for (int i = 0; i < NBossEnemy; i++) {
             addEnemy(new BossEnemy());
         }
-        NEnemy = NEnemy + 2;
+        NEnemy = NEnemy + 0.8;
         NStage++;
         System.out.println(enemies.size());
     }
