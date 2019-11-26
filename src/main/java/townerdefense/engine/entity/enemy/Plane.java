@@ -1,9 +1,9 @@
 package townerdefense.engine.entity.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import townerdefense.engine.GameConfig;
+import townerdefense.engine.entity.tile.map.Map;
 
 
 public class Plane extends Enemy {
@@ -12,28 +12,26 @@ public class Plane extends Enemy {
     private double theta = Math.atan2(deltaY, deltaX);
 
 
-    private Plane(Image image, double r, double posX, double posY, double with, double height, double health, double speed, double armor, double reward) {
-        super(image, r, posX, posY, with, height, health, speed, armor, reward);
+    private Plane(double r, double posX, double posY, double with, double height, double health, double speed, long armor, double reward, Map map) {
+        super(r, posX, posY, with, height, health, speed, GameConfig.SMALLER_ENEMY_ARMOR, map);
         this.r = Math.toDegrees(theta);
     }
 
-    public Plane() {
-        this(GameConfig.IMPlane, 0, GameConfig.SPAWNER_DEFAULT_POSX, GameConfig.SPAWNER_DEFAULT_POSY,
+    public Plane(double posX, double posY, Map map) {
+        this(0, posX, posY,
                 GameConfig.SMALLER_ENEMY_WIDTH, GameConfig.SMALLER_ENEMY_HEIGHT,
                 GameConfig.SMALLER_ENEMY_HEALTH, GameConfig.SMALLER_ENEMY_SPEED,
-                GameConfig.SMALLER_ENEMY_ARMOR, GameConfig.SMALLER_ENEMY_REWARD);
-    }
-
-    public Plane(double posX, double posY) {
-        this(GameConfig.IMPlane, 0, posX, posY,
-                GameConfig.SMALLER_ENEMY_WIDTH, GameConfig.SMALLER_ENEMY_HEIGHT,
-                GameConfig.SMALLER_ENEMY_HEALTH, GameConfig.SMALLER_ENEMY_SPEED,
-                GameConfig.SMALLER_ENEMY_ARMOR, GameConfig.SMALLER_ENEMY_REWARD);
+                GameConfig.SMALLER_ENEMY_ARMOR, GameConfig.SMALLER_ENEMY_REWARD,
+                map);
     }
 
     @Override
     public void render(GraphicsContext graphicsContext) {
+        graphicsContext.save();
+        rotate(graphicsContext, r, posX + width / 2, posY + height / 2);
+        graphicsContext.drawImage(GameConfig.IMPlane, this.getCenterPosX() - width / 2, this.getCenterPosY() - height / 2, width, height);
 
+        graphicsContext.restore();
         super.render(graphicsContext);
         final double percentHealth = health / GameConfig.SMALLER_ENEMY_HEALTH;
         if (percentHealth <= 0.25) {

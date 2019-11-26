@@ -34,9 +34,9 @@ public enum TypeOfTower {
         this.damage = damage;
     }
 
-   public static TypeOfTower getTypeOfTowerByClass(Tower tower)  {
+    public static TypeOfTower getTypeOfTowerByClass(Tower tower) {
         return classTypeOfEntityMap.get(tower.getClass());
-   }
+    }
 
     public Image getImage() {
         return image;

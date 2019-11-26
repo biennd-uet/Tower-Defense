@@ -1,7 +1,6 @@
 package townerdefense.model.nonentity;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import townerdefense.engine.GameConfig;
 
 public class Circle extends NonEntity {
@@ -14,12 +13,12 @@ public class Circle extends NonEntity {
 
     @Override
     public void setPosX(double posX) {
-        this.posX = posX + GameConfig.SIZE_TILE_WIDTH / 2.0 - this.radius ;
+        this.posX = posX + GameConfig.SIZE_TILE_WIDTH / 2.0 - this.radius;
     }
 
     @Override
     public void setPosY(double posY) {
-        this.posY = posY + GameConfig.SIZE_TILE_HEIGHT/ 2.0 - this.radius;
+        this.posY = posY + GameConfig.SIZE_TILE_HEIGHT / 2.0 - this.radius;
     }
 
     @Override

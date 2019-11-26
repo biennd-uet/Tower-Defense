@@ -1,33 +1,30 @@
 package townerdefense.engine.entity.bullet;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.enemy.Enemy;
 
 public class NormalBullet extends Bullet {
-    public boolean isCanRemove = false;
-    private double speed;
-    private double damage;
-    private Enemy enemy;
-    private double apha;
-    private Image image;
 
-    public NormalBullet(Enemy enemy, Image image, double posX, double posY, double with, double height, double speed, double damage) {
-        super(enemy, image, posX, posY,
+    private NormalBullet(Enemy enemy, double posX, double posY, double with, double height, double speed, double damage) {
+        super(enemy, posX, posY,
                 with, height,
                 speed, damage);
     }
 
     public NormalBullet(Enemy enemy, double posX, double posY, double damage) {
-        this(enemy, GameConfig.IMBullet, posX, posY,
+        this(enemy, posX, posY,
                 GameConfig.BULLET_WIDTH, GameConfig.BULLET_HEIGHT,
                 GameConfig.BULLET_SPEED, damage);
     }
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-        super.render(graphicsContext);
+        graphicsContext.save();
+        rotate(graphicsContext, alpha, posX + width / 2, posY + height / 2);
+        graphicsContext.drawImage(GameConfig.IMBullet, posX, posY, width, height);
+
+        graphicsContext.restore();
     }
 
     @Override
@@ -37,14 +34,11 @@ public class NormalBullet extends Bullet {
 
     @Override
     public boolean isDestroy() {
-       /* return enemy.isDestroy() || Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
-                enemy.getCenterPosX(), this.getCenterPosY()) <= GameConfig.SIZE_UNIT;*/
         return super.isDestroy();
     }
 
     @Override
     public void onDestroy() {
-        //  enemy.onAttacked(this.damage);
         super.onDestroy();
     }
 }

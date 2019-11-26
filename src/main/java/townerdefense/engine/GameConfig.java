@@ -5,9 +5,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
 public class GameConfig {
     //TODO: All settings
     //Unit
@@ -118,42 +115,35 @@ public class GameConfig {
 
 
     //Image
-    public static Image IM_1, IM0, IM1, IM2, IM3, IM4, IM5, IM6, IM10, IMEnemy,
+    public static Image IM_1, IMRoad, IM1, IM2, IM3, IM4, IM5, IMMountain, IM10, IMEnemy,
             IMTower, IMTower1, IMBlank, IMBullet, IMAnimationWp, IMExplosion,
             IMBeamTower, IMBeam, IMRocketTower, IMRocket, IMBoss, IMTankEnemy, IMPlane, IMMachineGunTower;
 
     static {
-
-        try {
-
-            IM0 = new Image(new FileInputStream("assets/0.png"));
-            IM6 = new Image(new FileInputStream("assets/6.png"));
-            IMEnemy = new Image(new FileInputStream("assets/enemy.png"));
-            IMTower = new Image(new FileInputStream("assets/tower.png"));
-            IMTower1 = cropImage(IMTower, 0, 0, 4, 4);
-            IMBlank = cropImage(new Image(new FileInputStream("assets/towers_walls_blank.png")), 0, 0, 6, 5);
-            IMBullet = new Image(new FileInputStream("assets/bullet.png"));
-            IMAnimationWp = new Image(new FileInputStream("assets/turret_01_mk1.png"));
-            IMExplosion = new Image(new FileInputStream("assets/explosion.png"));
-            IMBeamTower = cropImage(IMTower, 0, 1, 4, 4);
-            IMBeam = new Image(new FileInputStream("assets/beam.png"));
-            IMRocketTower = cropImage(IMTower, 3, 3, 4, 4);
-            IMRocket = new Image(new FileInputStream("assets/rocket.png"));
-            IMBoss = new Image(new FileInputStream("assets/FinalBoss.png"));
-            IMTankEnemy = new Image(new FileInputStream("assets/TankEnemy.png"));
-            IMPlane = new Image(new FileInputStream("assets/plane.png"));
-            IMMachineGunTower = cropImage(IMTower, 3, 0, 4, 4);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        IMRoad = new Image(GameConfig.class.getResource("/assets/road.png").toExternalForm());
+        IMMountain = new Image(GameConfig.class.getResource("/assets/mountain.png").toExternalForm());
+        IMEnemy = new Image(GameConfig.class.getResource("/assets/enemy.png").toExternalForm());
+        IMTower = new Image(GameConfig.class.getResource("/assets/tower.png").toExternalForm());
+        IMTower1 = cropImage(IMTower, 0, 0, 4, 4);
+        IMBlank = cropImage(new Image(GameConfig.class.getResource("/assets/towers_walls_blank.png").toExternalForm()), 0, 0, 6, 5);
+        IMBullet = new Image(GameConfig.class.getResource("/assets/bullet.png").toExternalForm());
+        IMAnimationWp = new Image(GameConfig.class.getResource("/assets/turret_01_mk1.png").toExternalForm());
+        IMExplosion = new Image(GameConfig.class.getResource("/assets/explosion.png").toExternalForm());
+        IMBeamTower = cropImage(IMTower, 0, 1, 4, 4);
+        IMBeam = new Image(GameConfig.class.getResource("/assets/beam.png").toExternalForm());
+        IMRocketTower = cropImage(IMTower, 3, 3, 4, 4);
+        IMRocket = new Image(GameConfig.class.getResource("/assets/rocket.png").toExternalForm());
+        IMBoss = new Image(GameConfig.class.getResource("/assets/FinalBoss.png").toExternalForm());
+        IMTankEnemy = new Image(GameConfig.class.getResource("/assets/TankEnemy.png").toExternalForm());
+        IMPlane = new Image(GameConfig.class.getResource("/assets/plane.png").toExternalForm());
+        IMMachineGunTower = cropImage(IMTower, 3, 0, 4, 4);
 
     }
 
     //Make it can not declaration
 
 
-    public static Image cropImage(Image image, int x, int y, int a, int b) {
+    private static Image cropImage(Image image, int x, int y, int a, int b) {
         int W = (int) image.getWidth() / a;
         int H = (int) image.getHeight() / b;
         int pX = x * W;

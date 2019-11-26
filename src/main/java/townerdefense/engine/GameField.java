@@ -5,12 +5,13 @@ import townerdefense.engine.entity.Entity;
 import townerdefense.engine.entity.SpawnableEntity;
 import townerdefense.engine.entity.UpdatableEntity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class GameField {
-    public static List<Entity> entities;
+public class GameField implements Serializable {
+    private List<Entity> entities;
     private List<Entity> spawnedEntity = new ArrayList<>();
     private List<Entity> destroyEntity = new ArrayList<>();
 
@@ -23,7 +24,7 @@ public class GameField {
     }
 
     public void removeAllEntity(Collection<Entity> entities) {
-        GameField.entities.removeAll(entities);
+        this.entities.removeAll(entities);
     }
 
     public void addEntity(Entity entity) {
@@ -32,10 +33,10 @@ public class GameField {
     }
 
     public void addAllEntity(Collection<? extends Entity> entities) {
-        GameField.entities.addAll(entities);
+        this.entities.addAll(entities);
     }
 
-    public final Collection<Entity> getListEntries() {
+    public Collection<Entity> getListEntries() {
         return entities;
     }
 
@@ -48,24 +49,24 @@ public class GameField {
 
 
         //Update state
-        GameField.entities.forEach(entity -> {
+        this.entities.forEach(entity -> {
             if (entity instanceof UpdatableEntity) {
                 ((UpdatableEntity) entity).update(deltaTime);
                 //System.out.println(deltaTime);
             }
         });
         //Update destroyable entity
-        GameField.entities.forEach(entity -> {
+        this.entities.forEach(entity -> {
             if (entity instanceof DestroyableEntity && ((DestroyableEntity) entity).isDestroy()) {
                 destroyEntity.add(entity);
             }
         });
 
         destroyEntity.forEach(entity -> ((DestroyableEntity) entity).onDestroy());
-        GameField.entities.removeAll(destroyEntity);
+        this.entities.removeAll(destroyEntity);
         destroyEntity.clear();
         //Update spawnalbe entity
-        GameField.entities.forEach(entity -> {
+        this.entities.forEach(entity -> {
             if (entity instanceof SpawnableEntity) {
 
                 if (((SpawnableEntity) entity).hasEntityToSpawn(deltaTime)) {
@@ -76,7 +77,7 @@ public class GameField {
             }
         });
         //Add them to game field
-        GameField.entities.addAll(spawnedEntity);
+        this.entities.addAll(spawnedEntity);
         spawnedEntity.clear();
     }
 }

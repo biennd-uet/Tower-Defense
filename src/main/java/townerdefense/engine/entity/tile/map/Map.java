@@ -3,24 +3,25 @@ package townerdefense.engine.entity.tile.map;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.Entity;
 import townerdefense.engine.entity.TypeOfEntity;
+import townerdefense.engine.entity.tile.Mountain;
 import townerdefense.engine.entity.tile.Road;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
-public class Map {
-    public static int[][] map;
+public class Map implements Serializable {
     private final static String urlToMapFolder = "/map/";
+    private final int[][] map;
+    private final WayPoint wayPoint;
     private List<Entity> tileList;
 
     public Map() throws IOException, URISyntaxException {
-        //this.map = new int[GameConfig.NUMBER_TILE_IN_HORIZONTAL][GameConfig.NUMBER_TILE_IN_VERTICAL];
-
-        //TODO: load map from something...
         this(loadMapFromFile(Map.class.getResource("/map/Stage1.txt")));
     }
 
@@ -31,8 +32,9 @@ public class Map {
             throw new IllegalArgumentException("Not is map in tower defense");
         }
 
+        this.map = map;
+        this.wayPoint = new WayPoint();
         this.tileList = new ArrayList<>();
-        Map.map = map;
 
         for (int i = 0; i < GameConfig.NUMBER_TILE_IN_VERTICAL; i++) {
             for (int j = 0; j < GameConfig.NUMBER_TILE_IN_HORIZONTAL; j++) {
@@ -41,15 +43,15 @@ public class Map {
                 final int width = GameConfig.SIZE_TILE_WIDTH;
                 final int height = GameConfig.SIZE_TILE_HEIGHT;
                 switch (Objects.requireNonNull(TypeOfEntity.getTypeOfEntityByType(map[i][j]))) {
-                    case ROAD6:
-                        this.tileList.add(new Road(GameConfig.IM6, posX, posY, width, height));
+                    case MOUNTAIN:
+                        this.tileList.add(new Mountain(posX, posY, width, height));
                         break;
                     case ROAD0:
                     case ROAD2:
                     case ROAD3:
                     case ROAD4:
                     case ROAD5:
-                        this.tileList.add(new Road(GameConfig.IM0, posX, posY, width, height));
+                        this.tileList.add(new Road(posX, posY, width, height));
                         break;
                     default:
                         break;
@@ -64,7 +66,7 @@ public class Map {
 
         BufferedReader reader = new BufferedReader(fileReader);
 
-        int[] data =  Stream.of(reader.readLine().split("\\s+")).mapToInt(Integer::parseInt).toArray();
+        int[] data = Stream.of(reader.readLine().split("\\s+")).mapToInt(Integer::parseInt).toArray();
         int column = data[0];
         int row = data[1];
 
@@ -81,7 +83,15 @@ public class Map {
         return map;
     }
 
+    public int[][] getMap() {
+        return map;
+    }
+
     public Collection<Entity> getListTile() {
         return this.tileList;
+    }
+
+    public WayPoint getWayPoint() {
+        return wayPoint;
     }
 }

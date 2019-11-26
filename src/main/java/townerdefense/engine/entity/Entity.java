@@ -1,7 +1,5 @@
 package townerdefense.engine.entity;
 
-import javafx.scene.image.Image;
-
 import java.io.Serializable;
 
 public abstract class Entity implements GameEntity, DrawableEntity, Serializable {
@@ -9,7 +7,6 @@ public abstract class Entity implements GameEntity, DrawableEntity, Serializable
     protected double posY;
     protected double width;
     protected double height;
-    transient private Image image;
 
     public Entity(double posX, double posY, double width, double height) {
         this.posX = posX;

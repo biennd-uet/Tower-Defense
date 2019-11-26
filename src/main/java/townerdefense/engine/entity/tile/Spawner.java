@@ -7,6 +7,7 @@ import townerdefense.engine.entity.SpawnableEntity;
 import townerdefense.engine.entity.UpdatableEntity;
 import townerdefense.engine.entity.bullet.Bullet;
 import townerdefense.engine.entity.enemy.*;
+import townerdefense.engine.entity.tile.map.Map;
 
 import java.util.ArrayDeque;
 import java.util.Collection;
@@ -15,29 +16,27 @@ import java.util.Queue;
 public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
     private final double timeBetweenSpawnEnemy;
     private final double timeBetween2WayEnemy;
+    private final Map map;
     private Queue<Enemy> enemies;
     private double lastTimeSpawn;
     private double lastTimeWayspaw;
     private double NEnemy = 5;
-    private int NNormalEnemy;
-    private int NTankEnemy;
-    private int NPlane;
-    private int NBossEnemy;
     private int NStage = 0;
 
 
-    private Spawner(double posX, double posY, double with, double height) {
+    private Spawner(double posX, double posY, double with, double height, Map map) {
         super(posX, posY, with, height);
         this.enemies = new ArrayDeque<>();
         lastTimeSpawn = 0;
         lastTimeWayspaw = 0;
         timeBetweenSpawnEnemy = GameConfig.NPS / GameConfig.SPAWNER_SPEED_SPAWN;
         timeBetween2WayEnemy = GameConfig.NPS / 0.1;
+        this.map = map;
     }
 
-    public Spawner() {
+    public Spawner(Map map) {
         this(GameConfig.SPAWNER_DEFAULT_POSX, GameConfig.SPAWNER_DEFAULT_POSY,
-                GameConfig.SPAWNER_WIDTH, GameConfig.SPAWNER_HEIGHT);
+                GameConfig.SPAWNER_WIDTH, GameConfig.SPAWNER_HEIGHT, map);
         SpawnOneWay();
     }
 
@@ -70,21 +69,21 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
     }
 
     private void SpawnOneWay() {
-        NNormalEnemy = (int) (NEnemy * 0.5);
-        NTankEnemy = (int) (NEnemy * 0.3);
-        NPlane = (int) (NEnemy * 0.1);
-        NBossEnemy = (int) (NEnemy * 0.1);
+        int NNormalEnemy = (int) (NEnemy * 0.5);
+        int NTankEnemy = (int) (NEnemy * 0.3);
+        int NPlane = (int) (NEnemy * 0.1);
+        int NBossEnemy = (int) (NEnemy * 0.1);
         for (int i = 0; i < NNormalEnemy; i++) {
-            addEnemy(new NormalEnemy());
+            addEnemy(new NormalEnemy(this.getPosX(), this.getPosY(), map));
         }
         for (int i = 0; i < NTankEnemy; i++) {
-            addEnemy(new TankEnemy());
+            addEnemy(new TankEnemy(this.getPosX(), this.getPosY(), map));
         }
         for (int i = 0; i < NPlane; i++) {
-            addEnemy(new Plane());
+            addEnemy(new Plane(this.getPosX(), this.getPosY(), map));
         }
         for (int i = 0; i < NBossEnemy; i++) {
-            addEnemy(new BossEnemy());
+            addEnemy(new BossEnemy(this.getPosX(), this.getPosY(), map));
         }
         NEnemy = NEnemy + 0.8;
         NStage++;
