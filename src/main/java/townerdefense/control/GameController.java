@@ -270,6 +270,8 @@ public class GameController extends AnimationTimer implements Initializable {
         gold.setText(String.valueOf(UserManager.getInstance().getGold()));
         UserManager.getInstance().nextTurn(gameManager.getSpawner().getNStage());
         stage.setText(String.valueOf(UserManager.getInstance().getStage()));
+        UserManager.getInstance().lostHealth(gameManager.getGameField().getPassEnemy());
+        health.setText(String.valueOf(UserManager.getInstance().getHealth()));
     }
 
     private TypeOfEntity getTypeOfTile(double posX, double posY) {

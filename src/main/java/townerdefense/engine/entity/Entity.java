@@ -31,4 +31,6 @@ public abstract class Entity implements GameEntity, DrawableEntity, Serializable
     public double getPosY() {
         return posY;
     }
+
+
 }
