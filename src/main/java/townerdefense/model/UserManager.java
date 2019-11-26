@@ -19,7 +19,7 @@ public class UserManager {
 
     public static UserManager getInstance() {
         if (userManager == null) {
-            userManager = new UserManager(100, 100, 1, 0);
+            userManager = new UserManager(100, 20, 1, 0);
         }
         return userManager;
     }
@@ -60,6 +60,11 @@ public class UserManager {
     public void nextTurn(int turn) {
         hasUpdate = true;
         this.stage = turn;
+    }
+    public void lostHealth(int passEnemy){
+        hasUpdate = true;
+        this.health = 20 - passEnemy;
+
     }
 
 }

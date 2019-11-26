@@ -178,4 +178,7 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
     public void onDestroy() {
         UserManager.getInstance().getReward(50);
     }
+    public boolean isPassStage(){
+        return posX > GameConfig.STAGE_WIDTH;
+    }
 }
