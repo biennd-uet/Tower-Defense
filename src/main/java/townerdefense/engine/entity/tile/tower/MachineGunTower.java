@@ -40,9 +40,9 @@ public class MachineGunTower extends Tower {
         double pX3 = this.getCenterPosX() - GameConfig.BULLET_WIDTH;
         double pY3 = this.getCenterPosY() - GameConfig.BULLET_HEIGHT;
         Collection<Bullet> bullets = new ArrayList<>();
-        bullets.add(new NormalBullet(enemyInRangeQueue.peek(), pX1, pY1, GameConfig.TOWER_DAMAGE));
-        bullets.add(new NormalBullet(enemyInRangeQueue.peek(), pX2, pY2, GameConfig.TOWER_DAMAGE));
-        bullets.add(new NormalBullet(enemyInRangeQueue.peek(), pX3, pY3, GameConfig.TOWER_DAMAGE));
+        bullets.add(new NormalBullet(enemyInRangeQueue.peek(), pX1, pY1, GameConfig.MACHINE_GUN_TOWER_DAMAGE));
+        bullets.add(new NormalBullet(enemyInRangeQueue.peek(), pX2, pY2, GameConfig.MACHINE_GUN_TOWER_DAMAGE));
+        bullets.add(new NormalBullet(enemyInRangeQueue.peek(), pX3, pY3, GameConfig.MACHINE_GUN_TOWER_DAMAGE));
         return bullets;
     }
 

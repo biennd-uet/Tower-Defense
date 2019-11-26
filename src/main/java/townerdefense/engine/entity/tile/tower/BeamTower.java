@@ -4,8 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.Entity;
 import townerdefense.engine.entity.bullet.Bullet;
-import townerdefense.engine.entity.bullet.NormalBullet;
-import townerdefense.engine.entity.enemy.Enemy;
+import townerdefense.engine.entity.bullet.Laze;
 
 import java.util.Collection;
 
@@ -21,21 +20,6 @@ public class BeamTower extends Tower {
                 GameConfig.BEAM_TOWER_SPEED, GameConfig.TOWER_RANGE, entities);
     }
 
-    private boolean UP(Entity enemy) {
-        return enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + width) && enemy.getCenterPosY() < getCenterPosY() - height / 2;
-    }
-
-    private boolean LEFT(Entity enemy) {
-        return enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + height) && enemy.getCenterPosX() < getCenterPosX() - width / 2;
-    }
-
-    private boolean DOWN(Entity enemy) {
-        return enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + width) && enemy.getCenterPosY() > getCenterPosY() + height / 2;
-    }
-
-    private boolean RIGHT(Entity enemy) {
-        return enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + height) && enemy.getCenterPosX() > getCenterPosX() + width / 2;
-    }
     @Override
     public void render(GraphicsContext graphicsContext) {
         super.render(graphicsContext);
@@ -46,32 +30,14 @@ public class BeamTower extends Tower {
     }
 
     @Override
-    public void update(int deltaTime) {
-        if (!enemyInRangeQueue.isEmpty()) {
-            Enemy enemy = enemyInRangeQueue.peek();
-            if (LEFT(enemy)) {
-                theta = -90;
-            } else if (RIGHT(enemy)) {
-                theta = 90;
-            } else if (DOWN(enemy)) {
-                theta = 180;
-            } else {
-                theta = 0;
-            }
-        }
-    }
-
-    @Override
     public Bullet spawn(int deltaTime) {
-        lastTimeAttack = System.nanoTime();
-        return new NormalBullet(enemyInRangeQueue.peek(), posX, posY, GameConfig.TOWER_DAMAGE);
+        double pX = this.getCenterPosX() - GameConfig.BULLET_WIDTH * 3 / 2.0;
+        double pY = this.getCenterPosY() - GameConfig.BULLET_HEIGHT * 3 / 2.0;
+        return new Laze(enemyInRangeQueue.peek(), pX, pY, GameConfig.TOWER_DAMAGE);
     }
 
     @Override
-    public Collection<? extends Entity> spawnAll(int deltaTime) {
+    public Collection<Bullet> spawnAll(int deltaTime) {
         return null;
     }
-
 }
-
-

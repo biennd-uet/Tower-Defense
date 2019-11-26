@@ -16,12 +16,12 @@ import java.util.Queue;
 public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
     private final double timeBetweenSpawnEnemy;
     private final double timeBetween2WayEnemy;
+    private final Map map;
     private Queue<Enemy> enemies;
     private double lastTimeSpawn;
     private double lastTimeWayspaw;
     private double NEnemy = 5;
     private int NStage = 0;
-    private final Map map;
 
 
     private Spawner(double posX, double posY, double with, double height, Map map) {
@@ -85,7 +85,7 @@ public class Spawner extends Tile implements UpdatableEntity, SpawnableEntity {
         for (int i = 0; i < NBossEnemy; i++) {
             addEnemy(new BossEnemy(this.getPosX(), this.getPosY(), map));
         }
-        NEnemy = NEnemy + 2;
+        NEnemy = NEnemy + 0.8;
         NStage++;
         System.out.println(enemies.size());
     }

@@ -2,16 +2,14 @@ package townerdefense.model;
 
 import javafx.util.Pair;
 import townerdefense.engine.GameField;
-import townerdefense.engine.entity.other.Point;
 import townerdefense.engine.entity.tile.Spawner;
 import townerdefense.engine.entity.tile.map.Map;
-import townerdefense.engine.entity.tile.map.WayPoint;
 import townerdefense.engine.entity.tile.tower.Tower;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.List;
 
 public class GameManager implements Serializable {
 

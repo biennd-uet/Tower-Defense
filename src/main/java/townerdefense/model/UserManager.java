@@ -1,7 +1,5 @@
 package townerdefense.model;
 
-import javafx.beans.value.ObservableValue;
-
 public class UserManager {
     private static UserManager userManager;
 
@@ -11,19 +9,19 @@ public class UserManager {
     private int turn;
     private boolean hasUpdate;
 
-    public static UserManager getInstance() {
-        if (userManager == null) {
-            userManager = new UserManager(100, 100, 1, 0);
-        }
-        return userManager;
-    }
-
     private UserManager(int gold, int health, int stage, int turn) {
         this.gold = gold;
         this.health = health;
         this.stage = stage;
         this.turn = turn;
         this.hasUpdate = false;
+    }
+
+    public static UserManager getInstance() {
+        if (userManager == null) {
+            userManager = new UserManager(100, 100, 1, 0);
+        }
+        return userManager;
     }
 
     public int getGold() {
@@ -58,7 +56,8 @@ public class UserManager {
         }
         this.gold -= price;
     }
-    public void nextTurn(int turn){
+
+    public void nextTurn(int turn) {
         hasUpdate = true;
         this.stage = turn;
     }

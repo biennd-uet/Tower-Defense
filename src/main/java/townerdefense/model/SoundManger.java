@@ -10,26 +10,27 @@ public class SoundManger {
 
     private static Media gunSound;
     private static Media rocketSound;
-    private MediaPlayer gunPlayer;
-    private MediaPlayer rocketPlayer;
+    private static SoundManger soundManger;
 
     static {
         URL musicURL = MusicManager.class.getResource("/sound/normalGun.wav");
         gunSound = new Media(musicURL.toExternalForm());
         rocketSound = new Media(SoundManger.class.getResource("/sound/rocketSound.wav").toExternalForm());
     }
-    private static SoundManger soundManger;
+
+    private MediaPlayer gunPlayer;
+    private MediaPlayer rocketPlayer;
+
+    private SoundManger() {
+        gunPlayer = new MediaPlayer(gunSound);
+        rocketPlayer = new MediaPlayer(rocketSound);
+    }
 
     public static SoundManger getInstance() {
         if (soundManger == null) {
             soundManger = new SoundManger();
         }
         return soundManger;
-    }
-
-    private SoundManger() {
-        gunPlayer = new MediaPlayer(gunSound);
-        rocketPlayer = new MediaPlayer(rocketSound);
     }
 
     public void playGunSound() {

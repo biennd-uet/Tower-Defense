@@ -37,6 +37,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class GameController extends AnimationTimer implements Initializable {
+    private static GameManager lastGame;
     @FXML
     private BorderPane root;
     @FXML
@@ -97,9 +98,6 @@ public class GameController extends AnimationTimer implements Initializable {
     private Button backToMenuButton;
     @FXML
     private Button saveGameButton;
-
-    private static GameManager lastGame;
-
     private GraphicsContext graphicsContext;
     private long lastTime;
     private long lag;

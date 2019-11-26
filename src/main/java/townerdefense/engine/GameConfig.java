@@ -40,30 +40,30 @@ public class GameConfig {
     public static final int NORMAL_ENEMY_HEIGHT = (int) (SIZE_UNIT * 1.5);
     public static final int NORMAL_ENEMY_HEALTH_MAX = 100;
     public static final int NORMAL_ENEMY_SPEED = 250;
-    public static final int NORMAL_ENEMY_ARMOR = 30;
-    public static final int NORMAL_ENEMY_REWARD = 1; //Gold ?
+    public static final int NORMAL_ENEMY_ARMOR = 20;
+    public static final int NORMAL_ENEMY_REWARD = 4; //Gold ?
 
     public static final long SMALLER_ENEMY_WIDTH = SIZE_UNIT * 3;
     public static final long SMALLER_ENEMY_HEIGHT = SIZE_UNIT * 3;
     public static final long SMALLER_ENEMY_HEALTH = 50;
     public static final long SMALLER_ENEMY_ARMOR = 10;
     public static final double SMALLER_ENEMY_SPEED = 150;
-    public static final long SMALLER_ENEMY_REWARD = 2;
+    public static final long SMALLER_ENEMY_REWARD = 6;
 
 
     public static final long TANKER_ENEMY_WIDTH = SIZE_UNIT * 2;
     public static final long TANKER_ENEMY_HEIGHT = SIZE_UNIT * 2;
     public static final long TANKER_ENEMY_HEALTH = 300;
-    public static final long TANKER_ENEMY_ARMOR = 50;
+    public static final long TANKER_ENEMY_ARMOR = 30;
     public static final double TANKER_ENEMY_SPEED = 150;
-    public static final long TANKER_ENEMY_REWARD = 3;
+    public static final long TANKER_ENEMY_REWARD = 9;
 
     public static final long BOSS_ENEMY_WIDTH = SIZE_UNIT * 2;
     public static final long BOSS_ENEMY_HEIGHT = SIZE_UNIT * 2;
     public static final long BOSS_ENEMY_HEALTH = 500;
-    public static final long BOSS_ENEMY_ARMOR = 80;
+    public static final long BOSS_ENEMY_ARMOR = 55;
     public static final double BOSS_ENEMY_SPEED = 150;
-    public static final long BOSS_ENEMY_REWARD = 10;
+    public static final long BOSS_ENEMY_REWARD = 30;
 
     //Spawner Config
     public static final int SPAWNER_WIDTH = SIZE_UNIT;
@@ -86,20 +86,20 @@ public class GameConfig {
     public static final int TOWER_RANGE = 300;
     public static final int TOWER_PRICE = 25;
 
-    public static final double BEAM_TOWER_SPEED = 1.3; //Attack per Second
+    public static final double BEAM_TOWER_SPEED = 4.5; //Attack per Second
     public static final int BEAM_TOWER_DAMAGE = 15;
-    public static final int BEAM_TOWER_RANGE = 500;
-    public static final int BEAM_TOWER_PRICE = 50;
+    public static final int BEAM_TOWER_RANGE = 400;
+    public static final int BEAM_TOWER_PRICE = 75;
 
     public static final double ROCKET_TOWER_SPEED = 0.50; //Attack per Second
     public static final int ROCKET_TOWER_DAMAGE = 200;
-    public static final int ROCKET_TOWER_RANGE = 700;
+    public static final int ROCKET_TOWER_RANGE = 500;
     public static final int ROCKET_TOWER_PRICE = 100;
 
     public static final double MACHINE_GUN_TOWER_SPEED = 1.5; //Attack per Second
-    public static final int MACHINE_GUN_TOWER_DAMAGE = 50;
+    public static final int MACHINE_GUN_TOWER_DAMAGE = 9;
     public static final int MACHINE_GUN_TOWER_RANGE = 200;
-    public static final int MACHINE_GUN_TOWER_PRICE = 75;
+    public static final int MACHINE_GUN_TOWER_PRICE = 50;
 
     //bullet config
     public static final int BULLET_WIDTH = 8;

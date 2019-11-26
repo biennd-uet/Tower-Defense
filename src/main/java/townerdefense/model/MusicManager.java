@@ -9,11 +9,16 @@ public class MusicManager {
     private static MusicManager musicManager;
 
     private static Media media;
-    private MediaPlayer mediaPlayer;
 
     static {
         URL musicURL = MusicManager.class.getResource("/music/RenaiCirculation.mp3");
         media = new Media(musicURL.toExternalForm());
+    }
+
+    private MediaPlayer mediaPlayer;
+
+    private MusicManager() {
+        mediaPlayer = new MediaPlayer(media);
     }
 
     public static MusicManager getInstance() {
@@ -21,10 +26,6 @@ public class MusicManager {
             musicManager = new MusicManager();
         }
         return musicManager;
-    }
-
-    private MusicManager() {
-        mediaPlayer = new MediaPlayer(media);
     }
 
     public void playMusic() {

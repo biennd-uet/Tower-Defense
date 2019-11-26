@@ -5,11 +5,10 @@ import javafx.scene.paint.Color;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.tile.map.Map;
 
-
 public class TankEnemy extends Enemy {
 
     private TankEnemy(double r, double posX, double posY, double with, double height, double health, double speed, double armor, double reward, Map map) {
-        super(r, posX, posY, with, height, health, speed, map );
+        super(r, posX, posY, with, height, health, speed, GameConfig.TANKER_ENEMY_ARMOR, map);
     }
 
     public TankEnemy(double posX, double posY, Map map) {

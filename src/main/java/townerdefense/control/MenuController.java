@@ -4,24 +4,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import townerdefense.engine.GameConfig;
-import townerdefense.model.GameManager;
 import townerdefense.model.MenuManager;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MenuController implements Initializable {
+    private static Stage stage;
     @FXML
     private AnchorPane root;
     @FXML
@@ -34,7 +30,6 @@ public class MenuController implements Initializable {
     private Button settingButton;
     @FXML
     private Button exitButton;
-    private static Stage stage;
     private FXMLLoader fxmlLoader;
 
     @Override

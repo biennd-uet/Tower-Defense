@@ -1,179 +1,205 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
-
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="792.0" prefWidth="1366.0" stylesheets="@../css/Game.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="townerdefense.control.GameController">
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="792.0" prefWidth="1366.0" stylesheets="@../css/Game.css"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="townerdefense.control.GameController">
     <center>
         <Group fx:id="gameArea">
             <children>
-                <Canvas fx:id="canvas" height="720.0" width="1080.0" />
-            <HBox id="informationBar" fx:id="information" alignment="CENTER" cache="true" layoutX="281.0" stylesheets="@../css/Information.css">
-               <children>
-                  <HBox spacing="5.0">
-                     <children>
-                        <ImageView fx:id="imageHealth" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
-                           <image>
-                              <Image url="@../image/heart.png" />
-                           </image>
-                        </ImageView>
-                        <Text fx:id="health" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Health">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets top="10.0" />
-                           </HBox.margin>
-                        </Text>
-                     </children>
-                  </HBox>
-                  <HBox spacing="5.0">
-                     <children>
-                        <ImageView fx:id="imageGold" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
-                           <image>
-                              <Image url="@../image/coins.png" />
-                           </image></ImageView>
-                        <Text fx:id="gold" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Gold">
-                           <HBox.margin>
-                              <Insets top="10.0" />
-                           </HBox.margin></Text>
-                     </children>
-                  </HBox>
-                  <HBox spacing="5.0">
-                     <children>
-                        <ImageView fx:id="imageTurn" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
-                           <image>
-                              <Image url="@../image/skull-cap.png" />
-                           </image>
-                        </ImageView>
-                        <Text fx:id="turn" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Turn">
-                           <HBox.margin>
-                              <Insets top="10.0" />
-                           </HBox.margin></Text>
-                     </children>
-                  </HBox>
-                  <HBox spacing="5.0">
-                     <children>
-                        <ImageView fx:id="imageStage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="image" />
-                        <Text fx:id="stage" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Stage">
-                           <HBox.margin>
-                              <Insets top="10.0" />
-                           </HBox.margin></Text>
-                     </children>
-                  </HBox>
-               </children>
-            </HBox>
-              <HBox fx:id="listTower" alignment="CENTER" cache="true" layoutX="274.0" layoutY="720.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/Store.css">
-                  <children>
-                  <HBox alignment="CENTER_LEFT">
-                     <children>
-                            <ImageView fx:id="normalTower" fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" styleClass="selectedTower" />
+                <Canvas fx:id="canvas" height="720.0" width="1080.0"/>
+                <HBox id="informationBar" fx:id="information" alignment="CENTER" cache="true" layoutX="281.0"
+                      stylesheets="@../css/Information.css">
+                    <children>
+                        <HBox spacing="5.0">
+                            <children>
+                                <ImageView fx:id="imageHealth" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true"
+                                           preserveRatio="true" styleClass="image">
+                                    <image>
+                                        <Image url="@../image/heart.png"/>
+                                    </image>
+                                </ImageView>
+                                <Text fx:id="health" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
+                                      styleClass="text" text="Health">
+                                    <font>
+                                        <Font size="30.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets top="10.0"/>
+                                    </HBox.margin>
+                                </Text>
+                            </children>
+                        </HBox>
+                        <HBox spacing="5.0">
+                            <children>
+                                <ImageView fx:id="imageGold" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true"
+                                           preserveRatio="true" styleClass="image">
+                                    <image>
+                                        <Image url="@../image/coins.png"/>
+                                    </image>
+                                </ImageView>
+                                <Text fx:id="gold" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text"
+                                      text="Gold">
+                                    <HBox.margin>
+                                        <Insets top="10.0"/>
+                                    </HBox.margin>
+                                </Text>
+                            </children>
+                        </HBox>
+                        <HBox spacing="5.0">
+                            <children>
+                                <ImageView fx:id="imageTurn" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true"
+                                           preserveRatio="true" styleClass="image">
+                                    <image>
+                                        <Image url="@../image/skull-cap.png"/>
+                                    </image>
+                                </ImageView>
+                                <Text fx:id="turn" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text"
+                                      text="Turn">
+                                    <HBox.margin>
+                                        <Insets top="10.0"/>
+                                    </HBox.margin>
+                                </Text>
+                            </children>
+                        </HBox>
+                        <HBox spacing="5.0">
+                            <children>
+                                <ImageView fx:id="imageStage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                           preserveRatio="true" styleClass="image"/>
+                                <Text fx:id="stage" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
+                                      styleClass="text" text="Stage">
+                                    <HBox.margin>
+                                        <Insets top="10.0"/>
+                                    </HBox.margin>
+                                </Text>
+                            </children>
+                        </HBox>
+                    </children>
+                </HBox>
+                <HBox fx:id="listTower" alignment="CENTER" cache="true" layoutX="274.0" layoutY="720.0"
+                      maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                      stylesheets="@../css/Store.css">
+                    <children>
+                        <HBox alignment="CENTER_LEFT">
+                            <children>
+                                <ImageView fx:id="normalTower" fitHeight="72.0" fitWidth="72.0" pickOnBounds="true"
+                                           preserveRatio="true" styleClass="selectedTower"/>
+                                <VBox>
+                                    <children>
+                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tower"/>
+                                        <Text fx:id="normalTowerPrice" fill="WHITE" fontSmoothingType="LCD"
+                                              strokeType="OUTSIDE" strokeWidth="0.0" text="Price"/>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <HBox>
+                            <children>
+                                <ImageView fx:id="machinegunTower" fitHeight="72.0" fitWidth="72.0" pickOnBounds="true"
+                                           preserveRatio="true" styleClass="selectedTower"/>
+                                <VBox>
+                                    <children>
+                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="MachineGun"/>
+                                        <Text fx:id="machinegunTowerPrice" fill="WHITE" strokeType="OUTSIDE"
+                                              strokeWidth="0.0" text="Price"/>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <HBox>
+                            <children>
+                                <ImageView fx:id="rocketTower" fitHeight="72.0" fitWidth="72.0" pickOnBounds="true"
+                                           preserveRatio="true" styleClass="selectedTower"/>
+                                <VBox>
+                                    <children>
+                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Rocket"/>
+                                        <Text fx:id="rocketTowerPrice" fill="WHITE" strokeType="OUTSIDE"
+                                              strokeWidth="0.0" text="Price"/>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <HBox>
+                            <children>
+                                <ImageView fx:id="beamTower" fitHeight="72.0" fitWidth="72.0" pickOnBounds="true"
+                                           preserveRatio="true" styleClass="selectedTower"/>
+                                <VBox>
+                                    <children>
+                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Beam"/>
+                                        <Text fx:id="beamTowerPrice" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
+                                              text="Price"/>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
                         <VBox>
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tower" />
-                              <Text fx:id="normalTowerPrice" fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" />
-                           </children>
+                            <children>
+                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sell"/>
+                                <ImageView fx:id="sellImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                                           preserveRatio="true">
+                                    <image>
+                                        <Image url="@../image/icons8-us-dollar-50.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
                         </VBox>
-                     </children>
-                  </HBox>
-                  <HBox>
-                     <children>
-                            <ImageView fx:id="machinegunTower" fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" styleClass="selectedTower" />
-                        <VBox>
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="MachineGun" />
-                              <Text fx:id="machinegunTowerPrice" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <HBox>
-                     <children>
-                            <ImageView fx:id="rocketTower" fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" styleClass="selectedTower" />
-                        <VBox>
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Rocket" />
-                              <Text fx:id="rocketTowerPrice" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <HBox>
-                     <children>
-                            <ImageView fx:id="beamTower" fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" styleClass="selectedTower" />
-                        <VBox>
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Beam" />
-                              <Text fx:id="beamTowerPrice" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <VBox>
-                     <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sell" />
-                        <ImageView fx:id="sellImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../image/icons8-us-dollar-50.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-                  </children>
-              </HBox>
+                    </children>
+                </HBox>
             </children>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
         </Group>
     </center>
-   <right>
-      <VBox alignment="TOP_CENTER" prefHeight="792.0" prefWidth="286.0" spacing="20.0" BorderPane.alignment="TOP_CENTER">
-         <children>
-            <GridPane alignment="CENTER" hgap="5.0" vgap="3.0">
-              <columnConstraints><ColumnConstraints halignment="CENTER" maxWidth="127.0" minWidth="98.0" prefWidth="98.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="188.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " GridPane.rowIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price:" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Damage:" GridPane.rowIndex="3" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Range:" GridPane.rowIndex="4" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" GridPane.rowIndex="5" />
-                  <Text id="informationText" strokeType="OUTSIDE" strokeWidth="0.0" text="Information" GridPane.columnSpan="2" />
-                  <Text fx:id="towerName" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Text fx:id="towerPrice" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Text fx:id="towerDamage" strokeType="OUTSIDE" strokeWidth="0.0" text="Damage" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Text fx:id="towerRange" strokeType="OUTSIDE" strokeWidth="0.0" text="Range" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextFlow fx:id="towerDiscription" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-               </children>
-            </GridPane>
-            <Button fx:id="pauseButton" mnemonicParsing="false" onAction="#setOnHandlePause" text="Pause" />
-            <Button fx:id="saveGameButton" mnemonicParsing="false" text="Save game" />
-            <Button fx:id="backToMenuButton" mnemonicParsing="false" onAction="#setOnHandleBackToMenu" text="Back to Main Menu" />
-         </children>
-      </VBox>
-   </right>
+    <right>
+        <VBox alignment="TOP_CENTER" prefHeight="792.0" prefWidth="286.0" spacing="20.0"
+              BorderPane.alignment="TOP_CENTER">
+            <children>
+                <GridPane alignment="CENTER" hgap="5.0" vgap="3.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" maxWidth="127.0" minWidth="98.0" prefWidth="98.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="188.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " GridPane.rowIndex="1"/>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price:" GridPane.rowIndex="2"/>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Damage:" GridPane.rowIndex="3"/>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Range:" GridPane.rowIndex="4"/>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" GridPane.rowIndex="5"/>
+                        <Text id="informationText" strokeType="OUTSIDE" strokeWidth="0.0" text="Information"
+                              GridPane.columnSpan="2"/>
+                        <Text fx:id="towerName" strokeType="OUTSIDE" strokeWidth="0.0" text="Name"
+                              GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <Text fx:id="towerPrice" strokeType="OUTSIDE" strokeWidth="0.0" text="Price"
+                              GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <Text fx:id="towerDamage" strokeType="OUTSIDE" strokeWidth="0.0" text="Damage"
+                              GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                        <Text fx:id="towerRange" strokeType="OUTSIDE" strokeWidth="0.0" text="Range"
+                              GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                        <TextFlow fx:id="towerDiscription" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                    </children>
+                </GridPane>
+                <Button fx:id="pauseButton" mnemonicParsing="false" onAction="#setOnHandlePause" text="Pause"/>
+                <Button fx:id="saveGameButton" mnemonicParsing="false" text="Save game"/>
+                <Button fx:id="backToMenuButton" mnemonicParsing="false" onAction="#setOnHandleBackToMenu"
+                        text="Back to Main Menu"/>
+            </children>
+        </VBox>
+    </right>
 </BorderPane>

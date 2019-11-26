@@ -1,12 +1,10 @@
 package townerdefense.engine.entity.tile.tower;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.Entity;
 import townerdefense.engine.entity.bullet.Bullet;
 import townerdefense.engine.entity.bullet.NormalBullet;
-import townerdefense.model.GameManager;
 import townerdefense.model.SoundManger;
 
 import java.util.Collection;

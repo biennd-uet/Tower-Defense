@@ -8,7 +8,7 @@ import townerdefense.engine.entity.tile.map.Map;
 
 public class BossEnemy extends Enemy {
     private BossEnemy(double r, double posX, double posY, double with, double height, double health, double speed, double armor, double reward, Map map) {
-        super(r, posX, posY, with, height, health, speed, map);
+        super(r, posX, posY, with, height, health, speed, GameConfig.BOSS_ENEMY_ARMOR, map);
     }
 
     public BossEnemy(double posX, double posY, Map map) {

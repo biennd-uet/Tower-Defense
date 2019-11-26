@@ -1,7 +1,5 @@
 package townerdefense.engine.entity;
 
-import javafx.scene.image.Image;
-
 import java.io.Serializable;
 
 public abstract class Entity implements GameEntity, DrawableEntity, Serializable {

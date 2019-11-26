@@ -1,7 +1,6 @@
 package townerdefense.engine.entity.tile.tower;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.DestroyableEntity;
@@ -26,17 +25,6 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     double theta;
     private double range;
     private Collection<Entity> entities;
-
-    private class ComparatorEnemyByDistance implements Comparator<Enemy>, Serializable {
-
-        @Override
-        public int compare(Enemy o1, Enemy o2) {
-            double distanceO1ToTower = Point.getDistance(o1.getCenterPosX(), o1.getCenterPosY(), getCenterPosX(), getCenterPosY());
-            double distanceO2ToTower = Point.getDistance(o2.getCenterPosX(), o2.getCenterPosY(), getCenterPosX(), getCenterPosY());
-            return Double.compare(distanceO1ToTower, distanceO2ToTower);
-        }
-    }
-
 
     public Tower(double posX, double posY, double width, double height, double speed, double range, Collection<Entity> entities) {
         super(posX, posY, width, height);
@@ -101,6 +89,16 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     @Override
     public boolean hasEntitiesToSpawn(int deltaTime) {
         return false;
+    }
+
+    private class ComparatorEnemyByDistance implements Comparator<Enemy>, Serializable {
+
+        @Override
+        public int compare(Enemy o1, Enemy o2) {
+            double distanceO1ToTower = Point.getDistance(o1.getCenterPosX(), o1.getCenterPosY(), getCenterPosX(), getCenterPosY());
+            double distanceO2ToTower = Point.getDistance(o2.getCenterPosX(), o2.getCenterPosY(), getCenterPosX(), getCenterPosY());
+            return Double.compare(distanceO1ToTower, distanceO2ToTower);
+        }
     }
 
 }

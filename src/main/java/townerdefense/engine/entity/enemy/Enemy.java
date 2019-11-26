@@ -9,23 +9,23 @@ import townerdefense.engine.entity.tile.map.Map;
 import townerdefense.model.UserManager;
 
 public abstract class Enemy extends Entity implements UpdatableEntity, MovableEntity, AttackedableEntity, DestroyableEntity {
-    double health;
+    private final Map map;
     protected double speed;
+    double health;
     double r;
     private int indexCurrentPoint;
     private Point currentPoint;
-
+    private long armor;
     private double frame_number = 0;
     private boolean dead = false;
-    private final Map map;
-
     private Direction direction = Direction.RIGHT;
 
-    protected Enemy(double r, double posX, double posY, double width, double height, double health, double speed, Map map) {
+    protected Enemy(double r, double posX, double posY, double width, double height, double health, double speed, long armor, Map map) {
         super(posX, posY, width, height);
         this.health = health;
         this.speed = speed;
         this.r = r;
+        this.armor = armor;
         this.indexCurrentPoint = 0;
         this.map = map;
         this.currentPoint = map.getWayPoint().getPoints().get(0);
@@ -40,7 +40,7 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public void update(int deltaTime) {
-       // System.out.println(System.nanoTime());
+        // System.out.println(System.nanoTime());
         if (health > 0) {
             calcDirection();
             final double deltaDistance = speed * deltaTime / GameConfig.NPS;
@@ -166,7 +166,7 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public void onAttacked(double damage) {
-        this.health -= damage;
+        this.health -= damage * 100 / (100 + armor);
     }
 
     @Override

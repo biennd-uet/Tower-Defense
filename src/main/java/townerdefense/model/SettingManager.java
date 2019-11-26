@@ -1,9 +1,7 @@
 package townerdefense.model;
 
 
-import java.io.*;
-import java.net.URISyntaxException;
-import java.util.Set;
+import java.io.Serializable;
 
 public class SettingManager implements Serializable {
     //Singleton Pattern
@@ -47,11 +45,11 @@ public class SettingManager implements Serializable {
         musicManager.stopMusic();
     }
 
-    public void turnOnSound()  {
+    public void turnOnSound() {
         this.hasSound = true;
     }
 
-    public void turnOnMusic()  {
+    public void turnOnMusic() {
         this.hasMusic = true;
         musicManager.playMusic();
     }

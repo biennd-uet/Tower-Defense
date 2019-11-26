@@ -7,12 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import townerdefense.control.MenuController;
 import townerdefense.engine.GameConfig;
-import townerdefense.model.MusicManager;
-import townerdefense.model.SettingManager;
-import townerdefense.model.SoundManger;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Objects;
 
 public final class Main extends Application {

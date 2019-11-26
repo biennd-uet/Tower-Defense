@@ -12,8 +12,8 @@ public class Plane extends Enemy {
     private double theta = Math.atan2(deltaY, deltaX);
 
 
-    private Plane(double r, double posX, double posY, double with, double height, double health, double speed, double armor, double reward, Map map) {
-        super(r, posX, posY, with, height, health, speed, map);
+    private Plane(double r, double posX, double posY, double with, double height, double health, double speed, long armor, double reward, Map map) {
+        super(r, posX, posY, with, height, health, speed, GameConfig.SMALLER_ENEMY_ARMOR, map);
         this.r = Math.toDegrees(theta);
     }
 

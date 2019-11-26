@@ -17,9 +17,9 @@ import java.util.stream.Stream;
 
 public class Map implements Serializable {
     private final static String urlToMapFolder = "/map/";
-    private List<Entity> tileList;
     private final int[][] map;
     private final WayPoint wayPoint;
+    private List<Entity> tileList;
 
     public Map() throws IOException, URISyntaxException {
         this(loadMapFromFile(Map.class.getResource("/map/Stage1.txt")));
