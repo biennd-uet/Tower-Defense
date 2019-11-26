@@ -1,34 +1,31 @@
 package townerdefense.engine.entity.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import townerdefense.engine.GameConfig;
-
+import townerdefense.engine.entity.tile.map.Map;
 
 public class TankEnemy extends Enemy {
 
-    private TankEnemy(Image image, double r, double posX, double posY, double with, double height, double health, double speed, double armor, double reward) {
-        super(image, r, posX, posY, with, height, health, speed, armor, reward);
+    private TankEnemy(double r, double posX, double posY, double with, double height, double health, double speed, double armor, double reward, Map map) {
+        super(r, posX, posY, with, height, health, speed, GameConfig.TANKER_ENEMY_ARMOR, map);
     }
 
-    public TankEnemy() {
-        this(GameConfig.IMTankEnemy, 0, GameConfig.SPAWNER_DEFAULT_POSX, GameConfig.SPAWNER_DEFAULT_POSY,
+    public TankEnemy(double posX, double posY, Map map) {
+        this(0, posX, posY,
                 GameConfig.TANKER_ENEMY_WIDTH, GameConfig.TANKER_ENEMY_HEIGHT,
                 GameConfig.TANKER_ENEMY_HEALTH, GameConfig.TANKER_ENEMY_SPEED,
-                GameConfig.TANKER_ENEMY_ARMOR, GameConfig.TANKER_ENEMY_REWARD);
-    }
-
-    public TankEnemy(double posX, double posY) {
-        this(GameConfig.IMTankEnemy, 0, posX, posY,
-                GameConfig.TANKER_ENEMY_WIDTH, GameConfig.TANKER_ENEMY_HEIGHT,
-                GameConfig.TANKER_ENEMY_HEALTH, GameConfig.TANKER_ENEMY_SPEED,
-                GameConfig.TANKER_ENEMY_ARMOR, GameConfig.TANKER_ENEMY_REWARD);
+                GameConfig.TANKER_ENEMY_ARMOR, GameConfig.TANKER_ENEMY_REWARD,
+                map);
     }
 
     @Override
     public void render(GraphicsContext graphicsContext) {
+        graphicsContext.save();
+        rotate(graphicsContext, r, posX + width / 2, posY + height / 2);
+        graphicsContext.drawImage(GameConfig.IMTankEnemy, this.getCenterPosX() - width / 2, this.getCenterPosY() - height / 2, width, height);
 
+        graphicsContext.restore();
         super.render(graphicsContext);
         final double percentHealth = health / GameConfig.TANKER_ENEMY_HEALTH;
         if (percentHealth <= 0.25) {

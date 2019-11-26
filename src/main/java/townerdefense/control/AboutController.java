@@ -5,15 +5,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import townerdefense.engine.GameConfig;
+import townerdefense.model.MenuManager;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AboutController implements Initializable {
@@ -30,9 +29,7 @@ public class AboutController implements Initializable {
     public void cancelButtonAction(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/MenuView.fxml")));
-
-        Scene scene = new Scene(root, GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
+        Scene scene = new Scene(FXMLLoader.load(MenuManager.mainMenuUrl), GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
 
         stage.setScene(scene);
 

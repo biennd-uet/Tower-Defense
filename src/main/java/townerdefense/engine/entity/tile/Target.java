@@ -6,7 +6,7 @@ import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.UpdatableEntity;
 
 public class Target extends Tile implements UpdatableEntity {
-    public Target(double posX, double posY, double with, double height) {
+    private Target(double posX, double posY, double with, double height) {
         super(posX, posY, with, height);
     }
 

@@ -1,54 +1,46 @@
 package townerdefense.engine.entity.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
-import townerdefense.control.GameController;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.*;
 import townerdefense.engine.entity.other.Point;
 import townerdefense.engine.entity.tile.map.Map;
+import townerdefense.model.UserManager;
 
 public abstract class Enemy extends Entity implements UpdatableEntity, MovableEntity, AttackedableEntity, DestroyableEntity {
-    protected double health;
+    private final Map map;
     protected double speed;
+    double health;
     double r;
-    private double armor;
-    private double reward;
     private int indexCurrentPoint;
     private Point currentPoint;
-    private Image image;
-
+    private long armor;
     private double frame_number = 0;
-    private double x = 0;
-    private double y = 0;
     private boolean dead = false;
-
     private Direction direction = Direction.RIGHT;
 
-    protected Enemy(Image image, double r, double posX, double posY, double width, double height, double health, double speed, double armor, double reward) {
+    protected Enemy(double r, double posX, double posY, double width, double height, double health, double speed, long armor, Map map) {
         super(posX, posY, width, height);
         this.health = health;
         this.speed = speed;
-        this.armor = armor;
-        this.reward = reward;
-        this.image = image;
         this.r = r;
+        this.armor = armor;
         this.indexCurrentPoint = 0;
-        this.currentPoint = GameController.points.get(0);
-        this.calcDirection();
+        this.map = map;
+        this.currentPoint = map.getWayPoint().getPoints().get(0);
     }
 
-    public Point getNextPoint() {
-        if (this.indexCurrentPoint < GameController.points.size() - 1) {
-            return GameController.points.get(indexCurrentPoint + 1);
+    private Point getNextPoint() {
+        if (this.indexCurrentPoint < map.getWayPoint().getPoints().size() - 1) {
+            return map.getWayPoint().getPoints().get(indexCurrentPoint + 1);
         }
         return null;
     }
 
     @Override
     public void update(int deltaTime) {
-       // System.out.println(System.nanoTime());
+        // System.out.println(System.nanoTime());
         if (health > 0) {
             calcDirection();
             final double deltaDistance = speed * deltaTime / GameConfig.NPS;
@@ -81,7 +73,6 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
         double deltaX = posX - nextPoint.getX();
         double deltaY = posY - nextPoint.getY();
-        //System.out.println(deltaX + "      " + deltaY +"       "+ posX + "         " + posY);
 
         final int epsilon = 10;
         if (Math.abs(this.posX - this.getNextPoint().getX()) < epsilon &&
@@ -93,21 +84,21 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
             int x = (int) ((posX) / GameConfig.SIZE_TILE_WIDTH);
             int y = (int) ((posY) / GameConfig.SIZE_TILE_HEIGHT);
 
-            if (deltaX < 0 && Map.map[y][x] == 2) {
+            if (deltaX < 0 && this.map.getMap()[y][x] == TypeOfEntity.ROAD2.value) {
                 r = r + 90;
-            } else if (deltaY < 0 && Map.map[y][x] == 3) {
+            } else if (deltaY < 0 && this.map.getMap()[y][x] == TypeOfEntity.ROAD3.value) {
                 r = r + 90;
-            } else if (deltaX > 0 && Map.map[y][x] == TypeOfEntity.ROAD4.value) {
+            } else if (deltaX > 0 && this.map.getMap()[y][x] == TypeOfEntity.ROAD4.value) {
                 r = r - 90;
-            } else if (deltaY < 0 && Map.map[y][x] == TypeOfEntity.ROAD5.value) {
+            } else if (deltaY < 0 && this.map.getMap()[y][x] == TypeOfEntity.ROAD5.value) {
                 r = r - 90;
-            } else if (deltaY > 0 && Map.map[y][x] == TypeOfEntity.ROAD2.value) {
+            } else if (deltaY > 0 && this.map.getMap()[y][x] == TypeOfEntity.ROAD2.value) {
                 r = r - 90;
-            } else if (deltaX < 0 && Map.map[y][x] == 3) {
+            } else if (deltaX < 0 && this.map.getMap()[y][x] == TypeOfEntity.ROAD3.value) {
                 r = r - 90;
-            } else if (deltaY > 0 && Map.map[y][x] == 4) {
+            } else if (deltaY > 0 && this.map.getMap()[y][x] == TypeOfEntity.ROAD4.value) {
                 r = r + 90;
-            } else if (deltaX > 0 && Map.map[y][x] == TypeOfEntity.ROAD5.value) {
+            } else if (deltaX > 0 && this.map.getMap()[y][x] == TypeOfEntity.ROAD5.value) {
                 r = r + 90;
             }
             if (r == 360) r = 0;
@@ -133,20 +124,17 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
         return dead;
     }
 
-    public void rotate(GraphicsContext gc, double angle, double px, double py) {
+    protected void rotate(GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-        graphicsContext.save();
-        rotate(graphicsContext, r, posX + width / 2, posY + height / 2);
-        graphicsContext.drawImage(this.getImage(), this.getCenterPosX() - width / 2, this.getCenterPosY() - height / 2, width, height);
-
-        graphicsContext.restore();
         if (this.health < 0) {
             frame_number = frame_number + 0.4;
+            double x = 0;
+            double y = 0;
             if (frame_number < 5) {
                 x = ((int) frame_number) * GameConfig.IMExplosion.getWidth() / 5;
                 y = 0;
@@ -174,17 +162,11 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
                 dead = true;
             }
         }
-
-
-    }
-
-    public Image getImage() {
-        return image;
     }
 
     @Override
     public void onAttacked(double damage) {
-        this.health -= damage*100/(100 + armor);
+        this.health -= damage * 100 / (100 + armor);
     }
 
     @Override
@@ -194,6 +176,6 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public void onDestroy() {
-        GameController.user.getReward((int)reward);
+        UserManager.getInstance().getReward(50);
     }
 }

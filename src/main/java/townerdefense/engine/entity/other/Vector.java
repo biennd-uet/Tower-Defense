@@ -4,7 +4,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import townerdefense.engine.entity.DrawableEntity;
 
-public class Vector implements DrawableEntity {
+import java.io.Serializable;
+
+public class Vector implements DrawableEntity, Serializable {
     private final Point A;
     private final Point B;
 
