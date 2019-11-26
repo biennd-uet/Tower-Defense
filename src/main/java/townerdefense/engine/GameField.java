@@ -4,6 +4,7 @@ import townerdefense.engine.entity.DestroyableEntity;
 import townerdefense.engine.entity.Entity;
 import townerdefense.engine.entity.SpawnableEntity;
 import townerdefense.engine.entity.UpdatableEntity;
+import townerdefense.engine.entity.enemy.Enemy;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class GameField implements Serializable {
     private List<Entity> entities;
     private List<Entity> spawnedEntity = new ArrayList<>();
     private List<Entity> destroyEntity = new ArrayList<>();
+    private int passEnemy;
 
     public GameField() {
         this.entities = new ArrayList<>();
@@ -60,6 +62,12 @@ public class GameField implements Serializable {
             if (entity instanceof DestroyableEntity && ((DestroyableEntity) entity).isDestroy()) {
                 destroyEntity.add(entity);
             }
+            if(entity instanceof Enemy){
+                if(((Enemy) entity).isPassStage()){
+                    passEnemy++;
+                    destroyEntity.add(entity);
+                }
+            }
         });
 
         destroyEntity.forEach(entity -> ((DestroyableEntity) entity).onDestroy());
@@ -79,5 +87,9 @@ public class GameField implements Serializable {
         //Add them to game field
         this.entities.addAll(spawnedEntity);
         spawnedEntity.clear();
+    }
+
+    public int getPassEnemy() {
+        return passEnemy;
     }
 }
