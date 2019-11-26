@@ -21,7 +21,7 @@ public class BeamTower extends Tower {
     private boolean reverse = false;
 
     private BeamTower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
-        super(image, posX, posY, width, height, speed, range, damage);
+        super(image, posX, posY, width, height, speed, range);
     }
 
     public BeamTower() {

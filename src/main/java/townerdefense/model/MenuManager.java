@@ -1,8 +1,5 @@
 package townerdefense.model;
 
-import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
-
 import java.net.URL;
 
 public class MenuManager {

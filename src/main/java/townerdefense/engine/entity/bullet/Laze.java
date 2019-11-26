@@ -17,11 +17,9 @@ public class Laze extends Bullet {
     private double apha;
     private Image image;
     private double frame_number = 0;
-    private double x = 0;
-    private double y = 0;
 
 
-    public Laze(Queue<Enemy> enemyQueue, Image image, double posX, double posY, double with, double height, double speed, double damage) {
+    private Laze(Queue<Enemy> enemyQueue, Image image, double posX, double posY, double with, double height, double speed, double damage) {
         super(image, posX, posY, with, height, speed, damage);
         this.enemyQueue = enemyQueue;
     }
@@ -34,30 +32,24 @@ public class Laze extends Bullet {
 
     private boolean UP(Enemy enemy) {
         if (enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + GameConfig.TOWER_WIDTH)
-                && enemy.getCenterPosY() < getCenterPosY() - GameConfig.TOWER_HEIGHT / 2)
+                && enemy.getCenterPosY() < getCenterPosY() - GameConfig.TOWER_HEIGHT / 2.0)
             return true;
         else return false;
     }
 
     private boolean LEFT(Enemy enemy) {
-        if (enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + GameConfig.TOWER_HEIGHT)
-                && enemy.getCenterPosX() < getCenterPosX() - GameConfig.TOWER_WIDTH / 2)
-            return true;
-        else return false;
+        return enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + GameConfig.TOWER_HEIGHT)
+                && enemy.getCenterPosX() < getCenterPosX() - GameConfig.TOWER_WIDTH / 2.0;
     }
 
     private boolean DOWN(Enemy enemy) {
-        if (enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + GameConfig.TOWER_WIDTH)
-                && enemy.getCenterPosY() > getCenterPosY() + GameConfig.TOWER_HEIGHT / 2)
-            return true;
-        else return false;
+        return enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + GameConfig.TOWER_WIDTH)
+                && enemy.getCenterPosY() > getCenterPosY() + GameConfig.TOWER_HEIGHT / 2.0;
     }
 
     private boolean RIGHT(Enemy enemy) {
-        if (enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + GameConfig.TOWER_HEIGHT)
-                && enemy.getCenterPosX() > getCenterPosX() + GameConfig.TOWER_WIDTH / 2)
-            return true;
-        else return false;
+        return enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + GameConfig.TOWER_HEIGHT)
+                && enemy.getCenterPosX() > getCenterPosX() + GameConfig.TOWER_WIDTH / 2;
     }
 
     @Override
@@ -72,14 +64,14 @@ public class Laze extends Bullet {
             } else if (UP((enemyQueue.peek()))) {
                 apha = -90;
             }
-            //super.render(graphicsContext);System.out.println(frame_number);
             System.out.println(frame_number);
             frame_number = frame_number + 0.4;
-            x = ((int) frame_number) * GameConfig.IMBeam.getWidth() / 10;
+            double x = ((int) frame_number) * GameConfig.IMBeam.getWidth() / 10;
             if (frame_number > 10) frame_number = 0;
 
             graphicsContext.save();
             rotate(graphicsContext, apha, posX, posY);
+            double y = 0;
             graphicsContext.drawImage(image, x, y,
                     GameConfig.IMBeam.getWidth() / 10,
                     GameConfig.IMBeam.getHeight(),

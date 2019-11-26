@@ -34,7 +34,7 @@ public class MenuController implements Initializable {
     private Button settingButton;
     @FXML
     private Button exitButton;
-    private Stage stage;
+    private static Stage stage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -82,7 +82,7 @@ public class MenuController implements Initializable {
     }
 
     public void setStage(Stage stage) {
-        this.stage = stage;
+        MenuController.stage = stage;
     }
 
     private void loadNewScene(URL url) throws IOException {

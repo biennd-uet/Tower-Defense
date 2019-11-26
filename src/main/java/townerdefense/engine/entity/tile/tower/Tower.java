@@ -12,6 +12,7 @@ import townerdefense.engine.entity.UpdatableEntity;
 import townerdefense.engine.entity.enemy.Enemy;
 import townerdefense.engine.entity.other.Point;
 import townerdefense.engine.entity.tile.Tile;
+import townerdefense.model.SoundManger;
 
 import java.util.ArrayDeque;
 import java.util.Comparator;
@@ -24,18 +25,18 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     Queue<Enemy> enemyInRangeQueue;
     double lastTimeAttack;
     double theta;
-    private double speed;
     private double range;
-    private double damage;
     private Image image;
+    protected double frame_number = 0;
+    protected double x = 0;
+    protected double y = 0;
+    protected boolean reverse = false;
 
 
-    public Tower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
+    public Tower(Image image, double posX, double posY, double width, double height, double speed, double range) {
         super(posX, posY, width, height);
         this.image = image;
-        this.speed = speed;
         this.range = range;
-        this.damage = damage;
         enemyInRangeQueue = new PriorityQueue<>(new Comparator<Enemy>() {
             @Override
             public int compare(Enemy o1, Enemy o2) {
@@ -45,7 +46,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
             }
         });
         this.lastTimeAttack = 0;
-        timeBetweenTwoAttack = GameConfig.NPS / this.speed;
+        timeBetweenTwoAttack = GameConfig.NPS / speed;
     }
 
     @Override
@@ -107,4 +108,5 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     public boolean hasEntitiesToSpawn(int deltaTime) {
         return false;
     }
+
 }

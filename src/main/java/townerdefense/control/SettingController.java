@@ -14,6 +14,7 @@ import townerdefense.engine.GameConfig;
 import townerdefense.model.SettingManager;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
