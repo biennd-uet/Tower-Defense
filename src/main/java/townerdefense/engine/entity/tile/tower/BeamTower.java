@@ -1,83 +1,48 @@
 package townerdefense.engine.entity.tile.tower;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import townerdefense.engine.GameConfig;
-import townerdefense.engine.GameField;
-import townerdefense.engine.entity.DestroyableEntity;
 import townerdefense.engine.entity.Entity;
 import townerdefense.engine.entity.bullet.Bullet;
-import townerdefense.engine.entity.bullet.Laze;
+import townerdefense.engine.entity.bullet.NormalBullet;
 import townerdefense.engine.entity.enemy.Enemy;
-import townerdefense.engine.entity.enemy.Plane;
 
 import java.util.Collection;
-import java.util.function.Predicate;
 
 public class BeamTower extends Tower {
-    private double frame_number = 0;
-    private double x = 0;
-    private double y = 0;
-    private boolean reverse = false;
 
-    private BeamTower(Image image, double posX, double posY, double width, double height, double speed, double range, double damage) {
-        super(image, posX, posY, width, height, speed, range);
+    private BeamTower(double posX, double posY, double width, double height, double speed, double range, Collection<Entity> entities) {
+        super(posX, posY, width, height, speed, range, entities);
     }
 
-    public BeamTower() {
-        this(GameConfig.IMBeamTower, GameConfig.SIZE_UNIT * 9, GameConfig.SIZE_UNIT * 4,
+    public BeamTower(double posX, double posY, Collection<Entity> entities) {
+        this(posX, posY,
                 GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
-                GameConfig.BEAM_TOWER_SPEED, GameConfig.TOWER_RANGE, GameConfig.TOWER_DAMAGE);
-    }
-
-    public BeamTower(double posX, double posY) {
-        this(GameConfig.IMBeamTower, posX, posY,
-                GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
-                GameConfig.BEAM_TOWER_SPEED, GameConfig.TOWER_RANGE, GameConfig.TOWER_DAMAGE);
+                GameConfig.BEAM_TOWER_SPEED, GameConfig.TOWER_RANGE, entities);
     }
 
     private boolean UP(Entity enemy) {
-        if (enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + width) && enemy.getCenterPosY() < getCenterPosY() - height / 2)
-            return true;
-        else return false;
+        return enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + width) && enemy.getCenterPosY() < getCenterPosY() - height / 2;
     }
 
     private boolean LEFT(Entity enemy) {
-        if (enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + height) && enemy.getCenterPosX() < getCenterPosX() - width / 2)
-            return true;
-        else return false;
+        return enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + height) && enemy.getCenterPosX() < getCenterPosX() - width / 2;
     }
 
     private boolean DOWN(Entity enemy) {
-        if (enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + width) && enemy.getCenterPosY() > getCenterPosY() + height / 2)
-            return true;
-        else return false;
+        return enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + width) && enemy.getCenterPosY() > getCenterPosY() + height / 2;
     }
 
     private boolean RIGHT(Entity enemy) {
-        if (enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + height) && enemy.getCenterPosX() > getCenterPosX() + width / 2)
-            return true;
-        else return false;
+        return enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + height) && enemy.getCenterPosX() > getCenterPosX() + width / 2;
     }
-
-    private void findEnemyInRange() {
-        Predicate<Entity> enemyInRange = entity -> (UP(entity) || DOWN(entity) || LEFT(entity) || RIGHT(entity)) && !(entity instanceof Plane);
-        GameField.entities.parallelStream()
-                .filter(entity -> entity instanceof Enemy)
-                .filter(enemy -> !enemyInRangeQueue.contains(enemy))
-                .filter(enemyInRange)
-                .forEach(enemy -> this.enemyInRangeQueue.add((Enemy) enemy));
-    }
-
-    private void removeEnemyOutRange() {
-        Predicate<Entity> enemyOutRange = enemy -> ((DestroyableEntity) enemy).isDestroy() ||
-                !(UP(enemy) && DOWN(enemy) && LEFT(enemy) && RIGHT(enemy));
-        this.enemyInRangeQueue.removeIf(enemyOutRange);
-    }
-
     @Override
     public void render(GraphicsContext graphicsContext) {
         super.render(graphicsContext);
+        graphicsContext.save();
+        rotate(graphicsContext, theta, this.getCenterPosX(), this.getCenterPosY());
+        graphicsContext.drawImage(GameConfig.IMBeamTower, posX, posY, width, height);
+        graphicsContext.restore();
     }
 
     @Override
@@ -99,7 +64,7 @@ public class BeamTower extends Tower {
     @Override
     public Bullet spawn(int deltaTime) {
         lastTimeAttack = System.nanoTime();
-        return new Laze(enemyInRangeQueue, posX, posY, GameConfig.TOWER_DAMAGE);
+        return new NormalBullet(enemyInRangeQueue.peek(), posX, posY, GameConfig.TOWER_DAMAGE);
     }
 
     @Override

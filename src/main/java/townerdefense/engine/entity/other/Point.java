@@ -4,7 +4,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import townerdefense.engine.entity.DrawableEntity;
 
-public class Point implements DrawableEntity {
+import java.io.Serializable;
+
+public class Point implements DrawableEntity, Serializable {
     private final double x;
     private final double y;
 
@@ -13,7 +15,7 @@ public class Point implements DrawableEntity {
         this.y = y;
     }
 
-    public static double getDistance(Point A, Point B) {
+    static double getDistance(Point A, Point B) {
         return Math.hypot(A.x - B.x, A.y - B.y);
     }
 

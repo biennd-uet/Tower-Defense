@@ -21,9 +21,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import townerdefense.engine.GameConfig;
-import townerdefense.engine.GameField;
 import townerdefense.engine.entity.TypeOfEntity;
-import townerdefense.engine.entity.tile.map.Map;
 import townerdefense.engine.entity.tile.tower.*;
 import townerdefense.model.GameManager;
 import townerdefense.model.UserManager;
@@ -31,10 +29,7 @@ import townerdefense.model.nonentity.Circle;
 import townerdefense.model.nonentity.NonEntity;
 import townerdefense.model.nonentity.Rect;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
@@ -100,6 +95,8 @@ public class GameController extends AnimationTimer implements Initializable {
     private Button pauseButton;
     @FXML
     private Button backToMenuButton;
+    @FXML
+    private Button saveGameButton;
 
     private static GameManager lastGame;
 
@@ -235,6 +232,10 @@ public class GameController extends AnimationTimer implements Initializable {
             gameManager.setSelling(false);
             NonEntity.nonEntities.clear();
         });
+
+        saveGameButton.setOnMousePressed(event -> {
+            this.saveGame();
+        });
     }
 
     @Override
@@ -262,7 +263,7 @@ public class GameController extends AnimationTimer implements Initializable {
     }
 
     public void render() {
-        GameField.entities
+        gameManager.getGameField().getListEntries()
                 .parallelStream()
                 .collect(Collectors.toList())
                 .forEach(entity -> entity.render(this.graphicsContext));
@@ -277,23 +278,23 @@ public class GameController extends AnimationTimer implements Initializable {
         int positionTileInX = (int) Math.round(posX / GameConfig.SIZE_TILE_WIDTH);
         int positionTileInY = (int) Math.round(posY / GameConfig.SIZE_TILE_HEIGHT);
 
-        return TypeOfEntity.getTypeOfEntityByType(Map.map[positionTileInY][positionTileInX]);
+        return TypeOfEntity.getTypeOfEntityByType(gameManager.getMap().getMap()[positionTileInY][positionTileInX]);
     }
 
     private void putTowerToTile(double posX, double posY, TypeOfTower typeOfTower) {
         Tower tower = null;
         switch (typeOfTowerPicked) {
             case NormalTower:
-                tower = new NormalTower(posX, posY);
+                tower = new NormalTower(posX, posY, gameManager.getGameField().getListEntries());
                 break;
             case RocketTower:
-                tower = new RocketTower(posX, posY);
+                tower = new RocketTower(posX, posY, gameManager.getGameField().getListEntries());
                 break;
             case BeamTower:
-                tower = new BeamTower(posX, posY);
+                tower = new BeamTower(posX, posY, gameManager.getGameField().getListEntries());
                 break;
             case MachineGunTower:
-                tower = new MachineGunTower(posX, posY);
+                tower = new MachineGunTower(posX, posY, gameManager.getGameField().getListEntries());
                 break;
             default:
                 break;
@@ -321,7 +322,7 @@ public class GameController extends AnimationTimer implements Initializable {
 
     private void putTower(DragEvent dragEvent) {
         if (dragEvent.getDragboard().hasImage()) {
-            if (getTypeOfTile(dragEvent.getX(), dragEvent.getY()) == TypeOfEntity.ROAD6) {
+            if (getTypeOfTile(dragEvent.getX(), dragEvent.getY()) == TypeOfEntity.MOUNTAIN) {
                 final double posX = GameConfig.SIZE_TILE_WIDTH * Math.round(dragEvent.getSceneX() / GameConfig.SIZE_TILE_WIDTH);
                 final double posY = GameConfig.SIZE_TILE_HEIGHT * Math.round(dragEvent.getSceneY() / GameConfig.SIZE_TILE_HEIGHT);
                 if (gameManager.hasTowerInTile(posX, posY)) {
@@ -398,15 +399,33 @@ public class GameController extends AnimationTimer implements Initializable {
     }
 
     private void saveGame() {
-        lastGame = this.gameManager;
+        try {
+            File file = new File(getClass().getResource("/bin/lastGame.dat").toURI());
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            ObjectOutputStream os = new ObjectOutputStream(fileOutputStream);
+
+            os.writeObject(this.gameManager);
+
+            os.close();
+
+        } catch (URISyntaxException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void loadLastPlay() {
-        if (lastGame == null) {
+        try {
+            File file = new File(getClass().getResource("/bin/lastGame.dat").toURI());
+            FileInputStream fileInputStream = new FileInputStream(file);
+            ObjectInputStream is = new ObjectInputStream(fileInputStream);
+
+            this.gameManager = (GameManager) is.readObject();
+
+            is.close();
+
+        } catch (URISyntaxException | IOException | ClassNotFoundException e) {
+            e.printStackTrace();
             startNewGame();
-        } else {
-            this.gameManager = lastGame;
-            doPlayGame();
         }
     }
 

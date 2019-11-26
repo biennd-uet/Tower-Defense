@@ -6,14 +6,8 @@ import townerdefense.engine.GameConfig;
 import townerdefense.engine.entity.enemy.Enemy;
 
 public class NormalBullet extends Bullet {
-    public boolean isCanRemove = false;
-    private double speed;
-    private double damage;
-    private Enemy enemy;
-    private double apha;
-    private Image image;
 
-    public NormalBullet(Enemy enemy, Image image, double posX, double posY, double with, double height, double speed, double damage) {
+    private NormalBullet(Enemy enemy, Image image, double posX, double posY, double with, double height, double speed, double damage) {
         super(enemy, image, posX, posY,
                 with, height,
                 speed, damage);

@@ -115,13 +115,13 @@ public class GameConfig {
 
 
     //Image
-    public static Image IM_1, IM0, IM1, IM2, IM3, IM4, IM5, IM6, IM10, IMEnemy,
+    public static Image IM_1, IMRoad, IM1, IM2, IM3, IM4, IM5, IMMountain, IM10, IMEnemy,
             IMTower, IMTower1, IMBlank, IMBullet, IMAnimationWp, IMExplosion,
             IMBeamTower, IMBeam, IMRocketTower, IMRocket, IMBoss, IMTankEnemy, IMPlane, IMMachineGunTower;
 
     static {
-        IM0 = new Image(GameConfig.class.getResource("/assets/0.png").toExternalForm());
-        IM6 = new Image(GameConfig.class.getResource("/assets/6.png").toExternalForm());
+        IMRoad = new Image(GameConfig.class.getResource("/assets/road.png").toExternalForm());
+        IMMountain = new Image(GameConfig.class.getResource("/assets/mountain.png").toExternalForm());
         IMEnemy = new Image(GameConfig.class.getResource("/assets/enemy.png").toExternalForm());
         IMTower = new Image(GameConfig.class.getResource("/assets/tower.png").toExternalForm());
         IMTower1 = cropImage(IMTower, 0, 0, 4, 4);

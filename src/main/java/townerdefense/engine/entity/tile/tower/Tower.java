@@ -4,7 +4,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
 import townerdefense.engine.GameConfig;
-import townerdefense.engine.GameField;
 import townerdefense.engine.entity.DestroyableEntity;
 import townerdefense.engine.entity.Entity;
 import townerdefense.engine.entity.SpawnableEntity;
@@ -12,9 +11,9 @@ import townerdefense.engine.entity.UpdatableEntity;
 import townerdefense.engine.entity.enemy.Enemy;
 import townerdefense.engine.entity.other.Point;
 import townerdefense.engine.entity.tile.Tile;
-import townerdefense.model.SoundManger;
 
-import java.util.ArrayDeque;
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -26,27 +25,26 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     double lastTimeAttack;
     double theta;
     private double range;
-    private Image image;
-    protected double frame_number = 0;
-    protected double x = 0;
-    protected double y = 0;
-    protected boolean reverse = false;
+    private Collection<Entity> entities;
+
+    private class ComparatorEnemyByDistance implements Comparator<Enemy>, Serializable {
+
+        @Override
+        public int compare(Enemy o1, Enemy o2) {
+            double distanceO1ToTower = Point.getDistance(o1.getCenterPosX(), o1.getCenterPosY(), getCenterPosX(), getCenterPosY());
+            double distanceO2ToTower = Point.getDistance(o2.getCenterPosX(), o2.getCenterPosY(), getCenterPosX(), getCenterPosY());
+            return Double.compare(distanceO1ToTower, distanceO2ToTower);
+        }
+    }
 
 
-    public Tower(Image image, double posX, double posY, double width, double height, double speed, double range) {
+    public Tower(double posX, double posY, double width, double height, double speed, double range, Collection<Entity> entities) {
         super(posX, posY, width, height);
-        this.image = image;
         this.range = range;
-        enemyInRangeQueue = new PriorityQueue<>(new Comparator<Enemy>() {
-            @Override
-            public int compare(Enemy o1, Enemy o2) {
-                double distanceO1ToTower = Point.getDistance(o1.getCenterPosX(), o1.getCenterPosY(), getCenterPosX(), getCenterPosY());
-                double distanceO2ToTower = Point.getDistance(o2.getCenterPosX(), o2.getCenterPosY(), getCenterPosX(), getCenterPosY());
-                return Double.compare(distanceO1ToTower, distanceO2ToTower);
-            }
-        });
+        enemyInRangeQueue = new PriorityQueue<>(new ComparatorEnemyByDistance());
         this.lastTimeAttack = 0;
         timeBetweenTwoAttack = GameConfig.NPS / speed;
+        this.entities = entities;
     }
 
     @Override
@@ -65,7 +63,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     private void findEnemyInRange() {
         Predicate<Entity> enemyInRange = entity -> Point.getDistance(this.getCenterPosX(), this.getCenterPosY(),
                 entity.getCenterPosX(), entity.getCenterPosY()) < this.range;
-        GameField.entities.parallelStream()
+        this.entities.parallelStream()
                 .filter(entity -> entity instanceof Enemy)
                 .filter(enemy -> !enemyInRangeQueue.contains(enemy))
                 .filter(enemyInRange)
@@ -79,7 +77,7 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
         this.enemyInRangeQueue.removeIf(enemyOutRange);
     }
 
-    private void rotate(GraphicsContext gc, double angle, double px, double py) {
+    protected void rotate(GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
@@ -87,10 +85,6 @@ public abstract class Tower extends Tile implements UpdatableEntity, SpawnableEn
     @Override
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.drawImage(GameConfig.IMBlank, posX, posY, width, height);
-        graphicsContext.save();
-        rotate(graphicsContext, theta, this.getCenterPosX(), this.getCenterPosY());
-        graphicsContext.drawImage(image, posX, posY, width, height);
-        graphicsContext.restore();
     }
 
     @Override

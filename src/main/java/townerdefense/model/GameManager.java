@@ -15,11 +15,8 @@ import java.util.List;
 
 public class GameManager implements Serializable {
 
-    public static List<Point> points;
-
     private GameField gameField;
     private Map map;
-    private WayPoint wayPoint;
     private Spawner spawner;
     private java.util.Map<Pair<Double, Double>, Tower> towerMap;
     private boolean isSelling;
@@ -42,16 +39,13 @@ public class GameManager implements Serializable {
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
-        this.wayPoint = new WayPoint();
-
-        points = wayPoint.getPoints();
     }
 
     private void initGameField() {
         this.gameField = new GameField();
 
         this.gameField.addAllEntity(map.getListTile());
-        this.spawner = new Spawner();
+        this.spawner = new Spawner(map);
         this.gameField.addEntity(this.spawner);
         this.towerMap = new HashMap<>();
     }
@@ -104,6 +98,10 @@ public class GameManager implements Serializable {
 
     public Spawner getSpawner() {
         return spawner;
+    }
+
+    public Map getMap() {
+        return map;
     }
 
 }

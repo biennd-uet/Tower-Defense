@@ -171,6 +171,7 @@
                </children>
             </GridPane>
             <Button fx:id="pauseButton" mnemonicParsing="false" onAction="#setOnHandlePause" text="Pause" />
+            <Button fx:id="saveGameButton" mnemonicParsing="false" text="Save game" />
             <Button fx:id="backToMenuButton" mnemonicParsing="false" onAction="#setOnHandleBackToMenu" text="Back to Main Menu" />
          </children>
       </VBox>

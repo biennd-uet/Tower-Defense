@@ -9,7 +9,6 @@ public abstract class Entity implements GameEntity, DrawableEntity, Serializable
     protected double posY;
     protected double width;
     protected double height;
-    transient private Image image;
 
     public Entity(double posX, double posY, double width, double height) {
         this.posX = posX;

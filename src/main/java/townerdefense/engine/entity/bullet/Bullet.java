@@ -11,13 +11,12 @@ import townerdefense.engine.entity.enemy.Enemy;
 import townerdefense.engine.entity.other.Point;
 
 public abstract class Bullet extends Entity implements UpdatableEntity, DestroyableEntity {
-    public boolean isCanRemove = false;
     private double speed;
     private double damage;
     private Enemy enemy;
     private double theta = 0;
     private double apha;
-    private Image image;
+    transient private Image image;
 
     Bullet(Enemy enemy, Image image, double posX, double posY, double with, double height, double speed, double damage) {
         super(posX, posY, with, height);
