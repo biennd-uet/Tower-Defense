@@ -184,7 +184,7 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public void onAttacked(double damage) {
-        this.health -= damage;
+        this.health -= damage*100/(100 + armor);
     }
 
     @Override
@@ -194,6 +194,6 @@ public abstract class Enemy extends Entity implements UpdatableEntity, MovableEn
 
     @Override
     public void onDestroy() {
-        GameController.user.getReward(50);
+        GameController.user.getReward((int)reward);
     }
 }

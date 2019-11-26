@@ -3,16 +3,12 @@ package townerdefense.engine.entity.tile.tower;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import townerdefense.engine.GameConfig;
-import townerdefense.engine.GameField;
-import townerdefense.engine.entity.DestroyableEntity;
-import townerdefense.engine.entity.Entity;
 import townerdefense.engine.entity.bullet.Bullet;
 import townerdefense.engine.entity.bullet.Laze;
-import townerdefense.engine.entity.enemy.Enemy;
-import townerdefense.engine.entity.enemy.Plane;
+import townerdefense.engine.entity.bullet.NormalBullet;
+import townerdefense.engine.entity.other.MediaManager;
 
 import java.util.Collection;
-import java.util.function.Predicate;
 
 public class BeamTower extends Tower {
     private double frame_number = 0;
@@ -24,55 +20,14 @@ public class BeamTower extends Tower {
         super(image, posX, posY, width, height, speed, range, damage);
     }
 
-    public BeamTower() {
-        this(GameConfig.IMBeamTower, GameConfig.SIZE_UNIT * 9, GameConfig.SIZE_UNIT * 4,
-                GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
-                GameConfig.BEAM_TOWER_SPEED, GameConfig.TOWER_RANGE, GameConfig.TOWER_DAMAGE);
+    public BeamTower(int posX, int posY) {
+        this(GameConfig.IMBeamTower, posX, posY, GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
+                GameConfig.BEAM_TOWER_SPEED, GameConfig.BEAM_TOWER_RANGE, GameConfig.BEAM_TOWER_DAMAGE);
     }
 
     public BeamTower(double posX, double posY) {
-        this(GameConfig.IMBeamTower, posX, posY,
-                GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
-                GameConfig.BEAM_TOWER_SPEED, GameConfig.TOWER_RANGE, GameConfig.TOWER_DAMAGE);
-    }
-
-    private boolean UP(Entity enemy) {
-        if (enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + width) && enemy.getCenterPosY() < getCenterPosY() - height / 2)
-            return true;
-        else return false;
-    }
-
-    private boolean LEFT(Entity enemy) {
-        if (enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + height) && enemy.getCenterPosX() < getCenterPosX() - width / 2)
-            return true;
-        else return false;
-    }
-
-    private boolean DOWN(Entity enemy) {
-        if (enemy.getCenterPosX() > posX && enemy.getCenterPosX() < (posX + width) && enemy.getCenterPosY() > getCenterPosY() + height / 2)
-            return true;
-        else return false;
-    }
-
-    private boolean RIGHT(Entity enemy) {
-        if (enemy.getCenterPosY() > posY && enemy.getCenterPosY() < (posY + height) && enemy.getCenterPosX() > getCenterPosX() + width / 2)
-            return true;
-        else return false;
-    }
-
-    private void findEnemyInRange() {
-        Predicate<Entity> enemyInRange = entity -> (UP(entity) || DOWN(entity) || LEFT(entity) || RIGHT(entity)) && !(entity instanceof Plane);
-        GameField.entities.parallelStream()
-                .filter(entity -> entity instanceof Enemy)
-                .filter(enemy -> !enemyInRangeQueue.contains(enemy))
-                .filter(enemyInRange)
-                .forEach(enemy -> this.enemyInRangeQueue.add((Enemy) enemy));
-    }
-
-    private void removeEnemyOutRange() {
-        Predicate<Entity> enemyOutRange = enemy -> ((DestroyableEntity) enemy).isDestroy() ||
-                !(UP(enemy) && DOWN(enemy) && LEFT(enemy) && RIGHT(enemy));
-        this.enemyInRangeQueue.removeIf(enemyOutRange);
+        this(GameConfig.IMBeamTower, posX, posY, GameConfig.TOWER_WIDTH, GameConfig.TOWER_HEIGHT,
+                GameConfig.BEAM_TOWER_SPEED, GameConfig.BEAM_TOWER_RANGE, GameConfig.BEAM_TOWER_DAMAGE);
     }
 
     @Override
@@ -81,32 +36,16 @@ public class BeamTower extends Tower {
     }
 
     @Override
-    public void update(int deltaTime) {
-        if (!enemyInRangeQueue.isEmpty()) {
-            Enemy enemy = enemyInRangeQueue.peek();
-            if (LEFT(enemy)) {
-                theta = -90;
-            } else if (RIGHT(enemy)) {
-                theta = 90;
-            } else if (DOWN(enemy)) {
-                theta = 180;
-            } else {
-                theta = 0;
-            }
-        }
-    }
-
-    @Override
     public Bullet spawn(int deltaTime) {
-        lastTimeAttack = System.nanoTime();
-        return new Laze(enemyInRangeQueue, posX, posY, GameConfig.TOWER_DAMAGE);
+
+
+        double pX = this.getCenterPosX() - GameConfig.BULLET_WIDTH*3 / 2.0;
+        double pY = this.getCenterPosY() - GameConfig.BULLET_HEIGHT*3 / 2.0;
+        return new Laze(enemyInRangeQueue.peek(), pX, pY, GameConfig.TOWER_DAMAGE);
     }
 
     @Override
-    public Collection<? extends Entity> spawnAll(int deltaTime) {
+    public Collection<Bullet> spawnAll(int deltaTime) {
         return null;
     }
-
 }
-
-
