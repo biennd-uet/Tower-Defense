@@ -35,15 +35,21 @@ public class MenuController implements Initializable {
     @FXML
     private Button exitButton;
     private static Stage stage;
+    private FXMLLoader fxmlLoader;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Font.loadFont(this.getClass().getResource("/fonts/Freedom-nZ4J.otf").toExternalForm(), 12);
+        fxmlLoader = new FXMLLoader();
     }
 
     @FXML
     protected void handleContinueButtonAction(ActionEvent event) throws IOException {
         loadNewScene(MenuManager.gameUrl);
+
+        GameController gameController = fxmlLoader.getController();
+
+        gameController.loadLastPlay();
 
         stage.show();
 
@@ -53,6 +59,10 @@ public class MenuController implements Initializable {
     @FXML
     public void handleNewGameButton(ActionEvent event) throws IOException {
         loadNewScene(MenuManager.gameUrl);
+
+        GameController gameController = fxmlLoader.getController();
+
+        gameController.startNewGame();
 
         stage.show();
 
@@ -86,6 +96,7 @@ public class MenuController implements Initializable {
     }
 
     private void loadNewScene(URL url) throws IOException {
-        stage.setScene(new Scene(FXMLLoader.load(url), GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT));
+        fxmlLoader = new FXMLLoader(url);
+        stage.setScene(new Scene(fxmlLoader.load(), GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT));
     }
 }

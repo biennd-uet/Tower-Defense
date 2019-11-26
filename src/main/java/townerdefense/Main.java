@@ -43,6 +43,5 @@ public final class Main extends Application {
     }
 
     private void reloadSetting() {
-        SettingManager.loadSetting();
     }
 }

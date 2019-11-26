@@ -20,14 +20,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import townerdefense.engine.GameConfig;
 import townerdefense.engine.GameField;
 import townerdefense.engine.entity.TypeOfEntity;
-import townerdefense.engine.entity.other.Point;
-import townerdefense.engine.entity.tile.Spawner;
 import townerdefense.engine.entity.tile.map.Map;
-import townerdefense.engine.entity.tile.map.WayPoint;
 import townerdefense.engine.entity.tile.tower.*;
 import townerdefense.model.GameManager;
 import townerdefense.model.UserManager;
@@ -35,11 +31,12 @@ import townerdefense.model.nonentity.Circle;
 import townerdefense.model.nonentity.NonEntity;
 import townerdefense.model.nonentity.Rect;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -104,6 +101,8 @@ public class GameController extends AnimationTimer implements Initializable {
     @FXML
     private Button backToMenuButton;
 
+    private static GameManager lastGame;
+
     private GraphicsContext graphicsContext;
     private long lastTime;
     private long lag;
@@ -118,8 +117,6 @@ public class GameController extends AnimationTimer implements Initializable {
         this.graphicsContext = canvas.getGraphicsContext2D();
         canvas.setWidth(GameConfig.STAGE_WIDTH);
         canvas.setHeight(GameConfig.STAGE_HEIGHT);
-
-        gameManager = GameManager.getInstance();
 
         initUserInterface();
 
@@ -396,6 +393,23 @@ public class GameController extends AnimationTimer implements Initializable {
         pauseButton.setText("Pause");
     }
 
+    void startNewGame() {
+        gameManager = new GameManager();
+    }
+
+    private void saveGame() {
+        lastGame = this.gameManager;
+    }
+
+    void loadLastPlay() {
+        if (lastGame == null) {
+            startNewGame();
+        } else {
+            this.gameManager = lastGame;
+            doPlayGame();
+        }
+    }
+
     @FXML
     public void setOnHandlePause(ActionEvent event) {
         if (gameManager.isPlaying()) {
@@ -410,6 +424,8 @@ public class GameController extends AnimationTimer implements Initializable {
     public void setOnHandleBackToMenu(ActionEvent event) throws IOException {
 
         doPauseGame();
+
+        saveGame();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 

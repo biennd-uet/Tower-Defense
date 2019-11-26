@@ -1,7 +1,6 @@
 package townerdefense.model;
 
 import javafx.util.Pair;
-import townerdefense.engine.GameConfig;
 import townerdefense.engine.GameField;
 import townerdefense.engine.entity.other.Point;
 import townerdefense.engine.entity.tile.Spawner;
@@ -9,8 +8,7 @@ import townerdefense.engine.entity.tile.map.Map;
 import townerdefense.engine.entity.tile.map.WayPoint;
 import townerdefense.engine.entity.tile.tower.Tower;
 
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +16,6 @@ import java.util.List;
 public class GameManager implements Serializable {
 
     public static List<Point> points;
-    private static UserManager user;
 
     private GameField gameField;
     private Map map;
@@ -28,18 +25,8 @@ public class GameManager implements Serializable {
     private boolean isSelling;
     private boolean isPlaying;
 
-    private static GameManager gameManager;
-
-    public static GameManager getInstance() {
-        if (gameManager == null) {
-            gameManager = new GameManager();
-        }
-        return  gameManager;
-    }
-
-    private GameManager() {
+    public GameManager() {
         initSetting();
-        initUser();
         initMap();
         initGameField();
     }
@@ -47,19 +34,6 @@ public class GameManager implements Serializable {
     private void initSetting() {
         isPlaying = true;
         System.out.println("SettingManager game...");
-    }
-
-    private void initUser() {
-        user = UserManager.getInstance();
-    }
-
-    private void initGameField() {
-        this.gameField = new GameField();
-
-        this.gameField.addAllEntity(map.getListTile());
-        this.spawner = new Spawner();
-        this.gameField.addEntity(this.spawner);
-        this.towerMap = new HashMap<>();
     }
 
     private void initMap() {
@@ -71,6 +45,15 @@ public class GameManager implements Serializable {
         this.wayPoint = new WayPoint();
 
         points = wayPoint.getPoints();
+    }
+
+    private void initGameField() {
+        this.gameField = new GameField();
+
+        this.gameField.addAllEntity(map.getListTile());
+        this.spawner = new Spawner();
+        this.gameField.addEntity(this.spawner);
+        this.towerMap = new HashMap<>();
     }
 
     public boolean isSelling() {
@@ -122,4 +105,5 @@ public class GameManager implements Serializable {
     public Spawner getSpawner() {
         return spawner;
     }
+
 }
